@@ -1,6 +1,7 @@
 {
   "name": "undabot/json-api-core",
   "description": "",
+  "license": "Apache-2.0",
   "require": {
     "php": "^7.3"
   },
