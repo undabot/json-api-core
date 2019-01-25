@@ -1,0 +1,10 @@
+parameters:
+  level: max
+  paths:
+    - json-api/src
+    - json-api/tests
+  autoload_files:
+    - ./vendor/bin/.phpunit/phpunit-6.5/vendor/autoload.php
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
