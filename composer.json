@@ -1,7 +1,6 @@
 {
   "name": "undabot/json-api-core",
   "description": "",
-  "type": "library",
   "require": {
     "php": "^7.3"
   },
