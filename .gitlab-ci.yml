@@ -16,7 +16,7 @@ test:
   script:
     - composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
     - composer validate --no-check-publish --no-interaction --ansi
-    - comopser run lint
+    - composer run lint
     - composer run qc
     - composer run test
 
