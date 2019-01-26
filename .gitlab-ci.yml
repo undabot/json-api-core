@@ -16,6 +16,7 @@ test:
   script:
     - composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
     - composer validate --no-check-publish --no-interaction --ansi
-    - ./vendor/bin/php-cs-fixer fix --diff --ansi --dry-run
-    - ./vendor/bin/phpstan analyse
-    - ./vendor/bin/phpunit
+    - composer run lint
+    - composer run qc
+    - composer run test
+
