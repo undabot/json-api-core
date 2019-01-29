@@ -12,7 +12,7 @@ interface ErrorInterface
 {
     public function getId(): ?string;
 
-    public function getAboutLink(): LinkInterface;
+    public function getAboutLink(): ?LinkInterface;
 
     public function getStatus(): ?string;
 
@@ -22,7 +22,7 @@ interface ErrorInterface
 
     public function getDetail(): ?string;
 
-    public function getSource(): Source;
+    public function getSource(): ?Source;
 
-    public function getMeta(): Meta;
+    public function getMeta(): ?Meta;
 }
