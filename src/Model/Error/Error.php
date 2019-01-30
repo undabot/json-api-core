@@ -20,14 +20,14 @@ final class Error implements ErrorInterface
     /**
      * the HTTP status code applicable to this problem, expressed as a string value.
      *
-     * @var string
+     * @var string|null
      */
     private $status;
 
     /**
      * an application-specific error code, expressed as a string value.
      *
-     * @var string
+     * @var string|null
      */
     private $code;
 
@@ -35,7 +35,7 @@ final class Error implements ErrorInterface
      * a short, human-readable summary of the problem that SHOULD NOT change from occurrence to
      * occurrence of the problem, except for purposes of localization.
      *
-     * @var string
+     * @var string|null
      */
     private $title;
 
@@ -43,21 +43,21 @@ final class Error implements ErrorInterface
      * detail: a human-readable explanation specific to this occurrence of the problem.
      * Like title, this field’s value can be localized.
      *
-     * @var string
+     * @var string|null
      */
     private $detail;
 
     /**
      * an object containing references to the source of the error
      *
-     * @var Source
+     * @var Source|null
      */
     private $source;
 
     /**
      * an object containing references to the source of the error
      *
-     * @var Meta
+     * @var Meta|null
      */
     private $meta;
 
@@ -119,42 +119,42 @@ final class Error implements ErrorInterface
         }
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getAboutLink(): LinkInterface
+    public function getAboutLink(): ?LinkInterface
     {
         return $this->aboutLink;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getDetail(): string
+    public function getDetail(): ?string
     {
         return $this->detail;
     }
 
-    public function getSource(): Source
+    public function getSource(): ?Source
     {
         return $this->source;
     }
 
-    public function getMeta(): Meta
+    public function getMeta(): ?Meta
     {
         return $this->meta;
     }
