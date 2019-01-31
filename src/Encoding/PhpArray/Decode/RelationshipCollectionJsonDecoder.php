@@ -64,7 +64,7 @@ class RelationshipCollectionJsonDecoder implements RelationshipCollectionJsonDec
         );
     }
 
-    private function parseRelationshipData(array $resourceLinkage): ?RelationshipDataInterface
+    private function parseRelationshipData(?array $resourceLinkage): ?RelationshipDataInterface
     {
         if (false === Assert::validResourceLinkage($resourceLinkage)) {
             $message = sprintf(

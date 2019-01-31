@@ -55,7 +55,7 @@ abstract class Assert
         return $assertion->assert($array, $whitelistedKeys);
     }
 
-    public static function validResourceLinkage(array $resourceLinkage)
+    public static function validResourceLinkage(?array $resourceLinkage)
     {
         $assertion = new ValidResourceLinkageAssertion();
 
