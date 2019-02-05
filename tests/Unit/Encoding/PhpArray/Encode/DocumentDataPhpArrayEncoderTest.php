@@ -6,47 +6,47 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\DocumentDataPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\DocumentDataPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceCollectionPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceIdentifierCollectionPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceIdentifierPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourcePhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\ResourceIdentifierCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Model\Document\DocumentDataInterface;
 
 class DocumentDataPhpArrayEncoderTest extends TestCase
 {
     /** @var MockObject|DocumentDataInterface */
     private $documentDataMock;
-    /** @var MockObject|ResourcePhpArrayEncoderInterface */
+    /** @var MockObject|ResourceToPhpArrayEncoderInterface */
     private $resourcePhpArrayEncoderMock;
-    /** @var MockObject|ResourceCollectionPhpArrayEncoderInterface */
+    /** @var MockObject|ResourceCollectionToPhpArrayEncoderInterface */
     private $resourceCollectionPhpArrayEncoderMock;
-    /** @var MockObject|ResourceIdentifierPhpArrayEncoderInterface */
+    /** @var MockObject|ResourceIdentifierToPhpArrayEncoderInterface */
     private $resourceIdentifierPhpArrayEncoderMock;
-    /** @var MockObject|ResourceIdentifierCollectionPhpArrayEncoderInterface */
+    /** @var MockObject|ResourceIdentifierCollectionToPhpArrayEncoderInterface */
     private $resourceIdentifierCollectionPhpArrayEncoderMock;
 
     public function setUp()
     {
         $this->documentDataMock = $this->createMock(DocumentDataInterface::class);
 
-        $this->resourcePhpArrayEncoderMock = $this->createMock(ResourcePhpArrayEncoderInterface::class);
+        $this->resourcePhpArrayEncoderMock = $this->createMock(ResourceToPhpArrayEncoderInterface::class);
         $this->resourcePhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
 
-        $this->resourceCollectionPhpArrayEncoderMock = $this->createMock(ResourceCollectionPhpArrayEncoderInterface::class);
+        $this->resourceCollectionPhpArrayEncoderMock = $this->createMock(ResourceCollectionToPhpArrayEncoderInterface::class);
         $this->resourceCollectionPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
 
-        $this->resourceIdentifierPhpArrayEncoderMock = $this->createMock(ResourceIdentifierPhpArrayEncoderInterface::class);
+        $this->resourceIdentifierPhpArrayEncoderMock = $this->createMock(ResourceIdentifierToPhpArrayEncoderInterface::class);
         $this->resourceIdentifierPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
 
-        $this->resourceIdentifierCollectionPhpArrayEncoderMock = $this->createMock(ResourceIdentifierCollectionPhpArrayEncoderInterface::class);
+        $this->resourceIdentifierCollectionPhpArrayEncoderMock = $this->createMock(ResourceIdentifierCollectionToPhpArrayEncoderInterface::class);
         $this->resourceIdentifierCollectionPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
     }
 
     public function testItCanBeConstructed()
     {
-        $this->assertInstanceOf(DocumentDataPhpArrayEncoderInterface::class, $this->getEncoder());
+        $this->assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->getEncoder());
     }
 
     public function testItWillReturnNullIfDocumentDataIsNotValidType()
@@ -106,9 +106,9 @@ class DocumentDataPhpArrayEncoderTest extends TestCase
         $this->getEncoder()->encode($this->documentDataMock);
     }
 
-    private function getEncoder(): DocumentDataPhpArrayEncoderInterface
+    private function getEncoder(): DocumentDataToPhpArrayEncoderInterface
     {
-        return new DocumentDataPhpArrayEncoder(
+        return new DocumentDataToPhpArrayEncoder(
             $this->resourcePhpArrayEncoderMock,
             $this->resourceCollectionPhpArrayEncoderMock,
             $this->resourceIdentifierPhpArrayEncoderMock,
