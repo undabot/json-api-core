@@ -14,7 +14,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
     /** @var RelationshipCollectionToPhpArrayEncoderInterface */
     private $relationshipCollectionPhpArrayEncoder;
 
-    /** @var LinkPhpToArrayEncoderInterface */
+    /** @var LinkToPhpArrayEncoderInterface */
     private $linkPhpArrayEncoder;
 
     /** @var AttributeCollectionToPhpArrayEncoderInterface */
@@ -23,7 +23,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
     public function __construct(
         MetaToPhpArrayEncoderInterface $metaPhpArrayEncoder,
         RelationshipCollectionToPhpArrayEncoderInterface $relationshipCollectionPhpArrayEncoder,
-        LinkPhpToArrayEncoderInterface $linkPhpArrayEncoder,
+        LinkToPhpArrayEncoderInterface $linkPhpArrayEncoder,
         AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionPhpArrayEncoder
     ) {
         $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;

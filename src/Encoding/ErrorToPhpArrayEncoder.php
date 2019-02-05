@@ -8,7 +8,7 @@ use Undabot\JsonApi\Model\Error\ErrorInterface;
 
 class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
 {
-    /** @var LinkPhpToArrayEncoderInterface */
+    /** @var LinkToPhpArrayEncoderInterface */
     private $linkPhpArrayEncoder;
 
     /** @var SourceToPhpArrayEncoderInterface */
@@ -18,7 +18,7 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
     private $metaPhpArrayEncoder;
 
     public function __construct(
-        LinkPhpToArrayEncoderInterface $linkPhpArrayEncoder,
+        LinkToPhpArrayEncoderInterface $linkPhpArrayEncoder,
         SourceToPhpArrayEncoderInterface $sourcePhpArrayEncoder,
         MetaToPhpArrayEncoder $metaPhpArrayEncoder
     ) {

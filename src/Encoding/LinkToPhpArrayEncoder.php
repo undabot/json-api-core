@@ -8,7 +8,7 @@ use Undabot\JsonApi\Model\Link\LinkInterface;
 use Undabot\JsonApi\Model\Link\LinkObject;
 use Undabot\JsonApi\Model\Link\LinkUrl;
 
-class LinkPhpToArrayEncoder implements LinkPhpToArrayEncoderInterface
+class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoder */
     private $metaPhpArrayEncoder;

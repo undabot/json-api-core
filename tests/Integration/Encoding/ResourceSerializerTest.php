@@ -7,7 +7,7 @@ namespace Undabot\JsonApi\Tests\Integration\Encoding;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Encoding\AttributeCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\LinkPhpToArrayEncoder;
+use Undabot\JsonApi\Encoding\LinkToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\RelationshipCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\RelationshipToPhpArrayEncoder;
@@ -35,7 +35,7 @@ class ResourceSerializerTest extends TestCase
     protected function setUp()
     {
         $metaSerializer = new MetaToPhpArrayEncoder();
-        $linkSerializer = new LinkPhpToArrayEncoder($metaSerializer);
+        $linkSerializer = new LinkToPhpArrayEncoder($metaSerializer);
         $linksSerializer = new LinkCollectionToPhpArrayEncoder($linkSerializer);
 
         $this->serializer = new ResourceToPhpArrayEncoder(

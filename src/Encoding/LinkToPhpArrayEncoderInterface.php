@@ -6,7 +6,7 @@ namespace Undabot\JsonApi\Encoding;
 
 use Undabot\JsonApi\Model\Link\LinkInterface;
 
-interface LinkPhpToArrayEncoderInterface
+interface LinkToPhpArrayEncoderInterface
 {
     public function encode(LinkInterface $link);
 }

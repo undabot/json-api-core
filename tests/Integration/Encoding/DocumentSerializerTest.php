@@ -12,7 +12,7 @@ use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\LinkPhpToArrayEncoder;
+use Undabot\JsonApi\Encoding\LinkToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\RelationshipCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\RelationshipToPhpArrayEncoder;
@@ -45,7 +45,7 @@ class DocumentSerializerTest extends TestCase
     protected function setUp()
     {
         $metaSerializer = new MetaToPhpArrayEncoder();
-        $linkSerializer = new LinkPhpToArrayEncoder($metaSerializer);
+        $linkSerializer = new LinkToPhpArrayEncoder($metaSerializer);
         $linksSerializer = new LinkCollectionToPhpArrayEncoder($linkSerializer);
 
         $resourceSerializer = new ResourceToPhpArrayEncoder(
@@ -72,7 +72,7 @@ class DocumentSerializerTest extends TestCase
                 $metaSerializer)),
             new MetaToPhpArrayEncoder(),
             new LinkCollectionToPhpArrayEncoder(
-                new LinkPhpToArrayEncoder(
+                new LinkToPhpArrayEncoder(
                     new MetaToPhpArrayEncoder()
                 )
             ),
