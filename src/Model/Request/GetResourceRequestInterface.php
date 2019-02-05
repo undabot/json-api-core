@@ -8,5 +8,7 @@ interface GetResourceRequestInterface
 {
     public function getInclude(): ?array;
 
+    public function isIncluded(string $name): bool;
+
     public function getSparseFieldset(): ?array;
 }
