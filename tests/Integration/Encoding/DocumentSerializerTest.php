@@ -7,8 +7,8 @@ namespace Undabot\JsonApi\Tests\Integration\Encoding;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Encoding\AttributeCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\DocumentPhpToArrayEncoder;
-use Undabot\JsonApi\Encoding\DocumentPhpToArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoder;
@@ -39,7 +39,7 @@ use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollection;
 
 class DocumentSerializerTest extends TestCase
 {
-    /** @var DocumentPhpToArrayEncoderInterface */
+    /** @var DocumentToPhpArrayEncoderInterface */
     private $serializer;
 
     protected function setUp()
@@ -61,7 +61,7 @@ class DocumentSerializerTest extends TestCase
             $metaSerializer
         );
 
-        $this->serializer = new DocumentPhpToArrayEncoder(
+        $this->serializer = new DocumentToPhpArrayEncoder(
             new DocumentDataToPhpArrayEncoder(
                 $resourceSerializer,
                 new ResourceCollectionToPhpArrayEncoder($resourceSerializer),

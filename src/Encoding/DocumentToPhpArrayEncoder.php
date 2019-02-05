@@ -6,7 +6,7 @@ namespace Undabot\JsonApi\Encoding;
 
 use Undabot\JsonApi\Model\Document\DocumentInterface;
 
-class DocumentPhpToArrayEncoder implements DocumentPhpToArrayEncoderInterface
+class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
 {
     /** @var DocumentDataToPhpArrayEncoderInterface */
     private $documentDataPhpArrayEncoder;
