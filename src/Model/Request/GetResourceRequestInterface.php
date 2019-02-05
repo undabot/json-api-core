@@ -6,6 +6,8 @@ namespace Undabot\JsonApi\Model\Request;
 
 interface GetResourceRequestInterface
 {
+    public function getId(): string;
+
     public function getInclude(): ?array;
 
     public function isIncluded(string $name): bool;
