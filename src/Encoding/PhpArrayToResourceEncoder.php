@@ -15,27 +15,27 @@ use Undabot\JsonApi\Util\Assert\Exception\AssertException;
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
     /** @var PhpArrayToRelationshipCollectionEncoderInterface */
-    private $relationshipCollectionDecoder;
+    private $phpArrayToRelationshipCollectionEncoder;
 
     /** @var PhpArrayToAttributeCollectionEncoderInterface */
-    private $attributeCollectionDecoder;
+    private $phpArrayToAttributeCollectionEncoder;
 
     /** @var PhpArrayToLinkCollectionEncoderInterface */
-    private $linkCollectionDecoder;
+    private $phpArrayToLinkCollectionEncoder;
 
     /** @var PhpArrayToMetaEncoderInterface */
-    private $metaDecoder;
+    private $phpArrayToMetaEncoder;
 
     public function __construct(
-        PhpArrayToRelationshipCollectionEncoderInterface $relationshipCollectionDecoder,
-        PhpArrayToAttributeCollectionEncoderInterface $attributeCollectionDecoder,
-        PhpArrayToLinkCollectionEncoderInterface $linkCollectionDecoder,
-        PhpArrayToMetaEncoderInterface $metaDecoder
+        PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder,
+        PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder,
+        PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder,
+        PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder
     ) {
-        $this->relationshipCollectionDecoder = $relationshipCollectionDecoder;
-        $this->attributeCollectionDecoder = $attributeCollectionDecoder;
-        $this->linkCollectionDecoder = $linkCollectionDecoder;
-        $this->metaDecoder = $metaDecoder;
+        $this->phpArrayToRelationshipCollectionEncoder = $phpArrayToRelationshipCollectionEncoder;
+        $this->phpArrayToAttributeCollectionEncoder = $phpArrayToAttributeCollectionEncoder;
+        $this->phpArrayToLinkCollectionEncoder = $phpArrayToLinkCollectionEncoder;
+        $this->phpArrayToMetaEncoder = $phpArrayToMetaEncoder;
     }
 
     private function throwException(string $message): void
@@ -65,8 +65,8 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
         return new Resource(
             $resource['id'],
             $resource['type'],
-            $this->attributeCollectionDecoder->decode($rawAttributes),
-            $this->relationshipCollectionDecoder->decode($rawRelationships),
+            $this->phpArrayToAttributeCollectionEncoder->decode($rawAttributes),
+            $this->phpArrayToRelationshipCollectionEncoder->decode($rawRelationships),
             null, // @todo parse self link
             $this->parseMeta($rawMeta)
         );
@@ -78,7 +78,7 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
             return null;
         }
 
-        return $this->linkCollectionDecoder->decode($rawLinks);
+        return $this->phpArrayToLinkCollectionEncoder->decode($rawLinks);
     }
 
     private function parseMeta(?array $rawMeta): ?MetaInterface
@@ -87,6 +87,6 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
             return null;
         }
 
-        return $this->metaDecoder->decode($rawMeta);
+        return $this->phpArrayToMetaEncoder->decode($rawMeta);
     }
 }

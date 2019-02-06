@@ -18,15 +18,15 @@ use Undabot\JsonApi\Util\Assert\Assert;
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
     /** @var PhpArrayToMetaEncoderInterface */
-    private $metaDecoder;
+    private $phpArrayToMetaEncoder;
 
     /** @var PhpArrayToLinkCollectionEncoderInterface */
-    private $linksDecoder;
+    private $phpArrayToLinkCollectionEncoder;
 
-    public function __construct(PhpArrayToMetaEncoderInterface $metaDecoder, PhpArrayToLinkCollectionEncoderInterface $linksDecoder)
+    public function __construct(PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder, PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder)
     {
-        $this->metaDecoder = $metaDecoder;
-        $this->linksDecoder = $linksDecoder;
+        $this->phpArrayToMetaEncoder = $phpArrayToMetaEncoder;
+        $this->phpArrayToLinkCollectionEncoder = $phpArrayToLinkCollectionEncoder;
     }
 
     public function decode(array $relationships): RelationshipCollectionInterface
@@ -48,12 +48,12 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
 
         $relationshipLinks = null;
         if (true === array_key_exists('links', $relationshipValue)) {
-            $relationshipLinks = $this->linksDecoder->decode($relationshipValue['links']);
+            $relationshipLinks = $this->phpArrayToLinkCollectionEncoder->decode($relationshipValue['links']);
         }
 
         $relationshipMeta = null;
         if (true === array_key_exists('meta', $relationshipValue)) {
-            $relationshipMeta = $this->metaDecoder->decode($relationshipValue['meta']);
+            $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['meta']);
         }
 
         return new Relationship(
