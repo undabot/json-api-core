@@ -9,27 +9,27 @@ use Undabot\JsonApi\Model\Resource\ResourceInterface;
 class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoderInterface */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
     /** @var RelationshipCollectionToPhpArrayEncoderInterface */
-    private $relationshipCollectionPhpArrayEncoder;
+    private $relationshipCollectionToPhpArrayEncoder;
 
     /** @var LinkToPhpArrayEncoderInterface */
-    private $linkPhpArrayEncoder;
+    private $linkToPhpArrayEncoder;
 
     /** @var AttributeCollectionToPhpArrayEncoderInterface */
-    private $attributeCollectionPhpArrayEncoder;
+    private $attributeCollectionToPhpArrayEncoder;
 
     public function __construct(
-        MetaToPhpArrayEncoderInterface $metaPhpArrayEncoder,
-        RelationshipCollectionToPhpArrayEncoderInterface $relationshipCollectionPhpArrayEncoder,
-        LinkToPhpArrayEncoderInterface $linkPhpArrayEncoder,
-        AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionPhpArrayEncoder
+        MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
+        RelationshipCollectionToPhpArrayEncoderInterface $relationshipCollectionToPhpArrayEncoder,
+        LinkToPhpArrayEncoderInterface $linkToPhpArrayEncoder,
+        AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionToPhpArrayEncoder
     ) {
-        $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;
-        $this->relationshipCollectionPhpArrayEncoder = $relationshipCollectionPhpArrayEncoder;
-        $this->linkPhpArrayEncoder = $linkPhpArrayEncoder;
-        $this->attributeCollectionPhpArrayEncoder = $attributeCollectionPhpArrayEncoder;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
+        $this->relationshipCollectionToPhpArrayEncoder = $relationshipCollectionToPhpArrayEncoder;
+        $this->linkToPhpArrayEncoder = $linkToPhpArrayEncoder;
+        $this->attributeCollectionToPhpArrayEncoder = $attributeCollectionToPhpArrayEncoder;
     }
 
     public function encode(ResourceInterface $resource): array
@@ -40,21 +40,21 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
         ];
 
         if (null !== $resource->getAttributes()) {
-            $serializedResource['attributes'] = $this->attributeCollectionPhpArrayEncoder->encode($resource->getAttributes());
+            $serializedResource['attributes'] = $this->attributeCollectionToPhpArrayEncoder->encode($resource->getAttributes());
         }
 
         if (null !== $resource->getMeta()) {
-            $serializedResource['meta'] = $this->metaPhpArrayEncoder->encode($resource->getMeta());
+            $serializedResource['meta'] = $this->metaToPhpArrayEncoder->encode($resource->getMeta());
         }
 
         if (null !== $resource->getSelfUrl()) {
             $serializedResource['links'] = [
-                'self' => $this->linkPhpArrayEncoder->encode($resource->getSelfUrl()),
+                'self' => $this->linkToPhpArrayEncoder->encode($resource->getSelfUrl()),
             ];
         }
 
         if (null !== $resource->getRelationships()) {
-            $serializedResource['relationships'] = $this->relationshipCollectionPhpArrayEncoder->encode($resource->getRelationships());
+            $serializedResource['relationships'] = $this->relationshipCollectionToPhpArrayEncoder->encode($resource->getRelationships());
         }
 
         return $serializedResource;

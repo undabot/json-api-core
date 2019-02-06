@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Encoding;
 
-use Undabot\JsonApi\Encoding\Exception\PhpArrayDecodingException;
+use Undabot\JsonApi\Encoding\Exception\PhpArrayEncodingException;
 use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Model\Resource\Resource;
@@ -40,11 +40,11 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 
     private function throwException(string $message): void
     {
-        throw new PhpArrayDecodingException($message);
+        throw new PhpArrayEncodingException($message);
     }
 
     /**
-     * @throws PhpArrayDecodingException
+     * @throws PhpArrayEncodingException
      */
     public function decode(array $resource): ResourceInterface
     {

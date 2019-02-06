@@ -14,7 +14,7 @@ use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Model\Document\DocumentDataInterface;
 
-class DocumentDataPhpArrayEncoderTest extends TestCase
+class DocumentDataToPhpArrayEncoderTest extends TestCase
 {
     /** @var MockObject|DocumentDataInterface */
     private $documentDataMock;

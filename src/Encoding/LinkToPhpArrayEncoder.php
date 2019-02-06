@@ -11,11 +11,11 @@ use Undabot\JsonApi\Model\Link\LinkUrl;
 class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoder */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
-    public function __construct(MetaToPhpArrayEncoder $metaSerializer)
+    public function __construct(MetaToPhpArrayEncoder $metaToPhpArrayEncoder)
     {
-        $this->metaPhpArrayEncoder = $metaSerializer;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
     }
 
     public function encode(LinkInterface $link)
@@ -37,7 +37,7 @@ class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
         $serializedLinkObject['href'] = $linkObject->getHref();
 
         if (null !== $linkObject->getMeta()) {
-            $serializedLinkObject['meta'] = $this->metaPhpArrayEncoder->encode($linkObject->getMeta());
+            $serializedLinkObject['meta'] = $this->metaToPhpArrayEncoder->encode($linkObject->getMeta());
         }
 
         return $serializedLinkObject;

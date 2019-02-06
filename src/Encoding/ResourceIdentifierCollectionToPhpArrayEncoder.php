@@ -9,11 +9,11 @@ use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollectionInterface;
 class ResourceIdentifierCollectionToPhpArrayEncoder implements ResourceIdentifierCollectionToPhpArrayEncoderInterface
 {
     /** @var ResourceIdentifierToPhpArrayEncoderInterface */
-    private $resourceIdentifierPhpArrayEncoder;
+    private $resourceIdentifierToPhpArrayEncoder;
 
-    public function __construct(ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierPhpArrayEncoder)
+    public function __construct(ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierToPhpArrayEncoder)
     {
-        $this->resourceIdentifierPhpArrayEncoder = $resourceIdentifierPhpArrayEncoder;
+        $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
     }
 
     public function encode(ResourceIdentifierCollectionInterface $resourceIdentifierCollection): array
@@ -21,7 +21,7 @@ class ResourceIdentifierCollectionToPhpArrayEncoder implements ResourceIdentifie
         $resourceIdentifiers = [];
 
         foreach ($resourceIdentifierCollection as $resourceIdentifier) {
-            $resourceIdentifiers[] = $this->resourceIdentifierPhpArrayEncoder->encode($resourceIdentifier);
+            $resourceIdentifiers[] = $this->resourceIdentifierToPhpArrayEncoder->encode($resourceIdentifier);
         }
 
         return $resourceIdentifiers;

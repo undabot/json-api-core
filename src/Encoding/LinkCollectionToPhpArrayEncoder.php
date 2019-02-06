@@ -10,11 +10,11 @@ use Undabot\JsonApi\Model\Link\LinkInterface;
 class LinkCollectionToPhpArrayEncoder implements LinkCollectionToPhpArrayEncoderInterface
 {
     /** @var LinkToPhpArrayEncoderInterface */
-    private $linkPhpArrayEncoder;
+    private $linkToPhpArrayEncoder;
 
-    public function __construct(LinkToPhpArrayEncoderInterface $linkPhpArrayEncoder)
+    public function __construct(LinkToPhpArrayEncoderInterface $linkToPhpArrayEncoder)
     {
-        $this->linkPhpArrayEncoder = $linkPhpArrayEncoder;
+        $this->linkToPhpArrayEncoder = $linkToPhpArrayEncoder;
     }
 
     public function encode(LinkCollectionInterface $linkCollection): array
@@ -23,7 +23,7 @@ class LinkCollectionToPhpArrayEncoder implements LinkCollectionToPhpArrayEncoder
 
         /** @var LinkInterface $link */
         foreach ($linkCollection as $link) {
-            $links[$link->getName()] = $this->linkPhpArrayEncoder->encode($link);
+            $links[$link->getName()] = $this->linkToPhpArrayEncoder->encode($link);
         }
 
         return $links;

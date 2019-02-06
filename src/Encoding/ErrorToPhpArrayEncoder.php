@@ -9,22 +9,22 @@ use Undabot\JsonApi\Model\Error\ErrorInterface;
 class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
 {
     /** @var LinkToPhpArrayEncoderInterface */
-    private $linkPhpArrayEncoder;
+    private $linkToPhpArrayEncoder;
 
     /** @var SourceToPhpArrayEncoderInterface */
-    private $sourcePhpArrayEncoder;
+    private $sourceToPhpArrayEncoder;
 
     /** @var MetaToPhpArrayEncoder */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
     public function __construct(
-        LinkToPhpArrayEncoderInterface $linkPhpArrayEncoder,
-        SourceToPhpArrayEncoderInterface $sourcePhpArrayEncoder,
-        MetaToPhpArrayEncoder $metaPhpArrayEncoder
+        LinkToPhpArrayEncoderInterface $linkToPhpArrayEncoder,
+        SourceToPhpArrayEncoderInterface $sourceToPhpArrayEncoder,
+        MetaToPhpArrayEncoder $metaToPhpArrayEncoder
     ) {
-        $this->linkPhpArrayEncoder = $linkPhpArrayEncoder;
-        $this->sourcePhpArrayEncoder = $sourcePhpArrayEncoder;
-        $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;
+        $this->linkToPhpArrayEncoder = $linkToPhpArrayEncoder;
+        $this->sourceToPhpArrayEncoder = $sourceToPhpArrayEncoder;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
     }
 
     public function encode(ErrorInterface $error): array
@@ -36,7 +36,7 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
         }
 
         if (null !== $error->getAboutLink()) {
-            $serializedError['links'] = $this->linkPhpArrayEncoder->encode($error->getAboutLink());
+            $serializedError['links'] = $this->linkToPhpArrayEncoder->encode($error->getAboutLink());
         }
 
         if (null !== $error->getStatus()) {
@@ -56,11 +56,11 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
         }
 
         if (null !== $error->getSource()) {
-            $serializedError['source'] = $this->sourcePhpArrayEncoder->encode($error->getSource());
+            $serializedError['source'] = $this->sourceToPhpArrayEncoder->encode($error->getSource());
         }
 
         if (null !== $error->getMeta()) {
-            $serializedError['meta'] = $this->metaPhpArrayEncoder->encode($error->getMeta());
+            $serializedError['meta'] = $this->metaToPhpArrayEncoder->encode($error->getMeta());
         }
 
         return $serializedError;

@@ -9,32 +9,32 @@ use Undabot\JsonApi\Model\Document\DocumentInterface;
 class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
 {
     /** @var DocumentDataToPhpArrayEncoderInterface */
-    private $documentDataPhpArrayEncoder;
+    private $documentDataToPhpArrayEncoder;
 
     /** @var ErrorCollectionToPhpArrayEncoderInterface */
-    private $errorCollectionPhpArrayEncoder;
+    private $errorCollectionToPhpArrayEncoder;
 
     /** @var MetaToPhpArrayEncoderInterface */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
     /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionPhpArrayEncoder;
+    private $linkCollectionToPhpArrayEncoder;
 
     /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionPhpArrayEncoder;
+    private $resourceCollectionToPhpArrayEncoder;
 
     public function __construct(
-        DocumentDataToPhpArrayEncoderInterface $documentDataPhpArrayEncoder,
-        ErrorCollectionToPhpArrayEncoderInterface $errorCollectionPhpArrayEncoder,
-        MetaToPhpArrayEncoderInterface $metaPhpArrayEncoder,
-        LinkCollectionToPhpArrayEncoderInterface $linkCollectionPhpArrayEncoder,
-        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionPhpArrayEncoder
+        DocumentDataToPhpArrayEncoderInterface $documentDataToPhpArrayEncoder,
+        ErrorCollectionToPhpArrayEncoderInterface $errorCollectionToPhpArrayEncoder,
+        MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
+        LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder,
+        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionToPhpArrayEncoder
     ) {
-        $this->documentDataPhpArrayEncoder = $documentDataPhpArrayEncoder;
-        $this->errorCollectionPhpArrayEncoder = $errorCollectionPhpArrayEncoder;
-        $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;
-        $this->linkCollectionPhpArrayEncoder = $linkCollectionPhpArrayEncoder;
-        $this->resourceCollectionPhpArrayEncoder = $resourceCollectionPhpArrayEncoder;
+        $this->documentDataToPhpArrayEncoder = $documentDataToPhpArrayEncoder;
+        $this->errorCollectionToPhpArrayEncoder = $errorCollectionToPhpArrayEncoder;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
+        $this->linkCollectionToPhpArrayEncoder = $linkCollectionToPhpArrayEncoder;
+        $this->resourceCollectionToPhpArrayEncoder = $resourceCollectionToPhpArrayEncoder;
     }
 
     public function encode(DocumentInterface $document): array
@@ -42,27 +42,27 @@ class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
         $serializedDocument = [];
 
         if (null !== $document->getData()) {
-            $serializedDocument['data'] = $this->documentDataPhpArrayEncoder->encode($document->getData());
+            $serializedDocument['data'] = $this->documentDataToPhpArrayEncoder->encode($document->getData());
         }
 
         if (null !== $document->getErrors()) {
-            $serializedDocument['errors'] = $this->errorCollectionPhpArrayEncoder->encode($document->getErrors());
+            $serializedDocument['errors'] = $this->errorCollectionToPhpArrayEncoder->encode($document->getErrors());
         }
 
         if (null !== $document->getMeta()) {
-            $serializedDocument['meta'] = $this->metaPhpArrayEncoder->encode($document->getMeta());
+            $serializedDocument['meta'] = $this->metaToPhpArrayEncoder->encode($document->getMeta());
         }
 
         if (null !== $document->getJsonApiMeta()) {
-            $serializedDocument['jsonapi'] = $this->metaPhpArrayEncoder->encode($document->getJsonApiMeta());
+            $serializedDocument['jsonapi'] = $this->metaToPhpArrayEncoder->encode($document->getJsonApiMeta());
         }
 
         if (null !== $document->getLinks()) {
-            $serializedDocument['links'] = $this->linkCollectionPhpArrayEncoder->encode($document->getLinks());
+            $serializedDocument['links'] = $this->linkCollectionToPhpArrayEncoder->encode($document->getLinks());
         }
 
         if (null !== $document->getIncluded()) {
-            $serializedDocument['included'] = $this->resourceCollectionPhpArrayEncoder->encode($document->getIncluded());
+            $serializedDocument['included'] = $this->resourceCollectionToPhpArrayEncoder->encode($document->getIncluded());
         }
 
         return $serializedDocument;

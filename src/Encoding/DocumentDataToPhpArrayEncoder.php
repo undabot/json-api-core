@@ -9,45 +9,45 @@ use Undabot\JsonApi\Model\Document\DocumentDataInterface;
 class DocumentDataToPhpArrayEncoder implements DocumentDataToPhpArrayEncoderInterface
 {
     /** @var ResourceToPhpArrayEncoderInterface */
-    private $resourcePhpArrayEncoder;
+    private $resourceToPhpArrayEncoder;
 
     /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionPhpArrayEncoder;
+    private $resourceCollectionToPhpArrayEncoder;
 
     /** @var ResourceIdentifierToPhpArrayEncoderInterface */
-    private $resourceIdentifierPhpArrayEncoder;
+    private $resourceIdentifierToPhpArrayEncoder;
 
     /** @var ResourceIdentifierCollectionToPhpArrayEncoderInterface */
-    private $resourceIdentifierCollectionPhpArrayEncoder;
+    private $resourceIdentifierCollectionToPhpArrayEncoder;
 
     public function __construct(
-        ResourceToPhpArrayEncoderInterface $resourcePhpArrayEncoder,
-        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionPhpArrayEncoder,
-        ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierPhpArrayEncoder,
-        ResourceIdentifierCollectionToPhpArrayEncoderInterface $resourceIdentifierCollectionPhpArrayEncoder
+        ResourceToPhpArrayEncoderInterface $resourceToPhpArrayEncoder,
+        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionToPhpArrayEncoder,
+        ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierToPhpArrayEncoder,
+        ResourceIdentifierCollectionToPhpArrayEncoderInterface $resourceIdentifierCollectionToPhpArrayEncoder
     ) {
-        $this->resourcePhpArrayEncoder = $resourcePhpArrayEncoder;
-        $this->resourceCollectionPhpArrayEncoder = $resourceCollectionPhpArrayEncoder;
-        $this->resourceIdentifierPhpArrayEncoder = $resourceIdentifierPhpArrayEncoder;
-        $this->resourceIdentifierCollectionPhpArrayEncoder = $resourceIdentifierCollectionPhpArrayEncoder;
+        $this->resourceToPhpArrayEncoder = $resourceToPhpArrayEncoder;
+        $this->resourceCollectionToPhpArrayEncoder = $resourceCollectionToPhpArrayEncoder;
+        $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
+        $this->resourceIdentifierCollectionToPhpArrayEncoder = $resourceIdentifierCollectionToPhpArrayEncoder;
     }
 
     public function encode(DocumentDataInterface $documentData): ?array
     {
         if ($documentData->isResource()) {
-            return $this->resourcePhpArrayEncoder->encode($documentData->getResource());
+            return $this->resourceToPhpArrayEncoder->encode($documentData->getResource());
         }
 
         if ($documentData->isResourceCollection()) {
-            return $this->resourceCollectionPhpArrayEncoder->encode($documentData->getResourceCollection());
+            return $this->resourceCollectionToPhpArrayEncoder->encode($documentData->getResourceCollection());
         }
 
         if ($documentData->isResourceIdentifier()) {
-            return $this->resourceIdentifierPhpArrayEncoder->encode($documentData->getResourceIdentifier());
+            return $this->resourceIdentifierToPhpArrayEncoder->encode($documentData->getResourceIdentifier());
         }
 
         if ($documentData->isResourceIdentifierCollection()) {
-            return $this->resourceIdentifierCollectionPhpArrayEncoder->encode($documentData->getResourceIdentifierCollection());
+            return $this->resourceIdentifierCollectionToPhpArrayEncoder->encode($documentData->getResourceIdentifierCollection());
         }
 
         return null;

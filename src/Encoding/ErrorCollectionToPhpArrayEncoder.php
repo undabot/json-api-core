@@ -10,11 +10,11 @@ use Undabot\JsonApi\Model\Error\ErrorInterface;
 class ErrorCollectionToPhpArrayEncoder implements ErrorCollectionToPhpArrayEncoderInterface
 {
     /** @var ErrorToPhpArrayEncoderInterface */
-    private $errorPhpArrayEncoder;
+    private $errorToPhpArrayEncoder;
 
-    public function __construct(ErrorToPhpArrayEncoderInterface $errorPhpArrayEncoder)
+    public function __construct(ErrorToPhpArrayEncoderInterface $errorToPhpArrayEncoder)
     {
-        $this->errorPhpArrayEncoder = $errorPhpArrayEncoder;
+        $this->errorToPhpArrayEncoder = $errorToPhpArrayEncoder;
     }
 
     public function encode(ErrorCollectionInterface $errorCollection): array
@@ -23,7 +23,7 @@ class ErrorCollectionToPhpArrayEncoder implements ErrorCollectionToPhpArrayEncod
 
         /** @var ErrorInterface $error */
         foreach ($errorCollection as $error) {
-            $serializedErrors[] = $this->errorPhpArrayEncoder->encode($error);
+            $serializedErrors[] = $this->errorToPhpArrayEncoder->encode($error);
         }
 
         return $serializedErrors;

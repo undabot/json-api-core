@@ -10,11 +10,11 @@ use Undabot\JsonApi\Model\Resource\Relationship\RelationshipInterface;
 class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionToPhpArrayEncoderInterface
 {
     /** @var RelationshipToPhpArrayEncoderInterface */
-    private $relationshipPhpArrayEncoder;
+    private $relationshipToPhpArrayEncoder;
 
-    public function __construct(RelationshipToPhpArrayEncoderInterface $relationshipSerializer)
+    public function __construct(RelationshipToPhpArrayEncoderInterface $relationshipToPhpArrayEncoder)
     {
-        $this->relationshipPhpArrayEncoder = $relationshipSerializer;
+        $this->relationshipToPhpArrayEncoder = $relationshipToPhpArrayEncoder;
     }
 
     public function encode(RelationshipCollectionInterface $relationshipCollection): array
@@ -23,7 +23,7 @@ class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionT
 
         /** @var RelationshipInterface $relationship */
         foreach ($relationshipCollection as $relationship) {
-            $relationships[$relationship->getName()] = $this->relationshipPhpArrayEncoder->encode($relationship);
+            $relationships[$relationship->getName()] = $this->relationshipToPhpArrayEncoder->encode($relationship);
         }
 
         return $relationships;

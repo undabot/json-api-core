@@ -14,22 +14,22 @@ use Undabot\JsonApi\Model\Resource\ResourceIdentifierInterface;
 class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoderInterface */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
     /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionPhpArrayEncoder;
+    private $linkCollectionToPhpArrayEncoder;
 
     /** @var ResourceIdentifierToPhpArrayEncoder */
-    private $resourceIdentifierPhpArrayEncoder;
+    private $resourceIdentifierToPhpArrayEncoder;
 
     public function __construct(
-        MetaToPhpArrayEncoderInterface $metaPhpArrayEncoder,
-        LinkCollectionToPhpArrayEncoderInterface $linkCollectionPhpArrayEncoder,
-        ResourceIdentifierToPhpArrayEncoder $resourceIdentifierPhpArrayEncoder
+        MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
+        LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder,
+        ResourceIdentifierToPhpArrayEncoder $resourceIdentifierToPhpArrayEncoder
     ) {
-        $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;
-        $this->linkCollectionPhpArrayEncoder = $linkCollectionPhpArrayEncoder;
-        $this->resourceIdentifierPhpArrayEncoder = $resourceIdentifierPhpArrayEncoder;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
+        $this->linkCollectionToPhpArrayEncoder = $linkCollectionToPhpArrayEncoder;
+        $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
     }
 
     public function encode(RelationshipInterface $relationship): array
@@ -37,11 +37,11 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         $serializedRelationship = [];
 
         if (null !== $relationship->getMeta()) {
-            $serializedRelationship['meta'] = $this->metaPhpArrayEncoder->encode($relationship->getMeta());
+            $serializedRelationship['meta'] = $this->metaToPhpArrayEncoder->encode($relationship->getMeta());
         }
 
         if (null !== $relationship->getLinks()) {
-            $serializedRelationship['links'] = $this->linkCollectionPhpArrayEncoder->encode($relationship->getLinks());
+            $serializedRelationship['links'] = $this->linkCollectionToPhpArrayEncoder->encode($relationship->getLinks());
         }
 
         if (null !== $relationship->getData()) {
@@ -70,7 +70,7 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
             return null;
         }
 
-        return $this->resourceIdentifierPhpArrayEncoder->encode($data->getData());
+        return $this->resourceIdentifierToPhpArrayEncoder->encode($data->getData());
     }
 
     private function encodeToManyRelationshipData(ToManyRelationshipDataInterface $data)
@@ -83,7 +83,7 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
 
         /** @var ResourceIdentifierInterface $resourceIdentifier */
         foreach ($data->getData() as $resourceIdentifier) {
-            $serializedData[] = $this->resourceIdentifierPhpArrayEncoder->encode($resourceIdentifier);
+            $serializedData[] = $this->resourceIdentifierToPhpArrayEncoder->encode($resourceIdentifier);
         }
 
         return $serializedData;

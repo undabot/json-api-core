@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Encoding;
 
-use Undabot\JsonApi\Encoding\Exception\PhpArrayDecodingException;
+use Undabot\JsonApi\Encoding\Exception\PhpArrayEncodingException;
 use Undabot\JsonApi\Model\Resource\Relationship\Data\RelationshipDataInterface;
 use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
@@ -71,7 +71,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
                 'Invalid resource linkage given: %s',
                 json_encode($resourceLinkage)
             );
-            throw new PhpArrayDecodingException($message);
+            throw new PhpArrayEncodingException($message);
         }
 
         if (empty($resourceLinkage)) {

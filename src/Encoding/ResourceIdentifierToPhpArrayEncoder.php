@@ -9,11 +9,11 @@ use Undabot\JsonApi\Model\Resource\ResourceIdentifierInterface;
 class ResourceIdentifierToPhpArrayEncoder implements ResourceIdentifierToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoderInterface */
-    private $metaPhpArrayEncoder;
+    private $metaToPhpArrayEncoder;
 
-    public function __construct(MetaToPhpArrayEncoderInterface $metaPhpArrayEncoder)
+    public function __construct(MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder)
     {
-        $this->metaPhpArrayEncoder = $metaPhpArrayEncoder;
+        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
     }
 
     public function encode(ResourceIdentifierInterface $resourceIdentifier)
@@ -24,7 +24,7 @@ class ResourceIdentifierToPhpArrayEncoder implements ResourceIdentifierToPhpArra
         ];
 
         if (null !== $resourceIdentifier->getMeta()) {
-            $serializedResourceIdentifier['meta'] = $this->metaPhpArrayEncoder->encode($resourceIdentifier->getMeta());
+            $serializedResourceIdentifier['meta'] = $this->metaToPhpArrayEncoder->encode($resourceIdentifier->getMeta());
         }
 
         return $serializedResourceIdentifier;
