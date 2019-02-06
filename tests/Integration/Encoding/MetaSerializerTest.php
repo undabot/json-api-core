@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\MetaPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\MetaPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Model\Meta\JsonApiMeta;
 use Undabot\JsonApi\Model\Meta\Meta;
 
 class MetaSerializerTest extends TestCase
 {
-    /** @var MetaPhpArrayEncoderInterface */
+    /** @var MetaToPhpArrayEncoderInterface */
     private $serializer;
 
     protected function setUp()
     {
-        $this->serializer = new MetaPhpArrayEncoder();
+        $this->serializer = new MetaToPhpArrayEncoder();
     }
 
     public function testMetaObjectIsSerializedCorrectly()

@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\AttributeCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\DocumentDataPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\DocumentPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\DocumentPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ErrorCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ErrorPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\LinkCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\LinkPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\MetaPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\RelationshipCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\RelationshipPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceIdentifierCollectionPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourceIdentifierPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\ResourcePhpArrayEncoder;
-use Undabot\JsonApi\Encoding\PhpArray\Encode\SourcePhpArrayEncoder;
+use Undabot\JsonApi\Encoding\AttributeCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\LinkToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\RelationshipCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\RelationshipToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\ResourceIdentifierCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoder;
+use Undabot\JsonApi\Encoding\SourceToPhpArrayEncoder;
 use Undabot\JsonApi\Model\Document\Document;
 use Undabot\JsonApi\Model\Document\DocumentData;
 use Undabot\JsonApi\Model\Link\Link;
@@ -39,44 +39,44 @@ use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollection;
 
 class DocumentSerializerTest extends TestCase
 {
-    /** @var DocumentPhpArrayEncoderInterface */
+    /** @var DocumentToPhpArrayEncoderInterface */
     private $serializer;
 
     protected function setUp()
     {
-        $metaSerializer = new MetaPhpArrayEncoder();
-        $linkSerializer = new LinkPhpArrayEncoder($metaSerializer);
-        $linksSerializer = new LinkCollectionPhpArrayEncoder($linkSerializer);
+        $metaSerializer = new MetaToPhpArrayEncoder();
+        $linkSerializer = new LinkToPhpArrayEncoder($metaSerializer);
+        $linksSerializer = new LinkCollectionToPhpArrayEncoder($linkSerializer);
 
-        $resourceSerializer = new ResourcePhpArrayEncoder(
+        $resourceSerializer = new ResourceToPhpArrayEncoder(
             $metaSerializer,
-            new RelationshipCollectionPhpArrayEncoder(new RelationshipPhpArrayEncoder(
-                    $metaSerializer, $linksSerializer, new ResourceIdentifierPhpArrayEncoder($metaSerializer))
+            new RelationshipCollectionToPhpArrayEncoder(new RelationshipToPhpArrayEncoder(
+                    $metaSerializer, $linksSerializer, new ResourceIdentifierToPhpArrayEncoder($metaSerializer))
             ),
             $linkSerializer,
-            new AttributeCollectionPhpArrayEncoder()
+            new AttributeCollectionToPhpArrayEncoder()
         );
 
-        $resourceIdentifierEncoder = new ResourceIdentifierPhpArrayEncoder(
+        $resourceIdentifierEncoder = new ResourceIdentifierToPhpArrayEncoder(
             $metaSerializer
         );
 
-        $this->serializer = new DocumentPhpArrayEncoder(
-            new DocumentDataPhpArrayEncoder(
+        $this->serializer = new DocumentToPhpArrayEncoder(
+            new DocumentDataToPhpArrayEncoder(
                 $resourceSerializer,
-                new ResourceCollectionPhpArrayEncoder($resourceSerializer),
-                new ResourceIdentifierPhpArrayEncoder($metaSerializer),
-                new ResourceIdentifierCollectionPhpArrayEncoder($resourceIdentifierEncoder),
+                new ResourceCollectionToPhpArrayEncoder($resourceSerializer),
+                new ResourceIdentifierToPhpArrayEncoder($metaSerializer),
+                new ResourceIdentifierCollectionToPhpArrayEncoder($resourceIdentifierEncoder),
                 ),
-            new ErrorCollectionPhpArrayEncoder(new ErrorPhpArrayEncoder($linkSerializer, new SourcePhpArrayEncoder(),
+            new ErrorCollectionToPhpArrayEncoder(new ErrorToPhpArrayEncoder($linkSerializer, new SourceToPhpArrayEncoder(),
                 $metaSerializer)),
-            new MetaPhpArrayEncoder(),
-            new LinkCollectionPhpArrayEncoder(
-                new LinkPhpArrayEncoder(
-                    new MetaPhpArrayEncoder()
+            new MetaToPhpArrayEncoder(),
+            new LinkCollectionToPhpArrayEncoder(
+                new LinkToPhpArrayEncoder(
+                    new MetaToPhpArrayEncoder()
                 )
             ),
-            new ResourceCollectionPhpArrayEncoder($resourceSerializer)
+            new ResourceCollectionToPhpArrayEncoder($resourceSerializer)
         );
     }
 
