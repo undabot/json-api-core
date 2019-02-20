@@ -28,7 +28,7 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         );
     }
 
-    public function testEmptyArrayToRelationshipCollectionIsEncodedSuccessfully(): void
+    public function testValidEmptyRelationshipsArrayIsEncodedToRelationshipsCollection(): void
     {
         $emptyRelationshipsArray = [
             'fakeResourceName' => [
