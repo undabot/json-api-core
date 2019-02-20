@@ -7,6 +7,8 @@ namespace Undabot\JsonApi\Tests\Unit\Relationship;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
+use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
+use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
 use Undabot\JsonApi\Model\Resource\Relationship\Relationship;
 
 class RelationshipTest extends TestCase
@@ -37,5 +39,31 @@ class RelationshipTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         new Relationship($this->relationshipName, $this->linksCollection);
+    }
+
+    public function testToOneRelationshipDataCanBeCreatedEmpty(): void
+    {
+        $emptyToOneRelationshipData = ToOneRelationshipData::makeEmpty();
+
+        $this->assertTrue($emptyToOneRelationshipData->isEmpty());
+    }
+
+    public function testToManyRelationshipDataCanBeCreatedEmpty(): void
+    {
+        $emptyToManyRelationshipData = ToManyRelationshipData::makeEmpty();
+
+        $this->assertTrue($emptyToManyRelationshipData->isEmpty());
+    }
+
+    public function testRelationshipCanBeCreatedWithNoData(): void
+    {
+        $emptyToOneRelationshipData = ToOneRelationshipData::makeEmpty();
+
+        $emptyRelationship = new Relationship('relationship', $nullLinkCollection = null, $emptyToOneRelationshipData);
+
+        /** @var ToOneRelationshipData $relationshipData */
+        $relationshipData = $emptyRelationship->getData();
+
+        $this->assertTrue($relationshipData->isEmpty());
     }
 }

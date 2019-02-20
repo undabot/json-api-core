@@ -74,7 +74,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             throw new PhpArrayEncodingException($message);
         }
 
-        if (empty($resourceLinkage)) {
+        if (null === $resourceLinkage) {
             return ToOneRelationshipData::makeEmpty();
         }
 
