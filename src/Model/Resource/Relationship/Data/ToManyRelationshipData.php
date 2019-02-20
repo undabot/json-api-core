@@ -29,7 +29,8 @@ class ToManyRelationshipData implements ToManyRelationshipDataInterface
 
     public function isEmpty(): bool
     {
-        return null === $this->resourceIdentifierCollection;
+        return null === $this->resourceIdentifierCollection ||
+            0 === count($this->resourceIdentifierCollection->getResourceIdentifiers());
     }
 
     public function getData(): ResourceIdentifierCollectionInterface
