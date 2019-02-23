@@ -24,7 +24,7 @@ class Document implements DocumentInterface
     /** @var MetaInterface|null */
     private $meta;
 
-    /** @var JsonApiMeta|null */
+    /** @var MetaInterface|null */
     private $jsonApiMeta;
 
     /** @var LinkCollectionInterface|null */
@@ -37,7 +37,7 @@ class Document implements DocumentInterface
         ?DocumentDataInterface $data,
         ?ErrorCollectionInterface $errors = null,
         ?MetaInterface $meta = null,
-        ?JsonApiMeta $jsonApi = null,
+        ?MetaInterface $jsonApi = null,
         ?LinkCollectionInterface $links = null,
         ResourceCollectionInterface $included = null
     ) {
@@ -121,7 +121,7 @@ class Document implements DocumentInterface
         ?ResourceCollectionInterface $included
     ): void {
         if (null === $data && null !== $included) {
-            throw new InvalidArgumentException('f a document does not contain a top-level data key, the included member MUST NOT be present either.');
+            throw new InvalidArgumentException('a document does not contain a top-level data key, the included member MUST NOT be present either.');
         }
     }
 
@@ -140,7 +140,7 @@ class Document implements DocumentInterface
         return $this->meta;
     }
 
-    public function getJsonApiMeta(): ?JsonApiMeta
+    public function getJsonApiMeta(): ?MetaInterface
     {
         return $this->jsonApiMeta;
     }

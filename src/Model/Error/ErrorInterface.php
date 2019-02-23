@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Model\Error;
 
 use Undabot\JsonApi\Model\Link\LinkInterface;
-use Undabot\JsonApi\Model\Meta\Meta;
-use Undabot\JsonApi\Model\Source\Source;
+use Undabot\JsonApi\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Model\Source\SourceInterface;
 
 interface ErrorInterface
 {
@@ -22,7 +22,7 @@ interface ErrorInterface
 
     public function getDetail(): ?string;
 
-    public function getSource(): ?Source;
+    public function getSource(): ?SourceInterface;
 
-    public function getMeta(): ?Meta;
+    public function getMeta(): ?MetaInterface;
 }

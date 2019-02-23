@@ -14,13 +14,13 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
     /** @var SourceToPhpArrayEncoderInterface */
     private $sourceToPhpArrayEncoder;
 
-    /** @var MetaToPhpArrayEncoder */
+    /** @var MetaToPhpArrayEncoderInterface */
     private $metaToPhpArrayEncoder;
 
     public function __construct(
         LinkToPhpArrayEncoderInterface $linkToPhpArrayEncoder,
         SourceToPhpArrayEncoderInterface $sourceToPhpArrayEncoder,
-        MetaToPhpArrayEncoder $metaToPhpArrayEncoder
+        MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder
     ) {
         $this->linkToPhpArrayEncoder = $linkToPhpArrayEncoder;
         $this->sourceToPhpArrayEncoder = $sourceToPhpArrayEncoder;

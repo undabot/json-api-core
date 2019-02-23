@@ -6,8 +6,8 @@ namespace Undabot\JsonApi\Model\Error;
 
 use InvalidArgumentException;
 use Undabot\JsonApi\Model\Link\LinkInterface;
-use Undabot\JsonApi\Model\Meta\Meta;
-use Undabot\JsonApi\Model\Source\Source;
+use Undabot\JsonApi\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Model\Source\SourceInterface;
 
 final class Error implements ErrorInterface
 {
@@ -50,14 +50,14 @@ final class Error implements ErrorInterface
     /**
      * an object containing references to the source of the error
      *
-     * @var Source|null
+     * @var SourceInterface|null
      */
     private $source;
 
     /**
      * an object containing references to the source of the error
      *
-     * @var Meta|null
+     * @var MetaInterface|null
      */
     private $meta;
 
@@ -68,8 +68,8 @@ final class Error implements ErrorInterface
         ?string $code = null,
         ?string $title = null,
         ?string $detail = null,
-        ?Source $source = null,
-        ?Meta $meta = null
+        ?SourceInterface $source = null,
+        ?MetaInterface $meta = null
     ) {
         if (null !== $aboutLink) {
             $this->makeSureAboutLinkIsNamedAbout($aboutLink);
@@ -149,12 +149,12 @@ final class Error implements ErrorInterface
         return $this->detail;
     }
 
-    public function getSource(): ?Source
+    public function getSource(): ?SourceInterface
     {
         return $this->source;
     }
 
-    public function getMeta(): ?Meta
+    public function getMeta(): ?MetaInterface
     {
         return $this->meta;
     }
