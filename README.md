@@ -1,5 +1,8 @@
 # json-api core
 
+[![pipeline status](https://gitlab.com/undabot/json-api-core/badges/master/pipeline.svg)](https://gitlab.com/undabot/json-api-core/commits/master)
+[![coverage report](https://gitlab.com/undabot/json-api-core/badges/master/coverage.svg)](https://gitlab.com/undabot/json-api-core/commits/master)
+
 ```
 "repositories": [
     {
