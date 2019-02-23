@@ -13,8 +13,6 @@ use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Model\Document\DocumentInterface;
 use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;

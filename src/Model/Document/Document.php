@@ -9,7 +9,6 @@ use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
 use Undabot\JsonApi\Model\Link\Link;
 use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Model\Link\LinkNamesEnum;
-use Undabot\JsonApi\Model\Meta\JsonApiMeta;
 use Undabot\JsonApi\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Model\Resource\ResourceCollectionInterface;
 
@@ -57,8 +56,10 @@ class Document implements DocumentInterface
     /**
      * The members data and errors MUST NOT coexist in the same document.
      */
-    private function makeSureDataAndErrorsDontCoexist(?DocumentDataInterface $data, ?ErrorCollectionInterface $errors): void
-    {
+    private function makeSureDataAndErrorsDontCoexist(
+        ?DocumentDataInterface $data,
+        ?ErrorCollectionInterface $errors
+    ): void {
         $hasData = null !== $data;
         $hasErrors = null !== $errors;
 

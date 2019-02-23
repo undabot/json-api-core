@@ -10,12 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
 use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Document\DocumentDataInterface;
-use Undabot\JsonApi\Model\Document\DocumentInterface;
 use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
 use Undabot\JsonApi\Model\Error\ErrorInterface;
-use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
-use Undabot\JsonApi\Model\Meta\MetaInterface;
 
 class ErrorCollectionToPhpArrayEncoderTest extends TestCase
 {
