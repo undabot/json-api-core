@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Model\Request\Filter;
 
 use ArrayIterator;
-use InvalidArgumentException;
+use Assert\Assertion;
 use IteratorAggregate;
 
 class FilterSet implements IteratorAggregate
@@ -29,18 +29,8 @@ class FilterSet implements IteratorAggregate
 
     public function __construct(array $filters)
     {
-        $this->makeSureAllArrayElementsAreFilters($filters);
+        Assertion::allIsInstanceOf($filters, Filter::class);
         $this->filters = $filters;
-    }
-
-    private function makeSureAllArrayElementsAreFilters(array $filters)
-    {
-        foreach ($filters as $filter) {
-            if (false === ($filter instanceof Filter)) {
-                $message = sprintf('Filter expected, %s given', get_class($filter));
-                throw new InvalidArgumentException($message);
-            }
-        }
     }
 
     public function getIterator()
@@ -57,5 +47,15 @@ class FilterSet implements IteratorAggregate
         }
 
         return null;
+    }
+
+    public function getFilterValue(string $name)
+    {
+        $filter = $this->getFilter($name);
+        if (null === $filter) {
+            return null;
+        }
+
+        return $filter->getValue();
     }
 }
