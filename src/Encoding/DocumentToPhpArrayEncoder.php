@@ -41,8 +41,8 @@ class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
     {
         $serializedDocument = [];
 
-        if (null !== $document->getData()) {
-            $serializedDocument['data'] = $this->documentDataToPhpArrayEncoder->encode($document->getData());
+        if (null !== $document->getJsonApiMeta()) {
+            $serializedDocument['jsonapi'] = $this->metaToPhpArrayEncoder->encode($document->getJsonApiMeta());
         }
 
         if (null !== $document->getErrors()) {
@@ -53,12 +53,12 @@ class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
             $serializedDocument['meta'] = $this->metaToPhpArrayEncoder->encode($document->getMeta());
         }
 
-        if (null !== $document->getJsonApiMeta()) {
-            $serializedDocument['jsonapi'] = $this->metaToPhpArrayEncoder->encode($document->getJsonApiMeta());
-        }
-
         if (null !== $document->getLinks()) {
             $serializedDocument['links'] = $this->linkCollectionToPhpArrayEncoder->encode($document->getLinks());
+        }
+
+        if (null !== $document->getData()) {
+            $serializedDocument['data'] = $this->documentDataToPhpArrayEncoder->encode($document->getData());
         }
 
         if (null !== $document->getIncluded()) {
