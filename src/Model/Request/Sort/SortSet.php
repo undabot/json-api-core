@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Model\Request\Sort;
 
 use ArrayIterator;
-use InvalidArgumentException;
+use Assert\Assertion;
 use IteratorAggregate;
 
 class SortSet implements IteratorAggregate
@@ -37,22 +37,32 @@ class SortSet implements IteratorAggregate
 
     public function __construct(array $sorts)
     {
-        $this->makeSureAllArrayElementsAreSorts($sorts);
+        Assertion::allIsInstanceOf($sorts, Sort::class);
         $this->sorts = $sorts;
-    }
-
-    private function makeSureAllArrayElementsAreSorts(array $sorts)
-    {
-        foreach ($sorts as $sort) {
-            if (false === ($sort instanceof Sort)) {
-                $message = sprintf('Sort expected, %s given', get_class($sort));
-                throw new InvalidArgumentException($message);
-            }
-        }
     }
 
     public function getIterator()
     {
         return new ArrayIterator($this->sorts);
+    }
+
+    public function getSortsArray(): array
+    {
+        $sortSet = [];
+
+        foreach ($this->sorts as $sort) {
+            $direction = null;
+            if (true === $sort->isAsc()) {
+                $direction = Sort::SORT_ORDER_ASC;
+            }
+
+            if (true === $sort->isDesc()) {
+                $direction = Sort::SORT_ORDER_DESC;
+            }
+
+            $sortSet[$sort->getAttribute()] = $direction;
+        }
+
+        return $sortSet;
     }
 }
