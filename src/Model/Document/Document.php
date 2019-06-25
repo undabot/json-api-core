@@ -38,7 +38,7 @@ class Document implements DocumentInterface
         ?MetaInterface $meta = null,
         ?MetaInterface $jsonApi = null,
         ?LinkCollectionInterface $links = null,
-        ResourceCollectionInterface $included = null
+        ?ResourceCollectionInterface $included = null
     ) {
         $this->makeSureAtLeastOneIsPresent($data, $errors, $meta);
         $this->makeSureDataAndErrorsDontCoexist($data, $errors);
