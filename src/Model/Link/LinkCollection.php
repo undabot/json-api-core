@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Model\Link;
 
 use ArrayIterator;
-use InvalidArgumentException;
+use Assert\Assertion;
 
 final class LinkCollection implements LinkCollectionInterface
 {
@@ -14,18 +14,8 @@ final class LinkCollection implements LinkCollectionInterface
 
     public function __construct(array $links)
     {
-        $this->makeSureAllLinksAreValid($links);
+        Assertion::allIsInstanceOf($links, LinkInterface::class);
         $this->links = $links;
-    }
-
-    private function makeSureAllLinksAreValid(array $links): void
-    {
-        foreach ($links as $link) {
-            if (false === ($link instanceof Link)) {
-                $message = sprintf('Link expected, %s given', get_class($link));
-                throw new InvalidArgumentException($message);
-            }
-        }
     }
 
     public function getLinks(): array
