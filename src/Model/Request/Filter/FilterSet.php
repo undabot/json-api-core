@@ -58,4 +58,14 @@ class FilterSet implements IteratorAggregate
 
         return $filter->getValue();
     }
+
+    public function getFilterNames(): array
+    {
+        return array_map(
+            function (Filter $filter) {
+                return $filter->getName();
+            },
+            $this->filters
+        );
+    }
 }
