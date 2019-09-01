@@ -10,7 +10,7 @@ use Undabot\JsonApi\Model\Request\Sort\SortSet;
 
 interface GetResourceCollectionRequestInterface
 {
-    public function getInclude(): ?array;
+    public function getIncludes(): ?array;
 
     public function isIncluded(string $name): bool;
 

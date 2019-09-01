@@ -6,6 +6,7 @@ namespace Undabot\JsonApi\Model\Request;
 
 use Undabot\JsonApi\Model\Resource\ResourceInterface;
 
-interface CreateResourceRequestInterface extends ResourcePayloadRequest
+interface ResourcePayloadRequest
 {
+    public function getResource(): ResourceInterface;
 }
