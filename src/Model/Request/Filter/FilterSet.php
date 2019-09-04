@@ -16,7 +16,7 @@ class FilterSet implements IteratorAggregate
     /**
      * @param array $rawFilters Key value pairs of filters
      */
-    public static function createFromArray(array $rawFilters)
+    public static function fromArray(array $rawFilters)
     {
         $filters = [];
 
