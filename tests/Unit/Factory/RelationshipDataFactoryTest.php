@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Undabot\JsonApi\Tests\Unit\Link;
+namespace Undabot\JsonApi\Tests\Unit\Factory;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
