@@ -21,4 +21,28 @@ interface GetResourceCollectionRequestInterface
     public function getPagination(): ?PaginationInterface;
 
     public function getSortSet(): ?SortSet;
+
+    /**
+     * @throws \Exception
+     */
+    public function disablePagination(): self;
+
+    /**
+     * @throws \Exception
+     */
+    public function allowFilters(array $allowedFilters): self;
+
+    /**
+     * @param string[] $allowedIncludes
+     *
+     * @throws \Exception
+     */
+    public function allowIncluded(array $allowedIncludes): self;
+
+    /**
+     * @param string[] $allowedSorts
+     *
+     * @throws \Exception
+     */
+    public function allowSorting(array $allowedSorts): self;
 }
