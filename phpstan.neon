@@ -1,9 +1,9 @@
 parameters:
-  level: max
-  paths:
-    - src
-    - tests
+    level: max
+    paths:
+        - src
+        - tests
 
 includes:
-  - vendor/phpstan/phpstan-phpunit/extension.neon
-  - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon

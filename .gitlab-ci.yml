@@ -1,23 +1,23 @@
 variables:
 
 cache:
-  key: "general"
-  paths:
-    - vendor/
-    - .php_cs.cache
+    key: "general"
+    paths:
+        - vendor/
+        - .php_cs.cache
 
 stages:
-  - test
+    - test
 
 test:
-  stage: test
-  only: [merge_requests, "/master/"]
-  image: zantolov/docker-symfony-php-fpm:7.3
-  script:
-    - composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
-    - composer validate --no-check-publish --no-interaction --ansi
-    - composer run lint
-    - composer run qc
-    - phpdbg -qrr ./vendor/bin/phpunit
-    - cat tests/_reports/coverage.txt | head -n 10 | grep "Lines"
+    stage: test
+    only: [merge_requests, "/master/"]
+    image: zantolov/docker-symfony-php-fpm:7.3
+    script:
+        - composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
+        - composer validate --no-check-publish --no-interaction --ansi
+        - composer run lint
+        - composer run qc
+        - phpdbg -qrr ./vendor/bin/phpunit
+        - cat tests/_reports/coverage.txt | head -n 10 | grep "Lines"
 
