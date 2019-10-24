@@ -11,18 +11,18 @@ interface GetResourceRequestInterface
 {
     public function getId(): string;
 
-    public function getInclude(): ?array;
+    public function getIncludes(): ?array;
 
     public function isIncluded(string $name): bool;
 
     public function getSparseFieldset(): ?array;
 
     /**
-     * @param string[] $includes
+     * @param string[] $allowedIncludes
      *
      * @throws UnsupportedIncludeValuesGivenException
      */
-    public function allowIncludes(array $includes): self;
+    public function allowIncluded(array $allowedIncludes): self;
 
     /**
      * @param string[] $fields
