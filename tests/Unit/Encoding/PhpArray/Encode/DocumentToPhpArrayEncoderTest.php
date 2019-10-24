@@ -42,19 +42,19 @@ class DocumentToPhpArrayEncoderTest extends TestCase
     public function setUp()
     {
         $this->documentDataEncoderMock = $this->createMock(DocumentDataToPhpArrayEncoderInterface::class);
-        $this->documentDataEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->documentDataEncoderMock->method('encode')->willReturn([]);
 
         $this->resourceCollectionToPhpArrayEncoderMock = $this->createMock(ResourceCollectionToPhpArrayEncoderInterface::class);
-        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->willReturn([]);
 
         $this->errorCollectionEncoderMock = $this->createMock(ErrorCollectionToPhpArrayEncoderInterface::class);
-        $this->errorCollectionEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->errorCollectionEncoderMock->method('encode')->willReturn([]);
 
         $this->linkCollectionEncoderMock = $this->createMock(LinkCollectionToPhpArrayEncoderInterface::class);
-        $this->linkCollectionEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->linkCollectionEncoderMock->method('encode')->willReturn([]);
 
         $this->metaEncoderMock = $this->createMock(MetaToPhpArrayEncoderInterface::class);
-        $this->metaEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->metaEncoderMock->method('encode')->willReturn([]);
 
         $this->documentEncoder = new DocumentToPhpArrayEncoder(
             $this->documentDataEncoderMock,

@@ -24,7 +24,7 @@ class ErrorCollectionToPhpArrayEncoderTest extends TestCase
     public function setUp()
     {
         $this->errorEncoder = $this->createMock(ErrorToPhpArrayEncoderInterface::class);
-        $this->errorEncoder->method('encode')->will($this->returnValue([]));
+        $this->errorEncoder->method('encode')->willReturn([]);
 
         $this->errorCollectionEncoder = new ErrorCollectionToPhpArrayEncoder($this->errorEncoder);
     }

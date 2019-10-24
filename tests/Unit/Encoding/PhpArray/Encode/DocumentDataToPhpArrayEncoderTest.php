@@ -32,16 +32,16 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
         $this->documentDataMock = $this->createMock(DocumentDataInterface::class);
 
         $this->resourceToPhpArrayEncoderMock = $this->createMock(ResourceToPhpArrayEncoderInterface::class);
-        $this->resourceToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceToPhpArrayEncoderMock->method('encode')->willReturn([]);
 
         $this->resourceCollectionToPhpArrayEncoderMock = $this->createMock(ResourceCollectionToPhpArrayEncoderInterface::class);
-        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->willReturn([]);
 
         $this->resourceIdentifierToPhpArrayEncoderMock = $this->createMock(ResourceIdentifierToPhpArrayEncoderInterface::class);
-        $this->resourceIdentifierToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceIdentifierToPhpArrayEncoderMock->method('encode')->willReturn([]);
 
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock = $this->createMock(ResourceIdentifierCollectionToPhpArrayEncoderInterface::class);
-        $this->resourceIdentifierCollectionToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceIdentifierCollectionToPhpArrayEncoderMock->method('encode')->willReturn([]);
     }
 
     public function testItCanBeConstructed()
@@ -62,7 +62,7 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
 
         $this->documentDataMock
             ->method('isResource')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->getEncoder()->encode($this->documentDataMock);
     }
@@ -75,7 +75,7 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
 
         $this->documentDataMock
             ->method('isResourceCollection')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->getEncoder()->encode($this->documentDataMock);
     }
@@ -88,7 +88,7 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
 
         $this->documentDataMock
             ->method('isResourceIdentifier')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->getEncoder()->encode($this->documentDataMock);
     }
@@ -101,7 +101,7 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
 
         $this->documentDataMock
             ->method('isResourceIdentifierCollection')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->getEncoder()->encode($this->documentDataMock);
     }
