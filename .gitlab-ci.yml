@@ -12,7 +12,7 @@ stages:
 test:
     stage: test
     only: [merge_requests, "/master/"]
-    image: zantolov/docker-symfony-php-fpm:7.3
+    image: zantolov/docker-symfony-php-fpm:latest
     script:
         - composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
         - composer validate --no-check-publish --no-interaction --ansi
