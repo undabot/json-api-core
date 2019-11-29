@@ -105,6 +105,11 @@ final class Error implements ErrorInterface
         }
     }
 
+    public static function withOnlyTitleAndDetail(string $title, string $detail): self
+    {
+        return new self(null, null, null, null, $title, $detail);
+    }
+
     /**
      * Error should only have `about` link member
      *
