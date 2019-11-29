@@ -6,18 +6,18 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Document\DocumentDataInterface;
-use Undabot\JsonApi\Model\Document\DocumentInterface;
-use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
-use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
-use Undabot\JsonApi\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Definition\Encoding\DocumentDataToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\DocumentToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\LinkCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder;
 
 class DocumentToPhpArrayEncoderTest extends TestCase
 {

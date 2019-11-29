@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Resource\Attribute;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Resource\Attribute\Attribute;
-use Undabot\JsonApi\Model\Resource\Attribute\AttributeCollection;
-use Undabot\JsonApi\Model\Resource\Attribute\AttributeCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInterface;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
 
 class AttributeCollectionTest extends TestCase
 {

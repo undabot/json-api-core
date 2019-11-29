@@ -6,10 +6,10 @@ namespace Undabot\JsonApi\Tests\Unit\Factory;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Factory\RelationshipDataFactory;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
+use Undabot\JsonApi\Implementation\Factory\RelationshipDataFactory;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
 
 class RelationshipDataFactoryTest extends TestCase
 {

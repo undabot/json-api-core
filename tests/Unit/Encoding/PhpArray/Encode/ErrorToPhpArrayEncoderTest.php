@@ -6,15 +6,15 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\LinkToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\SourceToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Error\ErrorInterface;
-use Undabot\JsonApi\Model\Link\LinkInterface;
-use Undabot\JsonApi\Model\Meta\MetaInterface;
-use Undabot\JsonApi\Model\Source\SourceInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\LinkToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\SourceToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
+use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
+use Undabot\JsonApi\Implementation\Encoding\ErrorToPhpArrayEncoder;
 
 class ErrorToPhpArrayEncoderTest extends TestCase
 {

@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Resource;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkCollection;
-use Undabot\JsonApi\Model\Link\LinkUrl;
-use Undabot\JsonApi\Model\Resource\Attribute\Attribute;
-use Undabot\JsonApi\Model\Resource\Attribute\AttributeCollection;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Relationship;
-use Undabot\JsonApi\Model\Resource\Relationship\RelationshipCollection;
-use Undabot\JsonApi\Model\Resource\Resource;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifier;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollection;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
+use Undabot\JsonApi\Implementation\Model\Link\LinkCollection;
+use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\RelationshipCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Resource;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 class ResourceCreationTest extends TestCase
 {

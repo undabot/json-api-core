@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Model\Document;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Document\DocumentData;
-use Undabot\JsonApi\Model\Resource\ResourceCollectionInterface;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollectionInterface;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierInterface;
-use Undabot\JsonApi\Model\Resource\ResourceInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
+use Undabot\JsonApi\Implementation\Model\Document\DocumentData;
 
 class DocumentDataTest extends TestCase
 {

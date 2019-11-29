@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Sort;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Request\Sort\Sort;
-use Undabot\JsonApi\Model\Request\Sort\SortSet;
+use Undabot\JsonApi\Implementation\Model\Request\Sort\Sort;
+use Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet;
 
 class JsonApiHttpSortModelTest extends TestCase
 {

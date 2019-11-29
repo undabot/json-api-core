@@ -7,14 +7,14 @@ namespace Undabot\JsonApi\Tests\Unit\Model\Document;
 use ArrayIterator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Document\Document;
-use Undabot\JsonApi\Model\Document\DocumentDataInterface;
-use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
-use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
-use Undabot\JsonApi\Model\Link\LinkInterface;
-use Undabot\JsonApi\Model\Meta\Meta;
-use Undabot\JsonApi\Model\Meta\MetaInterface;
-use Undabot\JsonApi\Model\Resource\ResourceCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
+use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
+use Undabot\JsonApi\Implementation\Model\Document\Document;
+use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 class DocumentTest extends TestCase
 {

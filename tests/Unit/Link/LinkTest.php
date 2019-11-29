@@ -6,8 +6,8 @@ namespace Undabot\JsonApi\Tests\Unit\Link;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkMemberInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkMemberInterface;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 class LinkTest extends TestCase
 {

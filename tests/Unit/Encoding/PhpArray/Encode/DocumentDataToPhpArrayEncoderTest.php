@@ -6,13 +6,13 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceIdentifierCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Document\DocumentDataInterface;
+use Undabot\JsonApi\Definition\Encoding\DocumentDataToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceIdentifierCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
+use Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder;
 
 class DocumentDataToPhpArrayEncoderTest extends TestCase
 {
@@ -93,8 +93,8 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
         $this->getEncoder()->encode($this->documentDataMock);
     }
 
-    public function testResourceIdentifierCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection()
-    {
+    public function testResourceIdentifierCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection(
+    ) {
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock
             ->expects($this->once())
             ->method('encode');

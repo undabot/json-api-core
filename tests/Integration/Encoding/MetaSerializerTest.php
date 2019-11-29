@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Meta\JsonApiMeta;
-use Undabot\JsonApi\Model\Meta\Meta;
+use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Model\Meta\JsonApiMeta;
+use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 class MetaSerializerTest extends TestCase
 {

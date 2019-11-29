@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\AttributeCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\LinkToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\RelationshipCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\RelationshipToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ResourceIdentifierToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ResourceToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkCollection;
-use Undabot\JsonApi\Model\Link\LinkUrl;
-use Undabot\JsonApi\Model\Resource\Attribute\Attribute;
-use Undabot\JsonApi\Model\Resource\Attribute\AttributeCollection;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Relationship;
-use Undabot\JsonApi\Model\Resource\Relationship\RelationshipCollection;
-use Undabot\JsonApi\Model\Resource\Resource;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifier;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollection;
+use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Implementation\Encoding\AttributeCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\LinkCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\LinkToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\RelationshipCollectionToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\RelationshipToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\ResourceIdentifierToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Encoding\ResourceToPhpArrayEncoder;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
+use Undabot\JsonApi\Implementation\Model\Link\LinkCollection;
+use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\RelationshipCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Resource;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 class ResourceSerializerTest extends TestCase
 {

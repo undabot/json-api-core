@@ -7,11 +7,11 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 use ArrayIterator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
-use Undabot\JsonApi\Model\Error\ErrorInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
+use Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder;
 
 class ErrorCollectionToPhpArrayEncoderTest extends TestCase
 {

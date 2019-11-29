@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Util\Assert;
 
-abstract class Assert
+use Assert\Assertion;
+use Undabot\JsonApi\Util\Assert\Exception\AssertException;
+
+abstract class Assert extends Assertion
 {
+    protected static $exceptionClass = AssertException::class;
+
     public static function assertForEachChild(array $array, $callable): bool
     {
         foreach ($array as $item) {
@@ -39,20 +44,6 @@ abstract class Assert
         $assertion = new ArrayIsMapAssertion();
 
         return $assertion->assert($array);
-    }
-
-    public static function arrayHasRequiredKeys(array $array, array $requiredKeys): bool
-    {
-        $assertion = new ArrayHasRequiredKeysAssertion();
-
-        return $assertion->assert($array, $requiredKeys);
-    }
-
-    public static function arrayHasWhitelistedKeysOnly(array $array, array $whitelistedKeys): bool
-    {
-        $assertion = new ArrayHasOnlyWhitelistedKeysAssertion();
-
-        return $assertion->assert($array, $whitelistedKeys);
     }
 
     public static function validResourceLinkage(?array $resourceLinkage)

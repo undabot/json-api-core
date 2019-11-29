@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Error;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Error\Error;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkUrl;
-use Undabot\JsonApi\Model\Meta\Meta;
-use Undabot\JsonApi\Model\Source\Source;
+use Undabot\JsonApi\Implementation\Model\Error\Error;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
+use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
+use Undabot\JsonApi\Implementation\Model\Meta\Meta;
+use Undabot\JsonApi\Implementation\Model\Source\Source;
 
 class ErrorTest extends TestCase
 {
