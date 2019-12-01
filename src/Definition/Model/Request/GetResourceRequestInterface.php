@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Model\Request;
 
-use Undabot\JsonApi\Implementation\Exception\Request\UnsupportedIncludeValuesGivenException;
-use Undabot\JsonApi\Implementation\Exception\Request\UnsupportedSparseFieldsetRequestedException;
+use Undabot\JsonApi\Definition\Exception\Request\UnsupportedIncludeValuesGivenException;
+use Undabot\JsonApi\Definition\Exception\Request\UnsupportedSparseFieldsetRequestedException;
 
 interface GetResourceRequestInterface
 {

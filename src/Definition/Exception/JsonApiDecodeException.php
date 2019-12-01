@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Undabot\JsonApi\Implementation\Exception;
+namespace Undabot\JsonApi\Definition\Exception;
 
 use Exception;
 
