@@ -19,6 +19,9 @@ use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder;
 
+/**
+ * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
+ */
 class DocumentToPhpArrayEncoderTest extends TestCase
 {
     /** @var MockObject|DocumentDataToPhpArrayEncoderInterface */
@@ -39,7 +42,7 @@ class DocumentToPhpArrayEncoderTest extends TestCase
     /** @var DocumentToPhpArrayEncoder */
     private $documentEncoder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->documentDataEncoderMock = $this->createMock(DocumentDataToPhpArrayEncoderInterface::class);
         $this->documentDataEncoderMock->method('encode')->willReturn([]);
@@ -65,12 +68,18 @@ class DocumentToPhpArrayEncoderTest extends TestCase
         );
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::__construct
+     */
     public function testItCanBeConstructed()
     {
         $this->assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
         $this->assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::encode
+     */
     public function testEncoderWillCallRespectiveSpecificEncoders()
     {
         $documentData = $this->createMock(DocumentDataInterface::class);

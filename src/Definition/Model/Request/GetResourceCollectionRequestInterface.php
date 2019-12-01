@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Model\Request;
 
-use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Definition\Exception\Request\UnsupportedFilterAttributeGivenException;
 use Undabot\JsonApi\Definition\Exception\Request\UnsupportedIncludeValuesGivenException;
 use Undabot\JsonApi\Definition\Exception\Request\UnsupportedPaginationRequestedException;
 use Undabot\JsonApi\Definition\Exception\Request\UnsupportedSortRequestedException;
+use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Filter\FilterSet;
 use Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet;
 

@@ -11,7 +11,6 @@ use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 use Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
-use Undabot\JsonApi\Util\Exception\ValidationException;
 
 class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 {

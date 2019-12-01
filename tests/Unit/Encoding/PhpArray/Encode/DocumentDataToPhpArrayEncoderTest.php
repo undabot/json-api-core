@@ -128,8 +128,7 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
     /**
      * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
      */
-    public function testResourceIdentifierCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection(
-    )
+    public function testItWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection()
     {
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock
             ->expects($this->once())

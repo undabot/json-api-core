@@ -16,7 +16,6 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\RelationshipCollection;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
-use Undabot\JsonApi\Util\ArrayIsMap;
 use Undabot\JsonApi\Util\ArrayUtil;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;

@@ -9,6 +9,7 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 
 /**
  * Proxy class to Beberlei Assertion with overriden exception class
+ *
  * @internal
  */
 abstract class JsonApiAssertion extends BaseAssertion
