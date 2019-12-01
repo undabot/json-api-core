@@ -14,20 +14,30 @@ use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder;
 
+/**
+ * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder
+ */
 class DocumentDataToPhpArrayEncoderTest extends TestCase
 {
     /** @var MockObject|DocumentDataInterface */
     private $documentDataMock;
+
     /** @var MockObject|ResourceToPhpArrayEncoderInterface */
     private $resourceToPhpArrayEncoderMock;
+
     /** @var MockObject|ResourceCollectionToPhpArrayEncoderInterface */
     private $resourceCollectionToPhpArrayEncoderMock;
+
     /** @var MockObject|ResourceIdentifierToPhpArrayEncoderInterface */
     private $resourceIdentifierToPhpArrayEncoderMock;
+
     /** @var MockObject|ResourceIdentifierCollectionToPhpArrayEncoderInterface */
     private $resourceIdentifierCollectionToPhpArrayEncoderMock;
 
-    public function setUp()
+    /** @var DocumentDataToPhpArrayEncoder */
+    private $encoder;
+
+    public function setUp(): void
     {
         $this->documentDataMock = $this->createMock(DocumentDataInterface::class);
 
@@ -42,18 +52,34 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
 
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock = $this->createMock(ResourceIdentifierCollectionToPhpArrayEncoderInterface::class);
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock->method('encode')->willReturn([]);
+
+        $this->encoder = new DocumentDataToPhpArrayEncoder(
+            $this->resourceToPhpArrayEncoderMock,
+            $this->resourceCollectionToPhpArrayEncoderMock,
+            $this->resourceIdentifierToPhpArrayEncoderMock,
+            $this->resourceIdentifierCollectionToPhpArrayEncoderMock
+        );
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::__construct
+     */
     public function testItCanBeConstructed()
     {
-        $this->assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->getEncoder());
+        $this->assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->encoder);
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
+     */
     public function testItWillReturnNullIfDocumentDataIsNotValidType()
     {
-        $this->assertNull($this->getEncoder()->encode($this->documentDataMock));
+        $this->assertNull($this->encoder->encode($this->documentDataMock));
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
+     */
     public function testResourcePhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResource()
     {
         $this->resourceToPhpArrayEncoderMock
@@ -64,9 +90,12 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
             ->method('isResource')
             ->willReturn(true);
 
-        $this->getEncoder()->encode($this->documentDataMock);
+        $this->encoder->encode($this->documentDataMock);
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
+     */
     public function testResourceCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceCollection()
     {
         $this->resourceCollectionToPhpArrayEncoderMock
@@ -77,9 +106,12 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
             ->method('isResourceCollection')
             ->willReturn(true);
 
-        $this->getEncoder()->encode($this->documentDataMock);
+        $this->encoder->encode($this->documentDataMock);
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
+     */
     public function testResourceIdentifierPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifier()
     {
         $this->resourceIdentifierToPhpArrayEncoderMock
@@ -90,11 +122,15 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
             ->method('isResourceIdentifier')
             ->willReturn(true);
 
-        $this->getEncoder()->encode($this->documentDataMock);
+        $this->encoder->encode($this->documentDataMock);
     }
 
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
+     */
     public function testResourceIdentifierCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection(
-    ) {
+    )
+    {
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock
             ->expects($this->once())
             ->method('encode');
@@ -103,16 +139,6 @@ class DocumentDataToPhpArrayEncoderTest extends TestCase
             ->method('isResourceIdentifierCollection')
             ->willReturn(true);
 
-        $this->getEncoder()->encode($this->documentDataMock);
-    }
-
-    private function getEncoder(): DocumentDataToPhpArrayEncoderInterface
-    {
-        return new DocumentDataToPhpArrayEncoder(
-            $this->resourceToPhpArrayEncoderMock,
-            $this->resourceCollectionToPhpArrayEncoderMock,
-            $this->resourceIdentifierToPhpArrayEncoderMock,
-            $this->resourceIdentifierCollectionToPhpArrayEncoderMock
-        );
+        $this->encoder->encode($this->documentDataMock);
     }
 }

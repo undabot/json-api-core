@@ -9,14 +9,18 @@ use Undabot\JsonApi\Definition\Encoding\PhpArrayToMetaEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToRelationshipCollectionEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
-use Undabot\JsonApi\Implementation\Encoding\Exception\PhpArrayEncodingException;
+use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\RelationshipCollection;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
-use Undabot\JsonApi\Util\Assert\Assert;
+use Undabot\JsonApi\Util\ArrayIsMap;
+use Undabot\JsonApi\Util\ArrayUtil;
+use Undabot\JsonApi\Util\Exception\ValidationException;
+use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
+use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
@@ -34,16 +38,25 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         $this->phpArrayToLinkCollectionEncoder = $phpArrayToLinkCollectionEncoder;
     }
 
-    public function decode(array $relationships): RelationshipCollectionInterface
+    /**
+     * @throws JsonApiEncodingException
+     */
+    public function encode(array $relationships): RelationshipCollectionInterface
     {
         $decodedRelationships = [];
         foreach ($relationships as $relationshipName => $relationshipValue) {
-            $decodedRelationships[] = $this->decodeRelationship($relationshipName, $relationshipValue);
+            $decodedRelationships[] = $this->decodeRelationship(
+                $relationshipName,
+                $relationshipValue
+            );
         }
 
         return new RelationshipCollection($decodedRelationships);
     }
 
+    /**
+     * @throws JsonApiEncodingException
+     */
     private function decodeRelationship(string $relationshipName, array $relationshipValue): Relationship
     {
         $relationshipData = null;
@@ -69,14 +82,19 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         );
     }
 
+    /**
+     * @throws JsonApiEncodingException
+     */
     private function parseRelationshipData(?array $resourceLinkage): ?RelationshipDataInterface
     {
-        if (false === Assert::validResourceLinkage($resourceLinkage)) {
-            $message = sprintf(
-                'Invalid resource linkage given: %s',
-                json_encode($resourceLinkage)
+        try {
+            ValidResourceLinkageAssertion::assert($resourceLinkage);
+        } catch (ValidationException $exception) {
+            throw new JsonApiEncodingException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
             );
-            throw new PhpArrayEncodingException($message);
         }
 
         if (null === $resourceLinkage) {
@@ -87,7 +105,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             return ToManyRelationshipData::makeEmpty();
         }
 
-        $isAssociativeArray = Assert::arrayIsMap($resourceLinkage);
+        $isAssociativeArray = ArrayUtil::isMap($resourceLinkage);
         if (false === $isAssociativeArray) {
             $identifiersCollection = $this->parseResourceIdentifierCollection($resourceLinkage);
 
@@ -108,7 +126,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         $resourceIdentifiers = [];
 
         foreach ($data as $datum) {
-            Assert::validJsonResourceIdentifier($datum);
+            ValidResourceIdentifierAssertion::assert($datum);
             $resourceIdentifiers[] = new ResourceIdentifier(
                 $datum['id'],
                 $datum['type'],

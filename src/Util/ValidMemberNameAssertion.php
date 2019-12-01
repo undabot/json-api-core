@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Undabot\JsonApi\Util\Assert;
+namespace Undabot\JsonApi\Util;
 
 class ValidMemberNameAssertion
 {

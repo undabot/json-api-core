@@ -7,10 +7,11 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToLinkCollectionEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToMetaEncoderInterface;
+use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 use Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
-use Undabot\JsonApi\Util\Assert\Exception\AssertException;
+use Undabot\JsonApi\Util\Exception\ValidationException;
 
 class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 {
@@ -37,7 +38,7 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
             ],
         ];
 
-        $relationshipsCollection = $this->encoder->decode($emptyRelationshipsArray);
+        $relationshipsCollection = $this->encoder->encode($emptyRelationshipsArray);
 
         $this->assertCount(1, $relationshipsCollection);
 
@@ -68,7 +69,7 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
             ],
         ];
 
-        $relationshipsCollection = $this->encoder->decode($validRelationshipsArray);
+        $relationshipsCollection = $this->encoder->encode($validRelationshipsArray);
 
         /** @var Relationship singleRelationship */
         $singleRelationship = $relationshipsCollection->getRelationshipByName('fakeResourceName');
@@ -97,9 +98,9 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
             ],
         ];
 
-        $this->expectException(AssertException::class);
+        $this->expectException(JsonApiEncodingException::class);
         $this->expectExceptionMessage('Resource identifier must have key `type`');
-        $this->encoder->decode($invalidRelationshipArray);
+        $this->encoder->encode($invalidRelationshipArray);
     }
 
     public function testMissingRelationshipIdRaisesException(): void
@@ -113,8 +114,8 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
             ],
         ];
 
-        $this->expectException(AssertException::class);
+        $this->expectException(JsonApiEncodingException::class);
         $this->expectExceptionMessage('Resource identifier must have key `id`');
-        $this->encoder->decode($invalidRelationshipArray);
+        $this->encoder->encode($invalidRelationshipArray);
     }
 }

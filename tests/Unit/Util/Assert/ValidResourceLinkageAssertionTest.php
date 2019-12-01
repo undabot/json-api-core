@@ -5,33 +5,22 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Util\Assert\Exception\AssertException;
-use Undabot\JsonApi\Util\Assert\ValidResourceLinkageAssertion;
+use Undabot\JsonApi\Util\Exception\ValidationException;
+use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
 class ValidResourceLinkageAssertionTest extends TestCase
 {
-    /** @var ValidResourceLinkageAssertion */
-    private $assertion;
-
-    protected function setUp()
-    {
-        $this->assertion = new ValidResourceLinkageAssertion();
-    }
-
     public function validResourceLinkageData()
     {
         return [
             [
-                [
-                    'id' => '1',
-                    'type' => 'category',
-                ],
+                null, // empty to one
             ],
             [
-                null,
+                [], // empty to many
             ],
             [
-                [],
+                ['id' => '1', 'type' => 'category'],
             ],
             [
                 [
@@ -48,7 +37,9 @@ class ValidResourceLinkageAssertionTest extends TestCase
      */
     public function testValidateValidResourceLinkageArray(?array $resourceLinkage)
     {
-        $this->assertTrue($this->assertion->assert($resourceLinkage));
+        // no exceptions expected here
+        $this->expectNotToPerformAssertions();
+        ValidResourceLinkageAssertion::assert($resourceLinkage);
     }
 
     public function invalidResourceLinkageData()
@@ -68,7 +59,13 @@ class ValidResourceLinkageAssertionTest extends TestCase
      */
     public function testValidateInvalidResourceLinkageArray(array $resourceLinkage)
     {
-        $this->expectException(AssertException::class);
-        $this->assertFalse($this->assertion->assert($resourceLinkage));
+        $this->expectException(ValidationException::class);
+        ValidResourceLinkageAssertion::assert($resourceLinkage);
+    }
+
+    public function testNullIsConsideredAsValidEmptyToOneRelationship()
+    {
+        $this->expectNotToPerformAssertions();
+        ValidResourceLinkageAssertion::assert(null);
     }
 }

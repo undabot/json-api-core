@@ -5,25 +5,19 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Util\Assert\Exception\AssertException;
-use Undabot\JsonApi\Util\Assert\ValidJsonResourceAssertion;
+use Undabot\JsonApi\Util\Exception\ValidationException;
+use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 class ValidJsonResourceAssertionTest extends TestCase
 {
-    /** @var ValidJsonResourceAssertion */
-    private $assertion;
-
-    protected function setUp()
-    {
-        $this->assertion = new ValidJsonResourceAssertion();
-    }
-
     /**
      * @dataProvider validResourceData
      */
     public function testValidateValidResourceArray(array $resource)
     {
-        $this->assertTrue($this->assertion->assert($resource));
+        // no exceptions expected here
+        $this->expectNotToPerformAssertions();
+        ValidResourceAssertion::assert($resource);
     }
 
     /**
@@ -31,8 +25,8 @@ class ValidJsonResourceAssertionTest extends TestCase
      */
     public function testValidateInvalidResourceArray(array $resource)
     {
-        $this->expectException(AssertException::class);
-        $this->assertFalse($this->assertion->assert($resource));
+        $this->expectException(ValidationException::class);
+        ValidResourceAssertion::assert($resource);
     }
 
     public function validResourceData()
@@ -109,5 +103,67 @@ class ValidJsonResourceAssertionTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    public function testValidationFailsForNullType()
+    {
+        $this->expectException(ValidationException::class);
+        $resource = [
+            'type' => null,
+        ];
+
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public function testValidationFailsForNullId()
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Resource `id` must be string');
+        $resource = [
+            'type' => 'x',
+            'id' => null,
+        ];
+
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public function testValidationFailsForMissingType()
+    {
+        $this->expectException(ValidationException::class);
+        $resource = [
+            'id' => '1',
+        ];
+
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public function testValidationFailsForUnsupportedKey()
+    {
+        $this->expectException(ValidationException::class);
+        $resource = [
+            'something' => '1',
+        ];
+
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public function testValidationFailsForNonStringId()
+    {
+        $resource = [
+            'id' => 1,
+        ];
+
+        $this->expectException(ValidationException::class);
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public function testValidationFailsForNonStringType()
+    {
+        $resource = [
+            'type' => 1,
+        ];
+
+        $this->expectException(ValidationException::class);
+        ValidResourceAssertion::assert($resource);
     }
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Undabot\JsonApi\Util\Assert\Exception;
+namespace Undabot\JsonApi\Util\Exception;
 
 use Exception;
 
-class AssertException extends Exception
+class ValidationException extends Exception
 {
     /**
      * @var string|null
@@ -23,8 +23,13 @@ class AssertException extends Exception
      */
     private $constraints;
 
-    public function __construct($message, $code = null, string $propertyPath = null, $value = null, array $constraints = [])
-    {
+    public function __construct(
+        $message,
+        $code = null,
+        string $propertyPath = null,
+        $value = null,
+        array $constraints = []
+    ) {
         parent::__construct($message, $code);
 
         $this->propertyPath = $propertyPath;

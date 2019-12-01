@@ -6,6 +6,6 @@ namespace Undabot\JsonApi\Implementation\Encoding\Exception;
 
 use Exception;
 
-class PhpArrayEncodingException extends Exception
+class JsonApiEncodingException extends Exception
 {
 }

@@ -6,6 +6,7 @@ namespace Undabot\JsonApi\Implementation\Encoding;
 
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToLinkCollectionEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
 class PhpArrayToLinkCollectionEncoder implements PhpArrayToLinkCollectionEncoderInterface
 {
@@ -15,7 +16,7 @@ class PhpArrayToLinkCollectionEncoder implements PhpArrayToLinkCollectionEncoder
         // @todo implement
     }
 
-    public function decodeLinkObject(array $link)
+    public function decodeLinkObject(string $name, string $url): LinkInterface
     {
         throw new \RuntimeException('Not implemented');
         // @todo implement

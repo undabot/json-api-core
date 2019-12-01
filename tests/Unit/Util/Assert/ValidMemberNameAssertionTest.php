@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Util\Assert\ValidMemberNameAssertion;
+use Undabot\JsonApi\Util\ValidMemberNameAssertion;
 
 class ValidMemberNameAssertionTest extends TestCase
 {
