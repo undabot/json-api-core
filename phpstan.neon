@@ -1,9 +1,8 @@
 parameters:
-    level: max
     paths:
-        - src
-        - tests
-
+        - src/
+    level: max
+#  symfony:
+#    container_xml_path: '%rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml'
 includes:
-    - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/ekino/phpstan-banned-code/extension.neon
