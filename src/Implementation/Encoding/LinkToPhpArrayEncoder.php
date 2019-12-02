@@ -20,7 +20,7 @@ class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
     }
 
     /**
-     * @return array|string|null
+     * @return null|array|string
      */
     public function encode(LinkInterface $link)
     {

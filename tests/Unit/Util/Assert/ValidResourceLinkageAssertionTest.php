@@ -8,7 +8,13 @@ use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
-class ValidResourceLinkageAssertionTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ValidResourceLinkageAssertionTest extends TestCase
 {
     public function validResourceLinkageData()
     {
@@ -35,7 +41,7 @@ class ValidResourceLinkageAssertionTest extends TestCase
     /**
      * @dataProvider validResourceLinkageData
      */
-    public function testValidateValidResourceLinkageArray(?array $resourceLinkage)
+    public function testValidateValidResourceLinkageArray(?array $resourceLinkage): void
     {
         // no exceptions expected here
         $this->expectNotToPerformAssertions();
@@ -57,13 +63,13 @@ class ValidResourceLinkageAssertionTest extends TestCase
     /**
      * @dataProvider invalidResourceLinkageData
      */
-    public function testValidateInvalidResourceLinkageArray(array $resourceLinkage)
+    public function testValidateInvalidResourceLinkageArray(array $resourceLinkage): void
     {
         $this->expectException(ValidationException::class);
         ValidResourceLinkageAssertion::assert($resourceLinkage);
     }
 
-    public function testNullIsConsideredAsValidEmptyToOneRelationship()
+    public function testNullIsConsideredAsValidEmptyToOneRelationship(): void
     {
         $this->expectNotToPerformAssertions();
         ValidResourceLinkageAssertion::assert(null);

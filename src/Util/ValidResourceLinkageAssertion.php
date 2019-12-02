@@ -13,7 +13,7 @@ class ValidResourceLinkageAssertion
      * - null for empty to-one relationships.
      * - an empty array ([]) for empty to-many relationships.
      * - a single resource identifier object for non-empty to-one relationships.
-     * - an array of resource identifier objects for non-empty to-many relationships
+     * - an array of resource identifier objects for non-empty to-many relationships.
      *
      * @throws ValidationException
      */
@@ -23,7 +23,7 @@ class ValidResourceLinkageAssertion
             return;
         }
 
-        if (0 === count($resourceLinkage)) {
+        if (0 === \count($resourceLinkage)) {
             return;
         }
 

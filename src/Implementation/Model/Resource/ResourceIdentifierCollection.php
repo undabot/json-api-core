@@ -20,16 +20,6 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
         $this->resourceIdentifiers = $resourceIdentifiers;
     }
 
-    private function makeSureResourcesIdentifiersAreValid(array $resourceIdentifiers): void
-    {
-        foreach ($resourceIdentifiers as $resourceIdentifier) {
-            if (false === ($resourceIdentifier instanceof ResourceIdentifierInterface)) {
-                $message = sprintf('ResourceIdentifierInterface expected, %s given', get_class($resourceIdentifier));
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
     public function getResourceIdentifiers(): array
     {
         return $this->resourceIdentifiers;
@@ -38,5 +28,16 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
     public function getIterator()
     {
         return new ArrayIterator($this->getResourceIdentifiers());
+    }
+
+    private function makeSureResourcesIdentifiersAreValid(array $resourceIdentifiers): void
+    {
+        foreach ($resourceIdentifiers as $resourceIdentifier) {
+            if (false === ($resourceIdentifier instanceof ResourceIdentifierInterface)) {
+                $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
+
+                throw new InvalidArgumentException($message);
+            }
+        }
     }
 }

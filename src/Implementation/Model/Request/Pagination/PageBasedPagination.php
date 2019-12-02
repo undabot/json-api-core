@@ -8,8 +8,8 @@ use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 
 class PageBasedPagination implements PaginationInterface
 {
-    const PARAM_PAGE_NUMBER = 'number';
-    const PARAM_PAGE_SIZE = 'size';
+    public const PARAM_PAGE_NUMBER = 'number';
+    public const PARAM_PAGE_SIZE = 'size';
 
     /** @var int */
     private $pageNumber;

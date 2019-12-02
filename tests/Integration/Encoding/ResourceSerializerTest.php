@@ -27,12 +27,18 @@ use Undabot\JsonApi\Implementation\Model\Resource\Resource;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
-class ResourceSerializerTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ResourceSerializerTest extends TestCase
 {
     /** @var ResourceToPhpArrayEncoderInterface */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $metaSerializer = new MetaToPhpArrayEncoder();
         $linkSerializer = new LinkToPhpArrayEncoder($metaSerializer);
@@ -40,15 +46,19 @@ class ResourceSerializerTest extends TestCase
 
         $this->serializer = new ResourceToPhpArrayEncoder(
             $metaSerializer,
-            new RelationshipCollectionToPhpArrayEncoder(new RelationshipToPhpArrayEncoder(
-                    $metaSerializer, $linksSerializer, new ResourceIdentifierToPhpArrayEncoder($metaSerializer))
+            new RelationshipCollectionToPhpArrayEncoder(
+                new RelationshipToPhpArrayEncoder(
+                    $metaSerializer,
+                    $linksSerializer,
+                    new ResourceIdentifierToPhpArrayEncoder($metaSerializer)
+                )
             ),
             $linkSerializer,
             new AttributeCollectionToPhpArrayEncoder()
         );
     }
 
-    public function testSimpleResourceCanBeSerialized()
+    public function testSimpleResourceCanBeSerialized(): void
     {
         $resource = new Resource(
             '1',
@@ -71,32 +81,32 @@ class ResourceSerializerTest extends TestCase
         $serialized = $this->serializer->encode($resource);
 
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        $expectedJson = <<<JSON
-{
-    "type": "articles",
-    "id": "1",
-    "attributes": {
-        "title": "Rails is Omakase"
-    },
-    "relationships": {
-        "author": {
-            "links": {
-                "self": "/articles/1/relationships/author",
-                "related": "/articles/1/author"
-            },
-            "data": {
-                "type": "people",
-                "id": "9"
+        $expectedJson = <<<'JSON'
+            {
+                "type": "articles",
+                "id": "1",
+                "attributes": {
+                    "title": "Rails is Omakase"
+                },
+                "relationships": {
+                    "author": {
+                        "links": {
+                            "self": "/articles/1/relationships/author",
+                            "related": "/articles/1/author"
+                        },
+                        "data": {
+                            "type": "people",
+                            "id": "9"
+                        }
+                    }
+                }
             }
-        }
-    }
-}
-JSON;
+            JSON;
 
-        $this->assertEquals($expectedJson, $serializedJson);
+        static::assertEquals($expectedJson, $serializedJson);
     }
 
-    public function testComplexResourceCanBeSerialized()
+    public function testComplexResourceCanBeSerialized(): void
     {
         $resource = new Resource(
             '1',
@@ -131,47 +141,47 @@ JSON;
         $serialized = $this->serializer->encode($resource);
 
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        $expectedJson = <<<JSON
-{
-    "type": "articles",
-    "id": "1",
-    "attributes": {
-        "title": "JSON:API paints my bikeshed!"
-    },
-    "links": {
-        "self": "http://example.com/articles/1"
-    },
-    "relationships": {
-        "author": {
-            "links": {
-                "self": "http://example.com/articles/1/relationships/author",
-                "related": "http://example.com/articles/1/author"
-            },
-            "data": {
-                "type": "people",
-                "id": "9"
-            }
-        },
-        "comments": {
-            "links": {
-                "self": "http://example.com/articles/1/relationships/comments",
-                "related": "http://example.com/articles/1/comments"
-            },
-            "data": [
-                {
-                    "type": "comments",
-                    "id": "5"
+        $expectedJson = <<<'JSON'
+            {
+                "type": "articles",
+                "id": "1",
+                "attributes": {
+                    "title": "JSON:API paints my bikeshed!"
                 },
-                {
-                    "type": "comments",
-                    "id": "12"
+                "links": {
+                    "self": "http://example.com/articles/1"
+                },
+                "relationships": {
+                    "author": {
+                        "links": {
+                            "self": "http://example.com/articles/1/relationships/author",
+                            "related": "http://example.com/articles/1/author"
+                        },
+                        "data": {
+                            "type": "people",
+                            "id": "9"
+                        }
+                    },
+                    "comments": {
+                        "links": {
+                            "self": "http://example.com/articles/1/relationships/comments",
+                            "related": "http://example.com/articles/1/comments"
+                        },
+                        "data": [
+                            {
+                                "type": "comments",
+                                "id": "5"
+                            },
+                            {
+                                "type": "comments",
+                                "id": "12"
+                            }
+                        ]
+                    }
                 }
-            ]
-        }
-    }
-}
-JSON;
+            }
+            JSON;
 
-        $this->assertEquals($expectedJson, $serializedJson);
+        static::assertEquals($expectedJson, $serializedJson);
     }
 }

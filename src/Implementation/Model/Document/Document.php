@@ -16,22 +16,22 @@ use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 class Document implements DocumentInterface
 {
-    /** @var DocumentDataInterface|null */
+    /** @var null|DocumentDataInterface */
     private $data;
 
-    /** @var ErrorCollectionInterface|null */
+    /** @var null|ErrorCollectionInterface */
     private $errors;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $meta;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $jsonApiMeta;
 
-    /** @var LinkCollectionInterface|null */
+    /** @var null|LinkCollectionInterface */
     private $links;
 
-    /** @var ResourceCollectionInterface|null */
+    /** @var null|ResourceCollectionInterface */
     private $included;
 
     public function __construct(
@@ -53,6 +53,36 @@ class Document implements DocumentInterface
         $this->jsonApiMeta = $jsonApi;
         $this->links = $links;
         $this->included = $included;
+    }
+
+    public function getData(): ?DocumentDataInterface
+    {
+        return $this->data;
+    }
+
+    public function getErrors(): ?ErrorCollectionInterface
+    {
+        return $this->errors;
+    }
+
+    public function getMeta(): ?MetaInterface
+    {
+        return $this->meta;
+    }
+
+    public function getJsonApiMeta(): ?MetaInterface
+    {
+        return $this->jsonApiMeta;
+    }
+
+    public function getLinks(): ?LinkCollectionInterface
+    {
+        return $this->links;
+    }
+
+    public function getIncluded(): ?ResourceCollectionInterface
+    {
+        return $this->included;
     }
 
     /**
@@ -93,14 +123,14 @@ class Document implements DocumentInterface
 
         /** @var Link $link */
         foreach ($links as $link) {
-            if (false === in_array($link->getName(), $validNames)) {
+            if (false === \in_array($link->getName(), $validNames, true)) {
                 throw new InvalidArgumentException("{$link->getName()} is not acceptable link");
             }
         }
     }
 
     /**
-     * A document MUST contain at least one of the following top-level members
+     * A document MUST contain at least one of the following top-level members.
      *
      * @see https://jsonapi.org/format/#document-top-level
      */
@@ -126,35 +156,5 @@ class Document implements DocumentInterface
         if (null === $data && null !== $included) {
             throw new InvalidArgumentException('a document does not contain a top-level data key, the included member MUST NOT be present either.');
         }
-    }
-
-    public function getData(): ?DocumentDataInterface
-    {
-        return $this->data;
-    }
-
-    public function getErrors(): ?ErrorCollectionInterface
-    {
-        return $this->errors;
-    }
-
-    public function getMeta(): ?MetaInterface
-    {
-        return $this->meta;
-    }
-
-    public function getJsonApiMeta(): ?MetaInterface
-    {
-        return $this->jsonApiMeta;
-    }
-
-    public function getLinks(): ?LinkCollectionInterface
-    {
-        return $this->links;
-    }
-
-    public function getIncluded(): ?ResourceCollectionInterface
-    {
-        return $this->included;
     }
 }

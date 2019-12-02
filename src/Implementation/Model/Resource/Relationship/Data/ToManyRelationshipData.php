@@ -13,6 +13,11 @@ class ToManyRelationshipData implements ToManyRelationshipDataInterface
     /** @var ResourceIdentifierCollectionInterface */
     private $resourceIdentifierCollection;
 
+    public function __construct(ResourceIdentifierCollectionInterface $resourceIdentifierCollection)
+    {
+        $this->resourceIdentifierCollection = $resourceIdentifierCollection;
+    }
+
     public static function makeEmpty(): self
     {
         return new self(new ResourceIdentifierCollection([]));
@@ -23,15 +28,10 @@ class ToManyRelationshipData implements ToManyRelationshipDataInterface
         return new self($resourceIdentifierCollection);
     }
 
-    public function __construct(ResourceIdentifierCollectionInterface $resourceIdentifierCollection)
-    {
-        $this->resourceIdentifierCollection = $resourceIdentifierCollection;
-    }
-
     public function isEmpty(): bool
     {
         return null === $this->resourceIdentifierCollection ||
-            0 === count($this->resourceIdentifierCollection->getResourceIdentifiers());
+            0 === \count($this->resourceIdentifierCollection->getResourceIdentifiers());
     }
 
     public function getData(): ResourceIdentifierCollectionInterface

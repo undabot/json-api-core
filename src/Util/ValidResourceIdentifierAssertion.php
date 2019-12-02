@@ -6,6 +6,9 @@ namespace Undabot\JsonApi\Util;
 
 class ValidResourceIdentifierAssertion
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function assert(array $resourceIdentifier): void
     {
         $dataSummary = json_encode($resourceIdentifier);

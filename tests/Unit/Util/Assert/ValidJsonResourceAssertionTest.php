@@ -8,12 +8,18 @@ use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceAssertion;
 
-class ValidJsonResourceAssertionTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ValidJsonResourceAssertionTest extends TestCase
 {
     /**
      * @dataProvider validResourceData
      */
-    public function testValidateValidResourceArray(array $resource)
+    public function testValidateValidResourceArray(array $resource): void
     {
         // no exceptions expected here
         $this->expectNotToPerformAssertions();
@@ -23,7 +29,7 @@ class ValidJsonResourceAssertionTest extends TestCase
     /**
      * @dataProvider invalidResourceData
      */
-    public function testValidateInvalidResourceArray(array $resource)
+    public function testValidateInvalidResourceArray(array $resource): void
     {
         $this->expectException(ValidationException::class);
         ValidResourceAssertion::assert($resource);
@@ -105,7 +111,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ];
     }
 
-    public function testValidationFailsForNullType()
+    public function testValidationFailsForNullType(): void
     {
         $this->expectException(ValidationException::class);
         $resource = [
@@ -115,7 +121,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function testValidationFailsForNullId()
+    public function testValidationFailsForNullId(): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Resource `id` must be string');
@@ -127,7 +133,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function testValidationFailsForMissingType()
+    public function testValidationFailsForMissingType(): void
     {
         $this->expectException(ValidationException::class);
         $resource = [
@@ -137,7 +143,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function testValidationFailsForUnsupportedKey()
+    public function testValidationFailsForUnsupportedKey(): void
     {
         $this->expectException(ValidationException::class);
         $resource = [
@@ -147,7 +153,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function testValidationFailsForNonStringId()
+    public function testValidationFailsForNonStringId(): void
     {
         $resource = [
             'id' => 1,
@@ -157,7 +163,7 @@ class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function testValidationFailsForNonStringType()
+    public function testValidationFailsForNonStringType(): void
     {
         $resource = [
             'type' => 1,

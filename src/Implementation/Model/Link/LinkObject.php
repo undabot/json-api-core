@@ -12,7 +12,7 @@ final class LinkObject implements LinkMemberInterface
     /** @var string */
     private $href;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $meta;
 
     public function __construct(string $href, ?MetaInterface $meta)

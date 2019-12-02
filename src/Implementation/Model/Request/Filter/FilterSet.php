@@ -13,6 +13,12 @@ class FilterSet implements IteratorAggregate
     /** @var Filter[] */
     private $filters;
 
+    public function __construct(array $filters)
+    {
+        Assertion::allIsInstanceOf($filters, Filter::class);
+        $this->filters = $filters;
+    }
+
     /**
      * @param array $rawFilters Key value pairs of filters
      */
@@ -25,12 +31,6 @@ class FilterSet implements IteratorAggregate
         }
 
         return new self($filters);
-    }
-
-    public function __construct(array $filters)
-    {
-        Assertion::allIsInstanceOf($filters, Filter::class);
-        $this->filters = $filters;
     }
 
     public function getIterator()
@@ -62,7 +62,7 @@ class FilterSet implements IteratorAggregate
     public function getFilterNames(): array
     {
         return array_map(
-            function (Filter $filter) {
+            static function (Filter $filter) {
                 return $filter->getName();
             },
             $this->filters

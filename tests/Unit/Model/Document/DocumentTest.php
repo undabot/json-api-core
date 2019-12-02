@@ -16,46 +16,52 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Implementation\Model\Document\Document;
 use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
-class DocumentTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class DocumentTest extends TestCase
 {
-    public function testItCanBeConstructedWithDocumentDataOnly()
+    public function testItCanBeConstructedWithDocumentDataOnly(): void
     {
         /** @var DocumentDataInterface $documentDataMock */
         $documentDataMock = $this->createMock(DocumentDataInterface::class);
 
         $document = new Document($documentDataMock);
 
-        $this->assertInstanceOf(Document::class, $document);
+        static::assertInstanceOf(Document::class, $document);
     }
 
-    public function testItCanBeConstructedWithErrorCollectionOnly()
+    public function testItCanBeConstructedWithErrorCollectionOnly(): void
     {
         /** @var ErrorCollectionInterface $errorCollectionMock */
         $errorCollectionMock = $this->createMock(ErrorCollectionInterface::class);
 
         $document = new Document(null, $errorCollectionMock);
 
-        $this->assertInstanceOf(Document::class, $document);
+        static::assertInstanceOf(Document::class, $document);
     }
 
-    public function testItCanBeConstructedWithMetaOnly()
+    public function testItCanBeConstructedWithMetaOnly(): void
     {
         /** @var Meta $metaMock */
         $metaMock = $this->createMock(MetaInterface::class);
 
         $document = new Document(null, null, $metaMock);
 
-        $this->assertInstanceOf(Document::class, $document);
+        static::assertInstanceOf(Document::class, $document);
     }
 
-    public function testItMustContainAtLeastOneOfTheRequiredTopLevelMembers()
+    public function testItMustContainAtLeastOneOfTheRequiredTopLevelMembers(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         new Document(null);
     }
 
-    public function testExceptionWillBeThrownIfDocumentDataAndErrorsCoexist()
+    public function testExceptionWillBeThrownIfDocumentDataAndErrorsCoexist(): void
     {
         /** @var DocumentDataInterface $documentDataMock */
         $documentDataMock = $this->createMock(DocumentDataInterface::class);
@@ -67,16 +73,16 @@ class DocumentTest extends TestCase
         new Document($documentDataMock, $errorCollectionMock);
     }
 
-    public function testItWillRecognizeInvalidLinkMember()
+    public function testItWillRecognizeInvalidLinkMember(): void
     {
         $linkCollection = $this->createMock(LinkCollectionInterface::class);
 
         $invalidLink = $this->createMock(LinkInterface::class);
-        $invalidLink->expects($this->exactly(2))
+        $invalidLink->expects(static::exactly(2))
             ->method('getName')
             ->willReturn('invalidLink');
 
-        $linkCollection->expects($this->once())
+        $linkCollection->expects(static::once())
             ->method('getIterator')
             ->willReturn(new ArrayIterator([$invalidLink]));
 
@@ -87,7 +93,7 @@ class DocumentTest extends TestCase
         new Document($documentDataMock, null, null, null, $linkCollection);
     }
 
-    public function testItWillRecognizeIncludedWithoutPrimaryDataAsInvalid()
+    public function testItWillRecognizeIncludedWithoutPrimaryDataAsInvalid(): void
     {
         /** @var ResourceCollectionInterface $documentDataMock */
         $included = $this->createMock(ResourceCollectionInterface::class);

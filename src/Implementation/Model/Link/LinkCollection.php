@@ -11,7 +11,7 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
 final class LinkCollection implements LinkCollectionInterface
 {
-    /** @var Link[] */
+    /** @var LinkInterface[] */
     private $links;
 
     public function __construct(array $links)

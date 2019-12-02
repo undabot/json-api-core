@@ -59,17 +59,17 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     private function decodeRelationship(string $relationshipName, array $relationshipValue): Relationship
     {
         $relationshipData = null;
-        if (true === array_key_exists('data', $relationshipValue)) {
+        if (true === \array_key_exists('data', $relationshipValue)) {
             $relationshipData = $this->parseRelationshipData($relationshipValue['data']);
         }
 
         $relationshipLinks = null;
-        if (true === array_key_exists('links', $relationshipValue)) {
+        if (true === \array_key_exists('links', $relationshipValue)) {
             $relationshipLinks = $this->phpArrayToLinkCollectionEncoder->encode($relationshipValue['links']);
         }
 
         $relationshipMeta = null;
-        if (true === array_key_exists('meta', $relationshipValue)) {
+        if (true === \array_key_exists('meta', $relationshipValue)) {
             $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['meta']);
         }
 
@@ -100,7 +100,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             return ToOneRelationshipData::makeEmpty();
         }
 
-        if (true === is_array($resourceLinkage) && 0 === count($resourceLinkage)) {
+        if (true === \is_array($resourceLinkage) && 0 === \count($resourceLinkage)) {
             return ToManyRelationshipData::makeEmpty();
         }
 

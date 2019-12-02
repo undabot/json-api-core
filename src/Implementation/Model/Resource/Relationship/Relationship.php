@@ -15,13 +15,13 @@ class Relationship implements RelationshipInterface
     /** @var string */
     private $name;
 
-    /** @var LinkCollectionInterface|null */
+    /** @var null|LinkCollectionInterface */
     private $links;
 
-    /** @var RelationshipDataInterface|null */
+    /** @var null|RelationshipDataInterface */
     private $data;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $meta;
 
     public function __construct(
@@ -57,25 +57,6 @@ class Relationship implements RelationshipInterface
         $this->meta = $meta;
     }
 
-    private function makeSureLinksAreEitherSelfOrRelated(LinkCollectionInterface $links): void
-    {
-        $linkNames = $links->getLinkNames();
-
-        $allowedLinks = ['self', 'related'];
-
-        $disallowedLinks = array_diff($linkNames, $allowedLinks);
-
-        if (0 !== count($disallowedLinks)) {
-            $message = sprintf('Relationship can only have `self` and `related` links, %s given.',
-                (implode(', ', $disallowedLinks)));
-            throw new InvalidArgumentException($message);
-        }
-
-        // @todo A relationship object that represents a to-many relationship MAY
-        // also contain pagination links under the links member, as described below.
-        // Any pagination links in a relationship object MUST paginate the relationship data, not the related resources.
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -94,5 +75,27 @@ class Relationship implements RelationshipInterface
     public function getMeta(): ?MetaInterface
     {
         return $this->meta;
+    }
+
+    private function makeSureLinksAreEitherSelfOrRelated(LinkCollectionInterface $links): void
+    {
+        $linkNames = $links->getLinkNames();
+
+        $allowedLinks = ['self', 'related'];
+
+        $disallowedLinks = array_diff($linkNames, $allowedLinks);
+
+        if (0 !== \count($disallowedLinks)) {
+            $message = sprintf(
+                'Relationship can only have `self` and `related` links, %s given.',
+                (implode(', ', $disallowedLinks))
+            );
+
+            throw new InvalidArgumentException($message);
+        }
+
+        // @todo A relationship object that represents a to-many relationship MAY
+        // also contain pagination links under the links member, as described below.
+        // Any pagination links in a relationship object MUST paginate the relationship data, not the related resources.
     }
 }

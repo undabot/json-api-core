@@ -12,12 +12,18 @@ use Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEnco
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
-class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 {
     /** @var PhpArrayToRelationshipCollectionEncoder */
     private $encoder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $phpArrayToMetaEncoder = $this->createMock(PhpArrayToMetaEncoderInterface::class);
         $phpArrayToLinkCollectionEncoder = $this->createMock(PhpArrayToLinkCollectionEncoderInterface::class);
@@ -39,7 +45,7 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 
         $relationshipsCollection = $this->encoder->encode($emptyRelationshipsArray);
 
-        $this->assertCount(1, $relationshipsCollection);
+        static::assertCount(1, $relationshipsCollection);
 
         /** @var Relationship $singleRelationship */
         $singleRelationship = $relationshipsCollection->getRelationshipByName('fakeResourceName');
@@ -47,12 +53,12 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         /** @var ToManyRelationshipData $relationshipData */
         $relationshipData = $singleRelationship->getData();
 
-        $this->assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
 
         /** @var ToManyRelationshipData $relationships */
         $relationships = $singleRelationship->getData();
 
-        $this->assertTrue($relationships->isEmpty());
+        static::assertTrue($relationships->isEmpty());
     }
 
     public function testValidRelationshipsArrayIsEncodedToRelationshipsCollection(): void
@@ -73,17 +79,17 @@ class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         /** @var Relationship singleRelationship */
         $singleRelationship = $relationshipsCollection->getRelationshipByName('fakeResourceName');
 
-        $this->assertCount(1, $relationshipsCollection->getRelationships());
+        static::assertCount(1, $relationshipsCollection->getRelationships());
 
         /** @var ToManyRelationshipData relationshipData */
         $relationshipData = $singleRelationship->getData();
 
-        $this->assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
 
         /** @var ToManyRelationshipData $relationships */
         $relationships = $singleRelationship->getData();
 
-        $this->assertCount(3, $relationships->getData());
+        static::assertCount(3, $relationships->getData());
     }
 
     public function testMissingRelationshipTypeRaisesException(): void

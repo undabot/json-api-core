@@ -9,7 +9,7 @@ use Exception;
 class ValidationException extends Exception
 {
     /**
-     * @var string|null
+     * @var null|string
      */
     private $propertyPath;
 

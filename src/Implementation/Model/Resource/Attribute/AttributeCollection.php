@@ -20,16 +20,6 @@ class AttributeCollection implements AttributeCollectionInterface
         $this->attributes = $attributes;
     }
 
-    private function makeSureAllAttributesAreValid(array $attributes): void
-    {
-        foreach ($attributes as $attribute) {
-            if (false === ($attribute instanceof Attribute)) {
-                $message = sprintf('Attribute expected, %s given', get_class($attribute));
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
     public function getAttributes(): array
     {
         return $this->attributes;
@@ -49,5 +39,16 @@ class AttributeCollection implements AttributeCollectionInterface
         }
 
         return null;
+    }
+
+    private function makeSureAllAttributesAreValid(array $attributes): void
+    {
+        foreach ($attributes as $attribute) {
+            if (false === ($attribute instanceof Attribute)) {
+                $message = sprintf('Attribute expected, %s given', \get_class($attribute));
+
+                throw new InvalidArgumentException($message);
+            }
+        }
     }
 }

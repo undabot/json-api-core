@@ -20,16 +20,6 @@ class RelationshipCollection implements RelationshipCollectionInterface
         $this->relationships = $relationships;
     }
 
-    private function makeSureThatItemsAreRelationships(array $relationships): void
-    {
-        foreach ($relationships as $relationship) {
-            if (false === ($relationship instanceof Relationship)) {
-                $message = sprintf('Item must be Relationship object, %s given', get_class($relationship));
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
     public function getRelationships(): array
     {
         return $this->relationships;
@@ -50,5 +40,16 @@ class RelationshipCollection implements RelationshipCollectionInterface
         }
 
         return null;
+    }
+
+    private function makeSureThatItemsAreRelationships(array $relationships): void
+    {
+        foreach ($relationships as $relationship) {
+            if (false === ($relationship instanceof Relationship)) {
+                $message = sprintf('Item must be Relationship object, %s given', \get_class($relationship));
+
+                throw new InvalidArgumentException($message);
+            }
+        }
     }
 }

@@ -8,8 +8,8 @@ use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 
 class OffsetBasedPagination implements PaginationInterface
 {
-    const PARAM_PAGE_OFFSET = 'offset';
-    const PARAM_PAGE_LIMIT = 'limit';
+    public const PARAM_PAGE_OFFSET = 'offset';
+    public const PARAM_PAGE_LIMIT = 'limit';
 
     /** @var int */
     private $offset;

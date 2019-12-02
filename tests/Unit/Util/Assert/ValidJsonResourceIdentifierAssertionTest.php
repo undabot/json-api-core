@@ -8,7 +8,13 @@ use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 
-class ValidJsonResourceIdentifierAssertionTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ValidJsonResourceIdentifierAssertionTest extends TestCase
 {
     public function validResourceIdentifierData()
     {
@@ -32,7 +38,7 @@ class ValidJsonResourceIdentifierAssertionTest extends TestCase
     /**
      * @dataProvider validResourceIdentifierData
      */
-    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier)
+    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier): void
     {
         // no exceptions expected here
         $this->expectNotToPerformAssertions();
@@ -93,7 +99,7 @@ class ValidJsonResourceIdentifierAssertionTest extends TestCase
     /**
      * @dataProvider invalidResourceIdentifierData
      */
-    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier)
+    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier): void
     {
         $this->expectException(ValidationException::class);
         ValidResourceIdentifierAssertion::assert($resourceIdentifier);

@@ -49,12 +49,16 @@ return PhpCsFixer\Config::create()
             'no_superfluous_phpdoc_tags' => [
                 'allow_mixed' => true,
             ],
-            'not_operator_with_space' => true,
-            'not_operator_with_successor_space' => true,
+            'not_operator_with_space' => false,
+            'not_operator_with_successor_space' => false,
             'ordered_interfaces' => true,
             'php_unit_size_class' => true,
             'phpdoc_to_return_type' => true,
             'static_lambda' => true,
+            'phpdoc_to_comment' => false, // This allows us some flexibility with PhpStan type resolution
+            'concat_space' => [
+                'spacing' => 'one',
+            ],
         ]
     )
     ->setFinder($finder);

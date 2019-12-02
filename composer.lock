@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64b35b7be28579ddb94c776544bc1cbc",
+    "content-hash": "2707ffcb6d193485b07a9cd37d0476c0",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1742,16 +1742,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.11.15",
+            "version": "0.11.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1be5b3a706db16ac472a4c40ec03cf4c810b118d"
+                "reference": "63cc502f6957b7f74efbac444b4cf219dcadffd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1be5b3a706db16ac472a4c40ec03cf4c810b118d",
-                "reference": "1be5b3a706db16ac472a4c40ec03cf4c810b118d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/63cc502f6957b7f74efbac444b4cf219dcadffd7",
+                "reference": "63cc502f6957b7f74efbac444b4cf219dcadffd7",
                 "shasum": ""
             },
             "require": {
@@ -1759,6 +1759,7 @@
                 "jean85/pretty-package-versions": "^1.0.3",
                 "nette/bootstrap": "^2.4 || ^3.0",
                 "nette/di": "^2.4.7 || ^3.0",
+                "nette/neon": "^2.4.3 || ^3.0",
                 "nette/robot-loader": "^3.0.1",
                 "nette/schema": "^1.0",
                 "nette/utils": "^2.4.5 || ^3.0",
@@ -1803,8 +1804,7 @@
             "autoload": {
                 "psr-4": {
                     "PHPStan\\": [
-                        "src/",
-                        "build/PHPStan"
+                        "src/"
                     ]
                 }
             },
@@ -1813,7 +1813,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2019-08-18T20:51:53+00:00"
+            "time": "2019-10-22T20:20:22+00:00"
         },
         {
             "name": "phpstan/phpstan-beberlei-assert",
@@ -3724,57 +3724,6 @@
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
             "time": "2019-08-07T11:52:19+00:00"
-        },
-        {
-            "name": "thecodingmachine/phpstan-strict-rules",
-            "version": "v0.11.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thecodingmachine/phpstan-strict-rules.git",
-                "reference": "e3d746a61d38993ca2bc2e2fcda7012150de120c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/phpstan-strict-rules/zipball/e3d746a61d38993ca2bc2e2fcda7012150de120c",
-                "reference": "e3d746a61d38993ca2bc2e2fcda7012150de120c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1",
-                "phpstan/phpstan": "^0.11.7"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^7.1"
-            },
-            "type": "phpstan-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.10-dev"
-                },
-                "phpstan": {
-                    "includes": [
-                        "phpstan-strict-rules.neon"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TheCodingMachine\\PHPStan\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Négrier",
-                    "email": "d.negrier@thecodingmachine.com"
-                }
-            ],
-            "description": "A set of additional rules for PHPStan based on best practices followed at TheCodingMachine",
-            "time": "2019-06-08T20:09:55+00:00"
         },
         {
             "name": "theseer/tokenizer",

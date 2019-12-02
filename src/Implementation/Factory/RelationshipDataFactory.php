@@ -31,7 +31,7 @@ class RelationshipDataFactory
             Assertion::isArray($data);
             Assertion::allString($data);
 
-            $resourceIdentifiers = array_map(function (string $id) use ($type) {
+            $resourceIdentifiers = array_map(static function (string $id) use ($type) {
                 return new ResourceIdentifier($id, $type);
             }, $data);
 

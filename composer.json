@@ -12,7 +12,6 @@
     "phpstan/phpstan": "^0.11.1",
     "phpunit/phpunit": "^7.5",
     "phpstan/extension-installer": "^1.0",
-    "thecodingmachine/phpstan-strict-rules": "^0.11.2",
     "phpstan/phpstan-beberlei-assert": "^0.11.2",
     "ekino/phpstan-banned-code": "^0.2.0"
   },

@@ -20,16 +20,6 @@ final class ResourceCollection implements ResourceCollectionInterface
         $this->resources = $resources;
     }
 
-    private function makeSureResourcesAreValid(array $resources): void
-    {
-        foreach ($resources as $resource) {
-            if (false === ($resource instanceof ResourceInterface)) {
-                $message = sprintf('ResourceInterface expected, %s given', get_class($resource));
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
     public function getResources(): array
     {
         return $this->resources;
@@ -38,5 +28,16 @@ final class ResourceCollection implements ResourceCollectionInterface
     public function getIterator()
     {
         return new ArrayIterator($this->getResources());
+    }
+
+    private function makeSureResourcesAreValid(array $resources): void
+    {
+        foreach ($resources as $resource) {
+            if (false === ($resource instanceof ResourceInterface)) {
+                $message = sprintf('ResourceInterface expected, %s given', \get_class($resource));
+
+                throw new InvalidArgumentException($message);
+            }
+        }
     }
 }

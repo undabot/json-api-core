@@ -24,13 +24,6 @@ final class Link implements LinkInterface
         $this->link = $link;
     }
 
-    private function makeSureNameIsValid(string $name): void
-    {
-        if (false === in_array($name, LinkNamesEnum::getValues())) {
-            throw new InvalidArgumentException("Invalid link name {$name}");
-        }
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -44,5 +37,12 @@ final class Link implements LinkInterface
     public function isLinkUrl(): bool
     {
         return $this->link instanceof LinkUrl;
+    }
+
+    private function makeSureNameIsValid(string $name): void
+    {
+        if (false === \in_array($name, LinkNamesEnum::getValues(), true)) {
+            throw new InvalidArgumentException("Invalid link name {$name}");
+        }
     }
 }

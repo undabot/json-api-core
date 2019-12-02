@@ -20,16 +20,6 @@ final class ErrorCollection implements ErrorCollectionInterface
         $this->errors = $errors;
     }
 
-    private function makeSureAllErrorsAreValid(array $errors): void
-    {
-        foreach ($errors as $error) {
-            if (false === ($error instanceof ErrorInterface)) {
-                $message = sprintf('Error expected, %s given', get_class($error));
-                throw new InvalidArgumentException($message);
-            }
-        }
-    }
-
     public function getErrors(): array
     {
         return $this->errors;
@@ -38,5 +28,16 @@ final class ErrorCollection implements ErrorCollectionInterface
     public function getIterator()
     {
         return new ArrayIterator($this->getErrors());
+    }
+
+    private function makeSureAllErrorsAreValid(array $errors): void
+    {
+        foreach ($errors as $error) {
+            if (false === ($error instanceof ErrorInterface)) {
+                $message = sprintf('Error expected, %s given', \get_class($error));
+
+                throw new InvalidArgumentException($message);
+            }
+        }
     }
 }

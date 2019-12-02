@@ -10,17 +10,23 @@ use Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder;
 use Undabot\JsonApi\Implementation\Model\Meta\JsonApiMeta;
 use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
-class MetaSerializerTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class MetaSerializerTest extends TestCase
 {
     /** @var MetaToPhpArrayEncoderInterface */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = new MetaToPhpArrayEncoder();
     }
 
-    public function testMetaObjectIsSerializedCorrectly()
+    public function testMetaObjectIsSerializedCorrectly(): void
     {
         $meta = new Meta([
             'copyright' => 'Copyright 2015 Example Corp.',
@@ -34,22 +40,22 @@ class MetaSerializerTest extends TestCase
 
         $serialized = $this->serializer->encode($meta);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT);
-        $expectedJson = <<<JSON
-{
-    "copyright": "Copyright 2015 Example Corp.",
-    "authors": [
-        "Yehuda Katz",
-        "Steve Klabnik",
-        "Dan Gebhardt",
-        "Tyler Kellen"
-    ]
-}
-JSON;
+        $expectedJson = <<<'JSON'
+            {
+                "copyright": "Copyright 2015 Example Corp.",
+                "authors": [
+                    "Yehuda Katz",
+                    "Steve Klabnik",
+                    "Dan Gebhardt",
+                    "Tyler Kellen"
+                ]
+            }
+            JSON;
 
-        $this->assertEquals($expectedJson, $serializedJson);
+        static::assertEquals($expectedJson, $serializedJson);
     }
 
-    public function testJsonApiObjectIsSerializedCorrectly()
+    public function testJsonApiObjectIsSerializedCorrectly(): void
     {
         $meta = new JsonApiMeta([
             'version' => '1.0',
@@ -57,12 +63,12 @@ JSON;
 
         $serialized = $this->serializer->encode($meta);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT);
-        $expectedJson = <<<JSON
-{
-    "version": "1.0"
-}
-JSON;
+        $expectedJson = <<<'JSON'
+            {
+                "version": "1.0"
+            }
+            JSON;
 
-        $this->assertEquals($expectedJson, $serializedJson);
+        static::assertEquals($expectedJson, $serializedJson);
     }
 }

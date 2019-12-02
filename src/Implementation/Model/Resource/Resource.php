@@ -18,16 +18,16 @@ class Resource implements ResourceInterface
     /** @var string */
     private $type;
 
-    /** @var AttributeCollectionInterface|null */
+    /** @var null|AttributeCollectionInterface */
     private $attributes;
 
-    /** @var RelationshipCollectionInterface|null */
+    /** @var null|RelationshipCollectionInterface */
     private $relationships;
 
-    /** @var LinkInterface|null */
+    /** @var null|LinkInterface */
     private $selfLink;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $meta;
 
     public function __construct(

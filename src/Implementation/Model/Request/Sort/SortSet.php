@@ -13,9 +13,12 @@ class SortSet implements IteratorAggregate
     /** @var Sort[] */
     private $sorts;
 
-    /**
-     * @param string $sortDefinition
-     */
+    public function __construct(array $sorts)
+    {
+        Assertion::allIsInstanceOf($sorts, Sort::class);
+        $this->sorts = $sorts;
+    }
+
     public static function make(string $sortDefinition): self
     {
         $sorts = [];
@@ -24,8 +27,8 @@ class SortSet implements IteratorAggregate
         foreach ($sortElements as $sortElement) {
             $order = Sort::SORT_ORDER_ASC;
 
-            if ('-' === substr($sortElement, 0, 1)) {
-                $sortElement = substr($sortElement, 1);
+            if ('-' === mb_substr($sortElement, 0, 1)) {
+                $sortElement = mb_substr($sortElement, 1);
                 $order = Sort::SORT_ORDER_DESC;
             }
 
@@ -33,12 +36,6 @@ class SortSet implements IteratorAggregate
         }
 
         return new self($sorts);
-    }
-
-    public function __construct(array $sorts)
-    {
-        Assertion::allIsInstanceOf($sorts, Sort::class);
-        $this->sorts = $sorts;
     }
 
     public function getIterator()

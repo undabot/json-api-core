@@ -6,9 +6,6 @@ namespace Undabot\JsonApi\Util;
 
 class ValidMemberNameAssertion
 {
-    /**
-     * @return bool
-     */
     public function assert(string $memberName): bool
     {
         return $this->checkNotEmptyString($memberName) && $this->checkContainsOnlyAllowedCharacters($memberName);
@@ -23,7 +20,7 @@ class ValidMemberNameAssertion
      * The following “globally allowed characters” MAY be used *anywhere* in a member name:
      * U+0061 to U+007A, “a-z”
      * U+0041 to U+005A, “A-Z”
-     * U+0030 to U+0039, “0-9”
+     * U+0030 to U+0039, “0-9”.
      *
      * Additionally, the following characters are allowed
      * in member names, except as the first or last
@@ -31,10 +28,6 @@ class ValidMemberNameAssertion
      *
      * U+002D HYPHEN-MINUS, “-“
      * U+005F LOW LINE, “_”
-     *
-     * @param string $memberName
-     *
-     * @return bool
      */
     private function checkContainsOnlyAllowedCharacters(string $memberName): bool
     {

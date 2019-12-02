@@ -16,7 +16,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 class DocumentData implements DocumentDataInterface
 {
-    /** @var ResourceIdentifierInterface|ResourceInterface|ResourceIdentifierCollection|ResourceCollection|null */
+    /** @var null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface */
     private $data;
 
     public function __construct($data)
@@ -25,12 +25,62 @@ class DocumentData implements DocumentDataInterface
         $this->data = $data;
     }
 
+    public function isResource(): bool
+    {
+        return $this->data instanceof ResourceInterface;
+    }
+
+    public function isResourceIdentifier(): bool
+    {
+        return $this->data instanceof ResourceIdentifierInterface;
+    }
+
+    public function isResourceCollection(): bool
+    {
+        return $this->data instanceof ResourceCollectionInterface;
+    }
+
+    public function isResourceIdentifierCollection(): bool
+    {
+        return $this->data instanceof ResourceIdentifierCollectionInterface;
+    }
+
+    public function isEmpty(): bool
+    {
+        return true === empty($this->data);
+    }
+
+    public function getResource(): ResourceInterface
+    {
+        return $this->returnDataIfTrue($this->isResource(), 'Data is not Resource');
+    }
+
+    public function getResourceCollection(): ResourceCollectionInterface
+    {
+        return $this->returnDataIfTrue($this->isResourceCollection(), 'Data is not Resource Collection');
+    }
+
+    public function getResourceIdentifier(): ResourceIdentifierInterface
+    {
+        return $this->returnDataIfTrue($this->isResourceIdentifier(), 'Data is not Resource Identifier');
+    }
+
+    public function getResourceIdentifierCollection(): ResourceIdentifierCollectionInterface
+    {
+        return $this->returnDataIfTrue(
+            $this->isResourceIdentifierCollection(),
+            'Data is not Resource Identifier Collection'
+        );
+    }
+
     /**
      * Primary data MUST be either:
      * - a single resource object, a single resource identifier object, or null, for requests that target single resources
-     * - an array of resource objects, an array of resource identifier objects, or an empty [[]], for requests that target resource collections
+     * - an array of resource objects, an array of resource identifier objects, or an empty [[]], for requests that target resource collections.
+     *
+     * @param mixed $data
      */
-    private function makeSureDataIsValid($data)
+    private function makeSureDataIsValid($data): void
     {
         // or null, for requests that target single resources
         if (null === $data) {
@@ -65,31 +115,6 @@ class DocumentData implements DocumentDataInterface
         throw new InvalidArgumentException('Invalid data provided');
     }
 
-    public function isResource(): bool
-    {
-        return $this->data instanceof ResourceInterface;
-    }
-
-    public function isResourceIdentifier(): bool
-    {
-        return $this->data instanceof ResourceIdentifierInterface;
-    }
-
-    public function isResourceCollection(): bool
-    {
-        return $this->data instanceof ResourceCollectionInterface;
-    }
-
-    public function isResourceIdentifierCollection(): bool
-    {
-        return $this->data instanceof ResourceIdentifierCollectionInterface;
-    }
-
-    public function isEmpty(): bool
-    {
-        return true === empty($this->data);
-    }
-
     private function returnDataIfTrue(bool $condition, string $errorMessage)
     {
         if (true !== $condition) {
@@ -97,26 +122,5 @@ class DocumentData implements DocumentDataInterface
         }
 
         return $this->data;
-    }
-
-    public function getResource(): ResourceInterface
-    {
-        return $this->returnDataIfTrue($this->isResource(), 'Data is not Resource');
-    }
-
-    public function getResourceCollection(): ResourceCollectionInterface
-    {
-        return $this->returnDataIfTrue($this->isResourceCollection(), 'Data is not Resource Collection');
-    }
-
-    public function getResourceIdentifier(): ResourceIdentifierInterface
-    {
-        return $this->returnDataIfTrue($this->isResourceIdentifier(), 'Data is not Resource Identifier');
-    }
-
-    public function getResourceIdentifierCollection(): ResourceIdentifierCollectionInterface
-    {
-        return $this->returnDataIfTrue($this->isResourceIdentifierCollection(),
-            'Data is not Resource Identifier Collection');
     }
 }

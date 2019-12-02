@@ -9,7 +9,7 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 /**
  * @internal
  */
-class ValidResourceAssertion
+final class ValidResourceAssertion
 {
     /**
      * @throws ValidationException
@@ -33,7 +33,7 @@ class ValidResourceAssertion
         JsonApiAssertion::string($resource['type'], 'Resource `type` must be string');
 
         // Id is optional for resources sent in POST requests
-        if (true === array_key_exists('id', $resource)) {
+        if (true === \array_key_exists('id', $resource)) {
             JsonApiAssertion::string($resource['id'], 'Resource `id` must be string');
         }
 

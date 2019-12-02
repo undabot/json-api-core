@@ -21,28 +21,32 @@ use Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder;
 
 /**
  * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
+ *
+ * @internal
+ *
+ * @small
  */
-class DocumentToPhpArrayEncoderTest extends TestCase
+final class DocumentToPhpArrayEncoderTest extends TestCase
 {
-    /** @var MockObject|DocumentDataToPhpArrayEncoderInterface */
+    /** @var DocumentDataToPhpArrayEncoderInterface|MockObject */
     private $documentDataEncoderMock;
 
     /** @var MockObject|ResourceCollectionToPhpArrayEncoderInterface */
     private $resourceCollectionToPhpArrayEncoderMock;
 
-    /** @var MockObject|ErrorCollectionToPhpArrayEncoderInterface */
+    /** @var ErrorCollectionToPhpArrayEncoderInterface|MockObject */
     private $errorCollectionEncoderMock;
 
-    /** @var MockObject|MetaToPhpArrayEncoderInterface */
+    /** @var MetaToPhpArrayEncoderInterface|MockObject */
     private $metaEncoderMock;
 
-    /** @var MockObject|LinkCollectionToPhpArrayEncoderInterface */
+    /** @var LinkCollectionToPhpArrayEncoderInterface|MockObject */
     private $linkCollectionEncoderMock;
 
     /** @var DocumentToPhpArrayEncoder */
     private $documentEncoder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->documentDataEncoderMock = $this->createMock(DocumentDataToPhpArrayEncoderInterface::class);
         $this->documentDataEncoderMock->method('encode')->willReturn([]);
@@ -71,16 +75,16 @@ class DocumentToPhpArrayEncoderTest extends TestCase
     /**
      * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::__construct
      */
-    public function testItCanBeConstructed()
+    public function testItCanBeConstructed(): void
     {
-        $this->assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
-        $this->assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
+        static::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
+        static::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
     }
 
     /**
      * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::encode
      */
-    public function testEncoderWillCallRespectiveSpecificEncoders()
+    public function testEncoderWillCallRespectiveSpecificEncoders(): void
     {
         $documentData = $this->createMock(DocumentDataInterface::class);
         $errors = $this->createMock(ErrorCollectionInterface::class);
@@ -95,16 +99,16 @@ class DocumentToPhpArrayEncoderTest extends TestCase
         $document->method('getJsonApiMeta')->willReturn($jsonApiMeta);
         $document->method('getLinks')->willReturn($links);
 
-        $this->documentDataEncoderMock->expects($this->once())->method('encode');
-        $this->errorCollectionEncoderMock->expects($this->once())->method('encode');
-        $this->metaEncoderMock->expects($this->exactly(2))->method('encode');
+        $this->documentDataEncoderMock->expects(static::once())->method('encode');
+        $this->errorCollectionEncoderMock->expects(static::once())->method('encode');
+        $this->metaEncoderMock->expects(static::exactly(2))->method('encode');
 
         $encoded = $this->documentEncoder->encode($document);
-        $this->assertIsArray($encoded);
-        $this->assertArrayHasKey('data', $encoded);
-        $this->assertArrayHasKey('errors', $encoded);
-        $this->assertArrayHasKey('meta', $encoded);
-        $this->assertArrayHasKey('jsonapi', $encoded);
-        $this->assertArrayHasKey('links', $encoded);
+        static::assertIsArray($encoded);
+        static::assertArrayHasKey('data', $encoded);
+        static::assertArrayHasKey('errors', $encoded);
+        static::assertArrayHasKey('meta', $encoded);
+        static::assertArrayHasKey('jsonapi', $encoded);
+        static::assertArrayHasKey('links', $encoded);
     }
 }

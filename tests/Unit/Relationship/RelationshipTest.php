@@ -11,13 +11,19 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelati
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
-class RelationshipTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class RelationshipTest extends TestCase
 {
     private $relationshipName;
-    /** @var MockObject|LinkCollectionInterface */
+    /** @var LinkCollectionInterface|MockObject */
     private $linksCollection;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->relationshipName = 'relationshipName';
         $this->linksCollection = $this->createMock(LinkCollectionInterface::class);
@@ -29,7 +35,7 @@ class RelationshipTest extends TestCase
     {
         $relationship = new Relationship('relationshipName', $this->linksCollection);
 
-        $this->assertInstanceOf(Relationship::class, $relationship);
+        static::assertInstanceOf(Relationship::class, $relationship);
     }
 
     public function testItCannotBeCreatedWithInvalidLinkCollection(): void
@@ -45,14 +51,14 @@ class RelationshipTest extends TestCase
     {
         $emptyToOneRelationshipData = ToOneRelationshipData::makeEmpty();
 
-        $this->assertTrue($emptyToOneRelationshipData->isEmpty());
+        static::assertTrue($emptyToOneRelationshipData->isEmpty());
     }
 
     public function testToManyRelationshipDataCanBeCreatedEmpty(): void
     {
         $emptyToManyRelationshipData = ToManyRelationshipData::makeEmpty();
 
-        $this->assertTrue($emptyToManyRelationshipData->isEmpty());
+        static::assertTrue($emptyToManyRelationshipData->isEmpty());
     }
 
     public function testRelationshipCanBeCreatedWithNoData(): void
@@ -64,6 +70,6 @@ class RelationshipTest extends TestCase
         /** @var ToOneRelationshipData $relationshipData */
         $relationshipData = $emptyRelationship->getData();
 
-        $this->assertTrue($relationshipData->isEmpty());
+        static::assertTrue($relationshipData->isEmpty());
     }
 }

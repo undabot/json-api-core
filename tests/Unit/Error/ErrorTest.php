@@ -11,7 +11,13 @@ use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
 use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 use Undabot\JsonApi\Implementation\Model\Source\Source;
 
-class ErrorTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ErrorTest extends TestCase
 {
     /*
      An error object MAY have the following members:
@@ -29,58 +35,58 @@ class ErrorTest extends TestCase
     meta: a meta object containing non-standard meta-information about the error.
      */
 
-    public function testItsPossibleToConstructErrorWithIdOnly()
+    public function testItsPossibleToConstructErrorWithIdOnly(): void
     {
         $error = new Error('e500');
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithLinksOnly()
+    public function testItsPossibleToConstructErrorWithLinksOnly(): void
     {
         $error = new Error(null, new Link('about', new LinkUrl('/error')));
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithStatusOnly()
+    public function testItsPossibleToConstructErrorWithStatusOnly(): void
     {
         $error = new Error(null, null, 'status');
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithCodeOnly()
+    public function testItsPossibleToConstructErrorWithCodeOnly(): void
     {
         $error = new Error(null, null, null, '500');
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithTitleOnly()
+    public function testItsPossibleToConstructErrorWithTitleOnly(): void
     {
         $error = new Error(null, null, null, null, 'Server error');
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithDetailOnly()
+    public function testItsPossibleToConstructErrorWithDetailOnly(): void
     {
         $error = new Error(null, null, null, null, null, 'Server error details');
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithSourceOnly()
+    public function testItsPossibleToConstructErrorWithSourceOnly(): void
     {
         $error = new Error(null, null, null, null, null, null, new Source('/foo/bar'));
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
 
         $error2 = new Error(null, null, null, null, null, null, new Source('/data/attributes/title', 'foo'));
-        $this->assertNotNull($error2);
+        static::assertNotNull($error2);
     }
 
-    public function testItsPossibleToConstructErrorWithMetaOnly()
+    public function testItsPossibleToConstructErrorWithMetaOnly(): void
     {
         $error = new Error(null, null, null, null, null, null, null, new Meta(['foo' => 'bar']));
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 
-    public function testItsPossibleToConstructErrorWithAllAttributes()
+    public function testItsPossibleToConstructErrorWithAllAttributes(): void
     {
         $error = new Error(
             'e500',
@@ -93,6 +99,6 @@ class ErrorTest extends TestCase
             new Meta(['foo' => 'bar'])
         );
 
-        $this->assertNotNull($error);
+        static::assertNotNull($error);
     }
 }

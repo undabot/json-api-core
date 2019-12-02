@@ -37,12 +37,18 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceCollection;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
-class DocumentSerializerTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class DocumentSerializerTest extends TestCase
 {
     /** @var DocumentToPhpArrayEncoderInterface */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $metaSerializer = new MetaToPhpArrayEncoder();
         $linkSerializer = new LinkToPhpArrayEncoder($metaSerializer);
@@ -50,8 +56,12 @@ class DocumentSerializerTest extends TestCase
 
         $resourceSerializer = new ResourceToPhpArrayEncoder(
             $metaSerializer,
-            new RelationshipCollectionToPhpArrayEncoder(new RelationshipToPhpArrayEncoder(
-                    $metaSerializer, $linksSerializer, new ResourceIdentifierToPhpArrayEncoder($metaSerializer))
+            new RelationshipCollectionToPhpArrayEncoder(
+                new RelationshipToPhpArrayEncoder(
+                    $metaSerializer,
+                    $linksSerializer,
+                    new ResourceIdentifierToPhpArrayEncoder($metaSerializer)
+                )
             ),
             $linkSerializer,
             new AttributeCollectionToPhpArrayEncoder()
@@ -68,9 +78,11 @@ class DocumentSerializerTest extends TestCase
                 new ResourceIdentifierToPhpArrayEncoder($metaSerializer),
                 new ResourceIdentifierCollectionToPhpArrayEncoder($resourceIdentifierEncoder),
             ),
-            new ErrorCollectionToPhpArrayEncoder(new ErrorToPhpArrayEncoder($linkSerializer,
+            new ErrorCollectionToPhpArrayEncoder(new ErrorToPhpArrayEncoder(
+                $linkSerializer,
                 new SourceToPhpArrayEncoder(),
-                $metaSerializer)),
+                $metaSerializer
+            )),
             new MetaToPhpArrayEncoder(),
             new LinkCollectionToPhpArrayEncoder(
                 new LinkToPhpArrayEncoder(
@@ -81,7 +93,7 @@ class DocumentSerializerTest extends TestCase
         );
     }
 
-    public function testSimpleDocumentIsSerializedCorrectly()
+    public function testSimpleDocumentIsSerializedCorrectly(): void
     {
         $document = new Document(
             new DocumentData(
@@ -109,35 +121,35 @@ class DocumentSerializerTest extends TestCase
 
         $serialized = $this->serializer->encode($document);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT);
-        $expectedJson = <<<JSON
-{
-    "data": [
-        {
-            "type": "articles",
-            "id": "1",
-            "attributes": {
-                "title": "JSON:API paints my bikeshed!",
-                "body": "The shortest article. Ever.",
-                "created": "2015-05-22T14:56:29.000Z",
-                "updated": "2015-05-22T14:56:28.000Z"
-            },
-            "relationships": {
-                "author": {
-                    "data": {
-                        "type": "people",
-                        "id": "42"
+        $expectedJson = <<<'JSON'
+            {
+                "data": [
+                    {
+                        "type": "articles",
+                        "id": "1",
+                        "attributes": {
+                            "title": "JSON:API paints my bikeshed!",
+                            "body": "The shortest article. Ever.",
+                            "created": "2015-05-22T14:56:29.000Z",
+                            "updated": "2015-05-22T14:56:28.000Z"
+                        },
+                        "relationships": {
+                            "author": {
+                                "data": {
+                                    "type": "people",
+                                    "id": "42"
+                                }
+                            }
+                        }
                     }
-                }
+                ]
             }
-        }
-    ]
-}
-JSON;
+            JSON;
 
-        $this->assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 
-    public function testDocumentWithIncludedResourcesIsSerializedCorrectly()
+    public function testDocumentWithIncludedResourcesIsSerializedCorrectly(): void
     {
         $document = new Document(
             new DocumentData(
@@ -160,8 +172,10 @@ JSON;
                             new Relationship(
                                 'comments',
                                 new LinkCollection([
-                                    new Link('self',
-                                        new LinkUrl('http://example.com/articles/1/relationships/comments')),
+                                    new Link(
+                                        'self',
+                                        new LinkUrl('http://example.com/articles/1/relationships/comments')
+                                    ),
                                     new Link('related', new LinkUrl('http://example.com/articles/1/comments')),
                                 ]),
                                 new ToManyRelationshipData(new ResourceIdentifierCollection([
@@ -226,101 +240,101 @@ JSON;
         $serialized = $this->serializer->encode($document);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-        $expectedJson = <<<JSON
-{
-    "data": [
-        {
-            "type": "articles",
-            "id": "1",
-            "attributes": {
-                "title": "JSON:API paints my bikeshed!"
-            },
-            "links": {
-                "self": "http://example.com/articles/1"
-            },
-            "relationships": {
-                "author": {
-                    "links": {
-                        "self": "http://example.com/articles/1/relationships/author",
-                        "related": "http://example.com/articles/1/author"
-                    },
-                    "data": {
-                        "type": "people",
-                        "id": "9"
-                    }
-                },
-                "comments": {
-                    "links": {
-                        "self": "http://example.com/articles/1/relationships/comments",
-                        "related": "http://example.com/articles/1/comments"
-                    },
-                    "data": [
-                        {
-                            "type": "comments",
-                            "id": "5"
+        $expectedJson = <<<'JSON'
+            {
+                "data": [
+                    {
+                        "type": "articles",
+                        "id": "1",
+                        "attributes": {
+                            "title": "JSON:API paints my bikeshed!"
                         },
-                        {
-                            "type": "comments",
-                            "id": "12"
+                        "links": {
+                            "self": "http://example.com/articles/1"
+                        },
+                        "relationships": {
+                            "author": {
+                                "links": {
+                                    "self": "http://example.com/articles/1/relationships/author",
+                                    "related": "http://example.com/articles/1/author"
+                                },
+                                "data": {
+                                    "type": "people",
+                                    "id": "9"
+                                }
+                            },
+                            "comments": {
+                                "links": {
+                                    "self": "http://example.com/articles/1/relationships/comments",
+                                    "related": "http://example.com/articles/1/comments"
+                                },
+                                "data": [
+                                    {
+                                        "type": "comments",
+                                        "id": "5"
+                                    },
+                                    {
+                                        "type": "comments",
+                                        "id": "12"
+                                    }
+                                ]
+                            }
                         }
-                    ]
-                }
-            }
-        }
-    ],
-    "included": [
-        {
-            "type": "people",
-            "id": "9",
-            "attributes": {
-                "first-name": "Dan",
-                "last-name": "Gebhardt",
-                "twitter": "dgeb"
-            },
-            "links": {
-                "self": "http://example.com/people/9"
-            }
-        },
-        {
-            "type": "comments",
-            "id": "5",
-            "attributes": {
-                "body": "First!"
-            },
-            "relationships": {
-                "author": {
-                    "data": {
-                        "type": "people",
-                        "id": "2"
                     }
-                }
-            },
-            "links": {
-                "self": "http://example.com/comments/5"
-            }
-        },
-        {
-            "type": "comments",
-            "id": "12",
-            "attributes": {
-                "body": "I like XML better"
-            },
-            "relationships": {
-                "author": {
-                    "data": {
+                ],
+                "included": [
+                    {
                         "type": "people",
-                        "id": "9"
+                        "id": "9",
+                        "attributes": {
+                            "first-name": "Dan",
+                            "last-name": "Gebhardt",
+                            "twitter": "dgeb"
+                        },
+                        "links": {
+                            "self": "http://example.com/people/9"
+                        }
+                    },
+                    {
+                        "type": "comments",
+                        "id": "5",
+                        "attributes": {
+                            "body": "First!"
+                        },
+                        "relationships": {
+                            "author": {
+                                "data": {
+                                    "type": "people",
+                                    "id": "2"
+                                }
+                            }
+                        },
+                        "links": {
+                            "self": "http://example.com/comments/5"
+                        }
+                    },
+                    {
+                        "type": "comments",
+                        "id": "12",
+                        "attributes": {
+                            "body": "I like XML better"
+                        },
+                        "relationships": {
+                            "author": {
+                                "data": {
+                                    "type": "people",
+                                    "id": "9"
+                                }
+                            }
+                        },
+                        "links":{
+                            "self": "http://example.com/comments/12"
+                        }
                     }
-                }
-            },
-            "links":{
-                "self": "http://example.com/comments/12"
+                ]
             }
-        }
-    ]
-}
-JSON;
+            JSON;
 
-        $this->assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 }

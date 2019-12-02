@@ -21,29 +21,6 @@ class Filter
         $this->value = $value;
     }
 
-    private function makeSureValueIsValid($value)
-    {
-        if (true === is_object($value)) {
-            throw new InvalidArgumentException('Filter value can\'t be object');
-        }
-
-        if (null === $value) {
-            throw new InvalidArgumentException('Filter value can\'t be null');
-        }
-
-        if (true === is_array($value)) {
-            throw new InvalidArgumentException('Filter value can\'t be array');
-        }
-
-        if (
-            false === is_string($value) &&
-            false === is_float($value) &&
-            false === is_int($value)
-        ) {
-            throw new InvalidArgumentException('Value must be either string, integer or float');
-        }
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -52,5 +29,28 @@ class Filter
     public function getValue()
     {
         return $this->value;
+    }
+
+    private function makeSureValueIsValid($value): void
+    {
+        if (true === \is_object($value)) {
+            throw new InvalidArgumentException('Filter value can\'t be object');
+        }
+
+        if (null === $value) {
+            throw new InvalidArgumentException('Filter value can\'t be null');
+        }
+
+        if (true === \is_array($value)) {
+            throw new InvalidArgumentException('Filter value can\'t be array');
+        }
+
+        if (
+            false === \is_string($value) &&
+            false === \is_float($value) &&
+            false === \is_int($value)
+        ) {
+            throw new InvalidArgumentException('Value must be either string, integer or float');
+        }
     }
 }

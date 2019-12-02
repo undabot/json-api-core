@@ -15,7 +15,7 @@ class ResourceIdentifier implements ResourceIdentifierInterface
     /** @var string */
     private $type;
 
-    /** @var MetaInterface|null */
+    /** @var null|MetaInterface */
     private $meta;
 
     public function __construct(string $id, string $type, ?MetaInterface $meta = null)

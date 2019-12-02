@@ -12,14 +12,14 @@ final class Source implements SourceInterface
      * a JSON Pointer [RFC6901] to the associated entity in the request document
      * [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
      *
-     * @var string|null
+     * @var null|string
      */
     private $pointer;
 
     /**
      * a string indicating which URI query parameter caused the error.
      *
-     * @var string|null
+     * @var null|string
      */
     private $parameter;
 

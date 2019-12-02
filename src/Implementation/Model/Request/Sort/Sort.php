@@ -12,8 +12,8 @@ use InvalidArgumentException;
  */
 class Sort
 {
-    const SORT_ORDER_ASC = 'ASC';
-    const SORT_ORDER_DESC = 'DESC';
+    public const SORT_ORDER_ASC = 'ASC';
+    public const SORT_ORDER_DESC = 'DESC';
 
     /** @var string */
     private $attribute;
@@ -26,14 +26,6 @@ class Sort
         $this->makeSureOrderIsValid($order);
         $this->attribute = $attribute;
         $this->order = $order;
-    }
-
-    private function makeSureOrderIsValid(string $order): void
-    {
-        if (false === in_array($order, [self::SORT_ORDER_ASC, self::SORT_ORDER_DESC])) {
-            $message = sprintf('Sort value must be either ASC or DESC, %s given', $order);
-            throw new InvalidArgumentException($message);
-        }
     }
 
     public function getAttribute(): string
@@ -49,5 +41,14 @@ class Sort
     public function isDesc(): bool
     {
         return self::SORT_ORDER_DESC === $this->order;
+    }
+
+    private function makeSureOrderIsValid(string $order): void
+    {
+        if (false === \in_array($order, [self::SORT_ORDER_ASC, self::SORT_ORDER_DESC], true)) {
+            $message = sprintf('Sort value must be either ASC or DESC, %s given', $order);
+
+            throw new InvalidArgumentException($message);
+        }
     }
 }
