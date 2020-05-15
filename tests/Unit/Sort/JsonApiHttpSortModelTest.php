@@ -5,68 +5,74 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Sort;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Request\Sort\Sort;
-use Undabot\JsonApi\Model\Request\Sort\SortSet;
+use Undabot\JsonApi\Implementation\Model\Request\Sort\Sort;
+use Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet;
 
-class JsonApiHttpSortModelTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class JsonApiHttpSortModelTest extends TestCase
 {
-    public function testSingleAttributeSortSetIsCreatedFromString()
+    public function testSingleAttributeSortSetIsCreatedFromString(): void
     {
         $sortDefinition = 'name';
         $sortSet = SortSet::make($sortDefinition);
 
-        $this->assertInstanceOf(SortSet::class, $sortSet);
+        static::assertInstanceOf(SortSet::class, $sortSet);
 
         /** @var Sort $sort */
         $sort = iterator_to_array($sortSet)[0];
-        $this->assertInstanceOf(Sort::class, $sort);
-        $this->assertSame('name', $sort->getAttribute());
-        $this->assertTrue($sort->isAsc());
-        $this->assertFalse($sort->isDesc());
+        static::assertInstanceOf(Sort::class, $sort);
+        static::assertSame('name', $sort->getAttribute());
+        static::assertTrue($sort->isAsc());
+        static::assertFalse($sort->isDesc());
     }
 
-    public function testSingleAttributeDescSortSetIsCreatedFromString()
+    public function testSingleAttributeDescSortSetIsCreatedFromString(): void
     {
         $sortDefinition = '-lastName';
         $sortSet = SortSet::make($sortDefinition);
 
-        $this->assertInstanceOf(SortSet::class, $sortSet);
+        static::assertInstanceOf(SortSet::class, $sortSet);
 
         /** @var Sort $sort */
         $sort = iterator_to_array($sortSet)[0];
-        $this->assertInstanceOf(Sort::class, $sort);
-        $this->assertSame('lastName', $sort->getAttribute());
-        $this->assertFalse($sort->isAsc());
-        $this->assertTrue($sort->isDesc());
+        static::assertInstanceOf(Sort::class, $sort);
+        static::assertSame('lastName', $sort->getAttribute());
+        static::assertFalse($sort->isAsc());
+        static::assertTrue($sort->isDesc());
     }
 
-    public function testMultipleAttributeSortSetIsCreatedFromString()
+    public function testMultipleAttributeSortSetIsCreatedFromString(): void
     {
         $sortDefinition = 'name,-lastName,author.score,-comment.createdAt';
         $sortSet = SortSet::make($sortDefinition);
 
-        $this->assertInstanceOf(SortSet::class, $sortSet);
+        static::assertInstanceOf(SortSet::class, $sortSet);
         $sortSetArray = iterator_to_array($sortSet);
-        $this->assertCount(4, $sortSetArray);
+        static::assertCount(4, $sortSetArray);
 
         foreach ($sortSet as $sort) {
-            $this->assertInstanceOf(Sort::class, $sort);
+            static::assertInstanceOf(Sort::class, $sort);
         }
 
-        $this->assertSame('name', $sortSetArray[0]->getAttribute());
-        $this->assertTrue($sortSetArray[0]->isAsc());
-        $this->assertFalse($sortSetArray[0]->isDesc());
+        static::assertSame('name', $sortSetArray[0]->getAttribute());
+        static::assertTrue($sortSetArray[0]->isAsc());
+        static::assertFalse($sortSetArray[0]->isDesc());
 
-        $this->assertSame('lastName', $sortSetArray[1]->getAttribute());
-        $this->assertFalse($sortSetArray[1]->isAsc());
-        $this->assertTrue($sortSetArray[1]->isDesc());
+        static::assertSame('lastName', $sortSetArray[1]->getAttribute());
+        static::assertFalse($sortSetArray[1]->isAsc());
+        static::assertTrue($sortSetArray[1]->isDesc());
 
-        $this->assertSame('author.score', $sortSetArray[2]->getAttribute());
-        $this->assertTrue($sortSetArray[2]->isAsc());
-        $this->assertFalse($sortSetArray[2]->isDesc());
+        static::assertSame('author.score', $sortSetArray[2]->getAttribute());
+        static::assertTrue($sortSetArray[2]->isAsc());
+        static::assertFalse($sortSetArray[2]->isDesc());
 
-        $this->assertSame('comment.createdAt', $sortSetArray[3]->getAttribute());
-        $this->assertFalse($sortSetArray[3]->isAsc());
-        $this->assertTrue($sortSetArray[3]->isDesc());
+        static::assertSame('comment.createdAt', $sortSetArray[3]->getAttribute());
+        static::assertFalse($sortSetArray[3]->isAsc());
+        static::assertTrue($sortSetArray[3]->isDesc());
     }
 }

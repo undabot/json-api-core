@@ -5,22 +5,28 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Resource;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkCollection;
-use Undabot\JsonApi\Model\Link\LinkUrl;
-use Undabot\JsonApi\Model\Resource\Attribute\Attribute;
-use Undabot\JsonApi\Model\Resource\Attribute\AttributeCollection;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToManyRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Data\ToOneRelationshipData;
-use Undabot\JsonApi\Model\Resource\Relationship\Relationship;
-use Undabot\JsonApi\Model\Resource\Relationship\RelationshipCollection;
-use Undabot\JsonApi\Model\Resource\Resource;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifier;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollection;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
+use Undabot\JsonApi\Implementation\Model\Link\LinkCollection;
+use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
+use Undabot\JsonApi\Implementation\Model\Resource\Relationship\RelationshipCollection;
+use Undabot\JsonApi\Implementation\Model\Resource\Resource;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
-class ResourceCreationTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ResourceCreationTest extends TestCase
 {
-    public function testICanCreateSimpleResource()
+    public function testICanCreateSimpleResource(): void
     {
         $resource = new Resource(
             '1',
@@ -40,14 +46,14 @@ class ResourceCreationTest extends TestCase
             ])
         );
 
-        $this->assertSame('1', $resource->getId());
-        $this->assertSame('articles', $resource->getType());
-        $this->assertNotNull($resource->getAttributes());
-        $this->assertNotNull($resource->getRelationships());
-        $this->assertNull($resource->getMeta());
+        static::assertSame('1', $resource->getId());
+        static::assertSame('articles', $resource->getType());
+        static::assertNotNull($resource->getAttributes());
+        static::assertNotNull($resource->getRelationships());
+        static::assertNull($resource->getMeta());
     }
 
-    public function testICanCreateComplexResource()
+    public function testICanCreateComplexResource(): void
     {
         $resource = new Resource(
             '1',
@@ -79,10 +85,10 @@ class ResourceCreationTest extends TestCase
             new Link('self', new LinkUrl('http://example.com/articles/1'))
         );
 
-        $this->assertSame('1', $resource->getId());
-        $this->assertSame('articles', $resource->getType());
-        $this->assertNotNull($resource->getAttributes());
-        $this->assertNotNull($resource->getRelationships());
-        $this->assertNull($resource->getMeta());
+        static::assertSame('1', $resource->getId());
+        static::assertSame('articles', $resource->getType());
+        static::assertNotNull($resource->getAttributes());
+        static::assertNotNull($resource->getRelationships());
+        static::assertNull($resource->getMeta());
     }
 }

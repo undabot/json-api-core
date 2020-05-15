@@ -5,14 +5,20 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Util\Assert\ValidMemberNameAssertion;
+use Undabot\JsonApi\Util\ValidMemberNameAssertion;
 
-class ValidMemberNameAssertionTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ValidMemberNameAssertionTest extends TestCase
 {
     /** @var ValidMemberNameAssertion */
     private $assertion;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->assertion = new ValidMemberNameAssertion();
     }
@@ -22,7 +28,7 @@ class ValidMemberNameAssertionTest extends TestCase
      */
     public function testValidateMemberName(string $memberName): void
     {
-        $this->assertTrue($this->assertion->assert($memberName));
+        static::assertTrue($this->assertion->assert($memberName));
     }
 
     /**
@@ -31,7 +37,7 @@ class ValidMemberNameAssertionTest extends TestCase
      */
     public function testInValidateMemberName(string $memberName): void
     {
-        $this->assertFalse($this->assertion->assert($memberName));
+        static::assertFalse($this->assertion->assert($memberName));
     }
 
     public function validMemberNameExamples(): array
@@ -65,7 +71,7 @@ class ValidMemberNameAssertionTest extends TestCase
     }
 
     /**
-     * Reserved characters must not appear in member name:
+     * Reserved characters must not appear in member name:.
      *
      * @see https://jsonapi.org/format/#document-member-names-reserved-characters
      */

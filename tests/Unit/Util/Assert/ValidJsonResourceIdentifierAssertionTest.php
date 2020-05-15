@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Util\Assert\Exception\AssertException;
-use Undabot\JsonApi\Util\Assert\ValidJsonResourceIdentifierAssertion;
+use Undabot\JsonApi\Util\Exception\ValidationException;
+use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 
-class ValidJsonResourceIdentifierAssertionTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ValidJsonResourceIdentifierAssertionTest extends TestCase
 {
-    /** @var ValidJsonResourceIdentifierAssertion */
-    private $assertion;
-
-    protected function setUp()
-    {
-        $this->assertion = new ValidJsonResourceIdentifierAssertion();
-    }
-
     public function validResourceIdentifierData()
     {
         return [
@@ -40,9 +38,11 @@ class ValidJsonResourceIdentifierAssertionTest extends TestCase
     /**
      * @dataProvider validResourceIdentifierData
      */
-    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier)
+    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier): void
     {
-        $this->assertTrue($this->assertion->assert($resourceIdentifier));
+        // no exceptions expected here
+        $this->expectNotToPerformAssertions();
+        ValidResourceIdentifierAssertion::assert($resourceIdentifier);
     }
 
     public function invalidResourceIdentifierData()
@@ -99,9 +99,9 @@ class ValidJsonResourceIdentifierAssertionTest extends TestCase
     /**
      * @dataProvider invalidResourceIdentifierData
      */
-    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier)
+    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier): void
     {
-        $this->expectException(AssertException::class);
-        $this->assertFalse($this->assertion->assert($resourceIdentifier));
+        $this->expectException(ValidationException::class);
+        ValidResourceIdentifierAssertion::assert($resourceIdentifier);
     }
 }
