@@ -7,35 +7,41 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 use ArrayIterator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ErrorToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
-use Undabot\JsonApi\Model\Error\ErrorInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
+use Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder;
 
-class ErrorCollectionToPhpArrayEncoderTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class ErrorCollectionToPhpArrayEncoderTest extends TestCase
 {
-    /** @var MockObject|ErrorToPhpArrayEncoderInterface */
+    /** @var ErrorToPhpArrayEncoderInterface|MockObject */
     private $errorEncoder;
 
     /** @var ErrorCollectionToPhpArrayEncoder */
     private $errorCollectionEncoder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->errorEncoder = $this->createMock(ErrorToPhpArrayEncoderInterface::class);
-        $this->errorEncoder->method('encode')->will($this->returnValue([]));
+        $this->errorEncoder->method('encode')->willReturn([]);
 
         $this->errorCollectionEncoder = new ErrorCollectionToPhpArrayEncoder($this->errorEncoder);
     }
 
-    public function testItCanBeConstructed()
+    public function testItCanBeConstructed(): void
     {
-        $this->assertInstanceOf(ErrorCollectionToPhpArrayEncoder::class, $this->errorCollectionEncoder);
-        $this->assertInstanceOf(ErrorCollectionToPhpArrayEncoderInterface::class, $this->errorCollectionEncoder);
+        static::assertInstanceOf(ErrorCollectionToPhpArrayEncoder::class, $this->errorCollectionEncoder);
+        static::assertInstanceOf(ErrorCollectionToPhpArrayEncoderInterface::class, $this->errorCollectionEncoder);
     }
 
-    public function testErrorCollectionEncoderWillCallErrorEncoder()
+    public function testErrorCollectionEncoderWillCallErrorEncoder(): void
     {
         $errorCollection = $this->createMock(ErrorCollectionInterface::class);
         $error1 = $this->createMock(ErrorInterface::class);
@@ -51,10 +57,10 @@ class ErrorCollectionToPhpArrayEncoderTest extends TestCase
         $errorCollection->method('getErrors')->willReturn($errors);
         $errorCollection->method('getIterator')->willReturn(new ArrayIterator($errors));
 
-        $this->errorEncoder->expects($this->exactly(3))->method('encode');
+        $this->errorEncoder->expects(static::exactly(3))->method('encode');
 
         $encoded = $this->errorCollectionEncoder->encode($errorCollection);
-        $this->assertIsArray($encoded);
-        $this->assertCount(3, $encoded);
+        static::assertIsArray($encoded);
+        static::assertCount(3, $encoded);
     }
 }

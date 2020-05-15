@@ -12,3 +12,8 @@
   ],
 ```
 
+# Scripts
+- PHPUnit tests: `composer test`
+- PhpStan: `composer qc`
+- PhpCsFixer: `composer lint`
+

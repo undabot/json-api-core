@@ -6,15 +6,21 @@ namespace Undabot\JsonApi\Tests\Unit\Link;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Link\Link;
-use Undabot\JsonApi\Model\Link\LinkMemberInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkMemberInterface;
+use Undabot\JsonApi\Implementation\Model\Link\Link;
 
-class LinkTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class LinkTest extends TestCase
 {
     /** @var LinkMemberInterface|MockObject */
     private $linkUrlMock;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->linkUrlMock = $this->createMock(LinkMemberInterface::class);
     }
@@ -26,7 +32,7 @@ class LinkTest extends TestCase
     {
         $validLink = new Link($validLinkName, $this->linkUrlMock);
 
-        $this->assertInstanceOf(Link::class, $validLink);
+        static::assertInstanceOf(Link::class, $validLink);
     }
 
     /**

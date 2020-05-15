@@ -5,95 +5,103 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Model\Document;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Model\Document\DocumentData;
-use Undabot\JsonApi\Model\Resource\ResourceCollectionInterface;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierCollectionInterface;
-use Undabot\JsonApi\Model\Resource\ResourceIdentifierInterface;
-use Undabot\JsonApi\Model\Resource\ResourceInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
+use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
+use Undabot\JsonApi\Implementation\Model\Document\DocumentData;
 
-class DocumentDataTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ *
+ * @small
+ */
+final class DocumentDataTest extends TestCase
 {
-    public function testItCanBeConstructedWithNullArgument()
+    public function testItCanBeConstructedWithNullArgument(): void
     {
         $documentData = new DocumentData(null);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
-    public function testItCanBeConstructedWithEmptyArrayArgument()
+    public function testItCanBeConstructedWithEmptyArrayArgument(): void
     {
         $documentData = new DocumentData([]);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
-    public function testItCanBeConstructedWithResourceArgument()
+    public function testItCanBeConstructedWithResourceArgument(): void
     {
         $resourceMock = $this->createMock(ResourceInterface::class);
 
         $documentData = new DocumentData($resourceMock);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
-    public function testItCanBeConstructedWithResourceIdentifierArgument()
+    public function testItCanBeConstructedWithResourceIdentifierArgument(): void
     {
         $resourceIdentifierMock = $this->createMock(ResourceIdentifierInterface::class);
 
         $documentData = new DocumentData($resourceIdentifierMock);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
-    public function testItCanBeConstructedWithResourceCollectionArgument()
+    public function testItCanBeConstructedWithResourceCollectionArgument(): void
     {
         $resourceCollectionMock = $this->createMock(ResourceCollectionInterface::class);
 
         $documentData = new DocumentData($resourceCollectionMock);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
-    public function testItCanBeConstructedWithResourceIdentifierCollectionArgument()
+    public function testItCanBeConstructedWithResourceIdentifierCollectionArgument(): void
     {
         $resourceIdentifierCollectionMock = $this->createMock(ResourceIdentifierCollectionInterface::class);
 
         $documentData = new DocumentData($resourceIdentifierCollectionMock);
 
-        $this->assertInstanceOf(DocumentData::class, $documentData);
+        static::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     /**
      * @dataProvider provideInvalidConstructorArguments
+     *
+     * @param mixed $invalidArgument
      */
-    public function testItWillThrowExceptionIfConstructedWithInvalidArgument($invalidArgument)
+    public function testItWillThrowExceptionIfConstructedWithInvalidArgument($invalidArgument): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         new DocumentData($invalidArgument);
     }
 
-    public function testGetResourceWillReturnDataIfDataIsTypeOfResource()
+    public function testGetResourceWillReturnDataIfDataIsTypeOfResource(): void
     {
         /** @var ResourceInterface $resourceMock */
         $resourceMock = $this->createMock(ResourceInterface::class);
 
         $document = new DocumentData($resourceMock);
 
-        $this->assertInstanceOf(ResourceInterface::class, $document->getResource());
+        static::assertInstanceOf(ResourceInterface::class, $document->getResource());
     }
 
-    public function testGetResourceCollectionWillReturnDataIfDataIsTypeOfResourceCollection()
+    public function testGetResourceCollectionWillReturnDataIfDataIsTypeOfResourceCollection(): void
     {
         /** @var ResourceCollectionInterface $resourceCollectionMock */
         $resourceCollectionMock = $this->createMock(ResourceCollectionInterface::class);
 
         $document = new DocumentData($resourceCollectionMock);
 
-        $this->assertInstanceOf(ResourceCollectionInterface::class, $document->getResourceCollection());
+        static::assertInstanceOf(ResourceCollectionInterface::class, $document->getResourceCollection());
     }
 
-    public function testGetResourceWillThrowExceptionIfDataIsNotTypeOfResource()
+    public function testGetResourceWillThrowExceptionIfDataIsNotTypeOfResource(): void
     {
         /** @var ResourceCollectionInterface $resourceCollectionMock */
         $resourceCollectionMock = $this->createMock(ResourceCollectionInterface::class);
@@ -106,7 +114,7 @@ class DocumentDataTest extends TestCase
         $document->getResource();
     }
 
-    public function testGetResourceCollectionWillThrowExceptionIfDataIsNotTypeOfResourceCollection()
+    public function testGetResourceCollectionWillThrowExceptionIfDataIsNotTypeOfResourceCollection(): void
     {
         /** @var ResourceInterface $resourceMock */
         $resourceMock = $this->createMock(ResourceInterface::class);

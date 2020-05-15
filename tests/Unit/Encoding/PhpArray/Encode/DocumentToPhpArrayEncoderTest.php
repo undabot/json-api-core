@@ -6,55 +6,62 @@ namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Encoding\DocumentDataToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoder;
-use Undabot\JsonApi\Encoding\DocumentToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\LinkCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\MetaToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
-use Undabot\JsonApi\Model\Document\DocumentDataInterface;
-use Undabot\JsonApi\Model\Document\DocumentInterface;
-use Undabot\JsonApi\Model\Error\ErrorCollectionInterface;
-use Undabot\JsonApi\Model\Link\LinkCollectionInterface;
-use Undabot\JsonApi\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Definition\Encoding\DocumentDataToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\DocumentToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\LinkCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
+use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
+use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
+use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
+use Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder;
 
-class DocumentToPhpArrayEncoderTest extends TestCase
+/**
+ * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
+ *
+ * @internal
+ *
+ * @small
+ */
+final class DocumentToPhpArrayEncoderTest extends TestCase
 {
-    /** @var MockObject|DocumentDataToPhpArrayEncoderInterface */
+    /** @var DocumentDataToPhpArrayEncoderInterface|MockObject */
     private $documentDataEncoderMock;
 
     /** @var MockObject|ResourceCollectionToPhpArrayEncoderInterface */
     private $resourceCollectionToPhpArrayEncoderMock;
 
-    /** @var MockObject|ErrorCollectionToPhpArrayEncoderInterface */
+    /** @var ErrorCollectionToPhpArrayEncoderInterface|MockObject */
     private $errorCollectionEncoderMock;
 
-    /** @var MockObject|MetaToPhpArrayEncoderInterface */
+    /** @var MetaToPhpArrayEncoderInterface|MockObject */
     private $metaEncoderMock;
 
-    /** @var MockObject|LinkCollectionToPhpArrayEncoderInterface */
+    /** @var LinkCollectionToPhpArrayEncoderInterface|MockObject */
     private $linkCollectionEncoderMock;
 
     /** @var DocumentToPhpArrayEncoder */
     private $documentEncoder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->documentDataEncoderMock = $this->createMock(DocumentDataToPhpArrayEncoderInterface::class);
-        $this->documentDataEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->documentDataEncoderMock->method('encode')->willReturn([]);
 
         $this->resourceCollectionToPhpArrayEncoderMock = $this->createMock(ResourceCollectionToPhpArrayEncoderInterface::class);
-        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->resourceCollectionToPhpArrayEncoderMock->method('encode')->willReturn([]);
 
         $this->errorCollectionEncoderMock = $this->createMock(ErrorCollectionToPhpArrayEncoderInterface::class);
-        $this->errorCollectionEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->errorCollectionEncoderMock->method('encode')->willReturn([]);
 
         $this->linkCollectionEncoderMock = $this->createMock(LinkCollectionToPhpArrayEncoderInterface::class);
-        $this->linkCollectionEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->linkCollectionEncoderMock->method('encode')->willReturn([]);
 
         $this->metaEncoderMock = $this->createMock(MetaToPhpArrayEncoderInterface::class);
-        $this->metaEncoderMock->method('encode')->will($this->returnValue([]));
+        $this->metaEncoderMock->method('encode')->willReturn([]);
 
         $this->documentEncoder = new DocumentToPhpArrayEncoder(
             $this->documentDataEncoderMock,
@@ -65,13 +72,19 @@ class DocumentToPhpArrayEncoderTest extends TestCase
         );
     }
 
-    public function testItCanBeConstructed()
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::__construct
+     */
+    public function testItCanBeConstructed(): void
     {
-        $this->assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
-        $this->assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
+        static::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
+        static::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
     }
 
-    public function testEncoderWillCallRespectiveSpecificEncoders()
+    /**
+     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::encode
+     */
+    public function testEncoderWillCallRespectiveSpecificEncoders(): void
     {
         $documentData = $this->createMock(DocumentDataInterface::class);
         $errors = $this->createMock(ErrorCollectionInterface::class);
@@ -86,16 +99,16 @@ class DocumentToPhpArrayEncoderTest extends TestCase
         $document->method('getJsonApiMeta')->willReturn($jsonApiMeta);
         $document->method('getLinks')->willReturn($links);
 
-        $this->documentDataEncoderMock->expects($this->once())->method('encode');
-        $this->errorCollectionEncoderMock->expects($this->once())->method('encode');
-        $this->metaEncoderMock->expects($this->exactly(2))->method('encode');
+        $this->documentDataEncoderMock->expects(static::once())->method('encode');
+        $this->errorCollectionEncoderMock->expects(static::once())->method('encode');
+        $this->metaEncoderMock->expects(static::exactly(2))->method('encode');
 
         $encoded = $this->documentEncoder->encode($document);
-        $this->assertIsArray($encoded);
-        $this->assertArrayHasKey('data', $encoded);
-        $this->assertArrayHasKey('errors', $encoded);
-        $this->assertArrayHasKey('meta', $encoded);
-        $this->assertArrayHasKey('jsonapi', $encoded);
-        $this->assertArrayHasKey('links', $encoded);
+        static::assertIsArray($encoded);
+        static::assertArrayHasKey('data', $encoded);
+        static::assertArrayHasKey('errors', $encoded);
+        static::assertArrayHasKey('meta', $encoded);
+        static::assertArrayHasKey('jsonapi', $encoded);
+        static::assertArrayHasKey('links', $encoded);
     }
 }
