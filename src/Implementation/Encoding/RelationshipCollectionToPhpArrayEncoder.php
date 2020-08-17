@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Encoding;
 
+use ArrayObject;
 use Undabot\JsonApi\Definition\Encoding\RelationshipCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\RelationshipToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
@@ -19,7 +20,7 @@ class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionT
         $this->relationshipToPhpArrayEncoder = $relationshipToPhpArrayEncoder;
     }
 
-    public function encode(RelationshipCollectionInterface $relationshipCollection): array
+    public function encode(RelationshipCollectionInterface $relationshipCollection): ArrayObject
     {
         $relationships = [];
 
@@ -28,6 +29,6 @@ class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionT
             $relationships[$relationship->getName()] = $this->relationshipToPhpArrayEncoder->encode($relationship);
         }
 
-        return $relationships;
+        return new ArrayObject($relationships);
     }
 }
