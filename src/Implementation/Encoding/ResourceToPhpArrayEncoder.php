@@ -44,7 +44,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
             'id' => $resource->getId(),
         ];
 
-        if (null !== $resource->getAttributes()) {
+        if (null !== $resource->getAttributes() && false === empty($resource->getAttributes()->getAttributes())) {
             $serializedResource['attributes'] = $this->attributeCollectionEncoder->encode($resource->getAttributes());
         }
 
@@ -58,7 +58,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
             ];
         }
 
-        if (null !== $resource->getRelationships()) {
+        if (null !== $resource->getRelationships() && false === empty($resource->getRelationships()->getRelationships())) {
             $serializedResource['relationships'] = $this->relationshipCollectionEncoder->encode($resource->getRelationships());
         }
 

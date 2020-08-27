@@ -184,4 +184,26 @@ final class ResourceSerializerTest extends TestCase
 
         static::assertEquals($expectedJson, $serializedJson);
     }
+
+    public function testSimpleResourceWillNotReturnAttributesAndRelationsIfTheyAreEmpty(): void
+    {
+        $resource = new Resource(
+            '1',
+            'test',
+            new AttributeCollection([]),
+            new RelationshipCollection([])
+        );
+
+        $serialized = $this->serializer->encode($resource);
+
+        $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $expectedJson = <<<'JSON'
+            {
+                "type": "test",
+                "id": "1"
+            }
+            JSON;
+
+        static::assertEquals($expectedJson, $serializedJson);
+    }
 }
