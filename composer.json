@@ -3,17 +3,17 @@
   "description": "",
   "license": "Apache-2.0",
   "require": {
-    "php": "^7.3",
-    "beberlei/assert": "^3.2"
+    "php": "^7.4||^8",
+    "beberlei/assert": "^3.3"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.14",
-    "phpstan/phpstan-phpunit": "^0.11.0",
-    "phpstan/phpstan": "^0.11.1",
-    "phpunit/phpunit": "^7.5",
-    "phpstan/extension-installer": "^1.0",
-    "phpstan/phpstan-beberlei-assert": "^0.11.2",
-    "ekino/phpstan-banned-code": "^0.2.0"
+    "friendsofphp/php-cs-fixer": "^2.18",
+    "phpstan/phpstan-phpunit": "^0.12.17",
+    "phpstan/phpstan": "^0.12.76",
+    "phpunit/phpunit": "^9.5",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan-beberlei-assert": "^0.12.6",
+    "ekino/phpstan-banned-code": "^0.3.1"
   },
   "autoload": {
     "psr-4": {
