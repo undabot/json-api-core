@@ -8,5 +8,5 @@ use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
 interface ErrorToPhpArrayEncoderInterface
 {
-    public function encode(ErrorInterface $error);
+    public function encode(ErrorInterface $error): array;
 }

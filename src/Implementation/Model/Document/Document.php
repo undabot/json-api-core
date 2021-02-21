@@ -139,9 +139,9 @@ class Document implements DocumentInterface
         ?ErrorCollectionInterface $errors,
         ?MetaInterface $meta
     ): void {
-        if (null === $errors &&
-            null === $data &&
-            null === $meta) {
+        if (null === $errors
+            && null === $data
+            && null === $meta) {
             throw new InvalidArgumentException('A document MUST contain at least one of the following top-level members: data, errors, meta');
         }
     }

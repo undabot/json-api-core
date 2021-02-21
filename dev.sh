@@ -27,7 +27,7 @@ install_composer () {
 }
 
 install_deps () {
-  $EXEC -c "cd /opt/app && composer validate --strict && composer outdated --strict && composer install --no-dev --optimize-autoloader"
+  $EXEC -c "cd /opt/app && composer validate --strict && composer outdated --strict && composer install --optimize-autoloader"
 }
 
 run_tests () {

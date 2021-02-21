@@ -46,9 +46,9 @@ class Filter
         }
 
         if (
-            false === \is_string($value) &&
-            false === \is_float($value) &&
-            false === \is_int($value)
+            false === \is_string($value)
+            && false === \is_float($value)
+            && false === \is_int($value)
         ) {
             throw new InvalidArgumentException('Value must be either string, integer or float');
         }

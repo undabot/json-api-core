@@ -42,9 +42,9 @@ class Relationship implements RelationshipInterface
         meta: a meta object that contains non-standard meta-information about the relationship.
         */
 
-        if (null === $links &&
-            null === $data &&
-            null === $meta) {
+        if (null === $links
+            && null === $data
+            && null === $meta) {
             throw new InvalidArgumentException('A “relationship object” MUST contain at least one of the following: links, data, meta');
         }
 
