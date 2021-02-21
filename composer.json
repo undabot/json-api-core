@@ -3,7 +3,7 @@
   "description": "",
   "license": "Apache-2.0",
   "require": {
-    "php": "^7.4||^8",
+    "php": "^8",
     "beberlei/assert": "^3.3"
   },
   "require-dev": {
@@ -13,7 +13,7 @@
     "phpunit/phpunit": "^9.5",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan-beberlei-assert": "^0.12.6",
-    "ekino/phpstan-banned-code": "^0.3.1"
+    "ekino/phpstan-banned-code": "0.10.x-dev"
   },
   "autoload": {
     "psr-4": {
