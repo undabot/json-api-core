@@ -47,7 +47,5 @@ class RelationshipDataFactory
                 new ResourceIdentifier($data, $type)
             );
         }
-
-        throw new \Exception('Invalid data given');
     }
 }

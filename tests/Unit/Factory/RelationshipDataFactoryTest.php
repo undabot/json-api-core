@@ -13,7 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelatio
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Factory\RelationshipDataFactory
  *
  * @small
  */

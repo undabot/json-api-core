@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     zip \
     wget \
     unzip \
+    nano \
     zlib1g-dev libicu-dev g++
 
 RUN docker-php-ext-configure intl
