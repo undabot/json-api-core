@@ -13,7 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Source\Source;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Error\Error
  *
  * @small
  */

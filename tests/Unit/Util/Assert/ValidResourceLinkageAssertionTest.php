@@ -10,13 +10,13 @@ use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Util\ValidResourceLinkageAssertion
  *
  * @small
  */
 final class ValidResourceLinkageAssertionTest extends TestCase
 {
-    public function validResourceLinkageData()
+    public function validResourceLinkageData(): array
     {
         return [
             [
@@ -48,7 +48,7 @@ final class ValidResourceLinkageAssertionTest extends TestCase
         ValidResourceLinkageAssertion::assert($resourceLinkage);
     }
 
-    public function invalidResourceLinkageData()
+    public function invalidResourceLinkageData(): array
     {
         return [
             [

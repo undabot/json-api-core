@@ -18,7 +18,7 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Document\Document
  *
  * @small
  */

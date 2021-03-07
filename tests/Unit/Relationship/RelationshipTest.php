@@ -13,15 +13,14 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship
  *
  * @small
  */
 final class RelationshipTest extends TestCase
 {
-    private $relationshipName;
-    /** @var LinkCollectionInterface|MockObject */
-    private $linksCollection;
+    private string $relationshipName;
+    private MockObject $linksCollection;
 
     protected function setUp(): void
     {

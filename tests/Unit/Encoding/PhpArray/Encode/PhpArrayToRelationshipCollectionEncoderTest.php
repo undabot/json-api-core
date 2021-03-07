@@ -14,14 +14,13 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder
  *
  * @small
  */
 final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 {
-    /** @var PhpArrayToRelationshipCollectionEncoder */
-    private $encoder;
+    private PhpArrayToRelationshipCollectionEncoder $encoder;
 
     protected function setUp(): void
     {

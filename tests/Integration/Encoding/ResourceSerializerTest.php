@@ -29,14 +29,13 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\ResourceToPhpArrayEncoder
  *
  * @small
  */
 final class ResourceSerializerTest extends TestCase
 {
-    /** @var ResourceToPhpArrayEncoderInterface */
-    private $serializer;
+    private ResourceToPhpArrayEncoderInterface $serializer;
 
     protected function setUp(): void
     {

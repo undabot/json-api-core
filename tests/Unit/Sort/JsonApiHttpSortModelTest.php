@@ -10,7 +10,7 @@ use Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet
  *
  * @small
  */

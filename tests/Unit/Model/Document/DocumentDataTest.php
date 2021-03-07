@@ -13,7 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Document\DocumentData;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Document\DocumentData
  *
  * @small
  */

@@ -12,14 +12,13 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder
  *
  * @small
  */
 final class MetaSerializerTest extends TestCase
 {
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $serializer;
+    private MetaToPhpArrayEncoderInterface $serializer;
 
     protected function setUp(): void
     {

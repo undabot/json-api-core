@@ -18,23 +18,16 @@ use Undabot\JsonApi\Implementation\Encoding\ErrorToPhpArrayEncoder;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\ErrorToPhpArrayEncoder
  *
  * @small
  */
 final class ErrorToPhpArrayEncoderTest extends TestCase
 {
-    /** @var LinkToPhpArrayEncoderInterface|MockObject */
-    private $linkEncoderMock;
-
-    /** @var MockObject|SourceToPhpArrayEncoderInterface */
-    private $sourceEncoderMock;
-
-    /** @var MetaToPhpArrayEncoderInterface|MockObject */
-    private $metaEncoderMock;
-
-    /** @var ErrorToPhpArrayEncoder */
-    private $errorEncoder;
+    private MockObject $linkEncoderMock;
+    private MockObject $sourceEncoderMock;
+    private MockObject $metaEncoderMock;
+    private ErrorToPhpArrayEncoder $errorEncoder;
 
     protected function setUp(): void
     {

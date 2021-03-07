@@ -11,7 +11,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection
  *
  * @small
  */

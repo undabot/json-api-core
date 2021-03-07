@@ -15,17 +15,14 @@ use Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder
  *
  * @small
  */
 final class ErrorCollectionToPhpArrayEncoderTest extends TestCase
 {
-    /** @var ErrorToPhpArrayEncoderInterface|MockObject */
-    private $errorEncoder;
-
-    /** @var ErrorCollectionToPhpArrayEncoder */
-    private $errorCollectionEncoder;
+    private MockObject $errorEncoder;
+    private ErrorCollectionToPhpArrayEncoder $errorCollectionEncoder;
 
     protected function setUp(): void
     {
