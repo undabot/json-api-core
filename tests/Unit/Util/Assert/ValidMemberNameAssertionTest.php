@@ -9,14 +9,13 @@ use Undabot\JsonApi\Util\ValidMemberNameAssertion;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Util\ValidMemberNameAssertion
  *
  * @small
  */
 final class ValidMemberNameAssertionTest extends TestCase
 {
-    /** @var ValidMemberNameAssertion */
-    private $assertion;
+    private ValidMemberNameAssertion $assertion;
 
     protected function setUp(): void
     {

@@ -10,7 +10,7 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Util\ValidResourceAssertion
  *
  * @small
  */

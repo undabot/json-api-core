@@ -11,14 +11,13 @@ use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Link\Link
  *
  * @small
  */
 final class LinkTest extends TestCase
 {
-    /** @var LinkMemberInterface|MockObject */
-    private $linkUrlMock;
+    private MockObject $linkUrlMock;
 
     protected function setUp(): void
     {

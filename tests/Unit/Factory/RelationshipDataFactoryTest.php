@@ -13,14 +13,13 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelatio
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Factory\RelationshipDataFactory
  *
  * @small
  */
 final class RelationshipDataFactoryTest extends TestCase
 {
-    /** @var RelationshipDataFactory */
-    private $factory;
+    private RelationshipDataFactory $factory;
 
     protected function setUp(): void
     {

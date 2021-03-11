@@ -11,14 +11,13 @@ use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination
  *
  * @small
  */
 final class PageBasedPaginationFactoryTest extends TestCase
 {
-    /** @var PaginationFactory */
-    private $paginationFactory;
+    private PaginationFactory $paginationFactory;
 
     protected function setUp(): void
     {

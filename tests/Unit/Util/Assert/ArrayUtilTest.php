@@ -9,7 +9,7 @@ use Undabot\JsonApi\Util\ArrayUtil;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Util\ArrayUtil
  *
  * @small
  */

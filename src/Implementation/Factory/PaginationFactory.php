@@ -19,13 +19,13 @@ class PaginationFactory
      */
     public function fromArray(array $paginationParams): PaginationInterface
     {
-        if (true === \array_key_exists(PageBasedPagination::PARAM_PAGE_SIZE, $paginationParams) &&
-            true === \array_key_exists(PageBasedPagination::PARAM_PAGE_NUMBER, $paginationParams)) {
+        if (true === \array_key_exists(PageBasedPagination::PARAM_PAGE_SIZE, $paginationParams)
+            && true === \array_key_exists(PageBasedPagination::PARAM_PAGE_NUMBER, $paginationParams)) {
             return $this->makePageBasedPagination($paginationParams);
         }
 
-        if (true === \array_key_exists(OffsetBasedPagination::PARAM_PAGE_OFFSET, $paginationParams) &&
-            true === \array_key_exists(OffsetBasedPagination::PARAM_PAGE_LIMIT, $paginationParams)) {
+        if (true === \array_key_exists(OffsetBasedPagination::PARAM_PAGE_OFFSET, $paginationParams)
+            && true === \array_key_exists(OffsetBasedPagination::PARAM_PAGE_LIMIT, $paginationParams)) {
             return $this->makeOffsetBasedPagination($paginationParams);
         }
 
