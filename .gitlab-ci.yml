@@ -4,8 +4,7 @@ stages:
 
 build_base:
     stage: build_base
-    only:
-        - fix/ci
+    only: [merge_requests, "/master/"]
     tags:
         - docker-build
     image: docker/compose:latest
