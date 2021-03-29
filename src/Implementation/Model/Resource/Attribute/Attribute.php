@@ -14,6 +14,9 @@ class Attribute implements AttributeInterface
     /** @var mixed */
     private $value;
 
+    /**
+     * @param mixed $value
+     */
     public function __construct(string $name, $value)
     {
         $this->name = $name;
@@ -25,7 +28,7 @@ class Attribute implements AttributeInterface
         return $this->name;
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }

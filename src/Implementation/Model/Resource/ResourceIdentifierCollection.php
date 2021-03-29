@@ -14,22 +14,30 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
     /** @var ResourceIdentifierInterface[] */
     private $resourceIdentifiers;
 
+    /** @param ResourceIdentifierInterface[] $resourceIdentifiers */
     public function __construct(array $resourceIdentifiers)
     {
         $this->makeSureResourcesIdentifiersAreValid($resourceIdentifiers);
         $this->resourceIdentifiers = $resourceIdentifiers;
     }
 
+    /**
+     * @return ResourceIdentifierInterface[]
+     */
     public function getResourceIdentifiers(): array
     {
         return $this->resourceIdentifiers;
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,ResourceIdentifierInterface>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getResourceIdentifiers());
     }
 
+    /** @param ResourceIdentifierInterface[] $resourceIdentifiers */
     private function makeSureResourcesIdentifiersAreValid(array $resourceIdentifiers): void
     {
         foreach ($resourceIdentifiers as $resourceIdentifier) {

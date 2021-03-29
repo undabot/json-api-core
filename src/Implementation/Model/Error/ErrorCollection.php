@@ -11,25 +11,33 @@ use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
 final class ErrorCollection implements ErrorCollectionInterface
 {
-    /** @var Error[] */
+    /** @var ErrorInterface[] */
     private $errors;
 
+    /** @param ErrorInterface[] $errors */
     public function __construct(array $errors)
     {
         $this->makeSureAllErrorsAreValid($errors);
         $this->errors = $errors;
     }
 
+    /**
+     * @return ErrorInterface[]
+     */
     public function getErrors(): array
     {
         return $this->errors;
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,ErrorInterface>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getErrors());
     }
 
+    /** @param ErrorInterface[] $errors */
     private function makeSureAllErrorsAreValid(array $errors): void
     {
         foreach ($errors as $error) {

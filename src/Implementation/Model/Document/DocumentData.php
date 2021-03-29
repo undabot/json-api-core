@@ -19,6 +19,7 @@ class DocumentData implements DocumentDataInterface
     /** @var null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface */
     private $data;
 
+    /** @param null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data */
     public function __construct($data)
     {
         $this->makeSureDataIsValid($data);
@@ -115,6 +116,9 @@ class DocumentData implements DocumentDataInterface
         throw new InvalidArgumentException('Invalid data provided');
     }
 
+    /**
+     * @return null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface
+     */
     private function returnDataIfTrue(bool $condition, string $errorMessage)
     {
         if (true !== $condition) {

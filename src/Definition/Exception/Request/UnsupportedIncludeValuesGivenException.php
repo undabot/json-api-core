@@ -8,10 +8,13 @@ use Throwable;
 
 class UnsupportedIncludeValuesGivenException extends RequestException
 {
+    /**
+     * @param string[] $unsupportedIncludes
+     */
     public function __construct(
         array $unsupportedIncludes,
         ?string $message = null,
-        $code = 0,
+        int $code = 0,
         Throwable $previous = null
     ) {
         if (null === $message) {

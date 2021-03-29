@@ -19,6 +19,7 @@ class ErrorCollectionToPhpArrayEncoder implements ErrorCollectionToPhpArrayEncod
         $this->errorEncoder = $errorEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(ErrorCollectionInterface $errorCollection): array
     {
         $serializedErrors = [];

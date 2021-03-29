@@ -8,12 +8,12 @@ use InvalidArgumentException;
 
 class Filter
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
     /** @var mixed */
     private $value;
 
+    /** @param mixed $value */
     public function __construct(string $name, $value)
     {
         $this->makeSureValueIsValid($value);
@@ -26,11 +26,12 @@ class Filter
         return $this->name;
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
 
+    /** @param mixed $value */
     private function makeSureValueIsValid($value): void
     {
         if (true === \is_object($value)) {

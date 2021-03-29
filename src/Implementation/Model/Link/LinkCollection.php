@@ -14,12 +14,14 @@ final class LinkCollection implements LinkCollectionInterface
     /** @var LinkInterface[] */
     private $links;
 
+    /** @param LinkInterface[] $links */
     public function __construct(array $links)
     {
         Assertion::allIsInstanceOf($links, LinkInterface::class);
         $this->links = $links;
     }
 
+    /** @return LinkInterface[] */
     public function getLinks(): array
     {
         return $this->links;
@@ -36,7 +38,10 @@ final class LinkCollection implements LinkCollectionInterface
         return false;
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,LinkInterface>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->links);
     }
@@ -52,6 +57,7 @@ final class LinkCollection implements LinkCollectionInterface
         return null;
     }
 
+    /** @return string[] */
     public function getLinkNames(): array
     {
         $linkNames = [];

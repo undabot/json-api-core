@@ -14,22 +14,30 @@ final class ResourceCollection implements ResourceCollectionInterface
     /** @var ResourceInterface[] */
     private $resources;
 
+    /** @param ResourceInterface[] $resources */
     public function __construct(array $resources)
     {
         $this->makeSureResourcesAreValid($resources);
         $this->resources = $resources;
     }
 
+    /**
+     * @return ResourceInterface[] $resources
+     */
     public function getResources(): array
     {
         return $this->resources;
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,ResourceInterface>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getResources());
     }
 
+    /** @param ResourceInterface[] $resources */
     private function makeSureResourcesAreValid(array $resources): void
     {
         foreach ($resources as $resource) {
