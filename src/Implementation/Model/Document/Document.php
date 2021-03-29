@@ -16,23 +16,17 @@ use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 class Document implements DocumentInterface
 {
-    /** @var null|DocumentDataInterface */
-    private $data;
+    private ?DocumentDataInterface $data;
 
-    /** @var null|ErrorCollectionInterface */
-    private $errors;
+    private ?ErrorCollectionInterface $errors;
 
-    /** @var null|MetaInterface */
-    private $meta;
+    private ?MetaInterface $meta;
 
-    /** @var null|MetaInterface */
-    private $jsonApiMeta;
+    private ?MetaInterface $jsonApiMeta;
 
-    /** @var null|LinkCollectionInterface */
-    private $links;
+    private ?LinkCollectionInterface $links;
 
-    /** @var null|ResourceCollectionInterface */
-    private $included;
+    private ?ResourceCollectionInterface $included;
 
     public function __construct(
         ?DocumentDataInterface $data,

@@ -35,6 +35,9 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function encode(RelationshipInterface $relationship): array
     {
         $serializedRelationship = [];

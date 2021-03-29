@@ -8,25 +8,24 @@ use Exception;
 
 class ValidationException extends Exception
 {
-    /**
-     * @var null|string
-     */
-    private $propertyPath;
+    private ?string $propertyPath;
 
     /**
      * @var mixed
      */
     private $value;
 
-    /**
-     * @var array
-     */
-    private $constraints;
+    private array $constraints;
 
+    /**
+     * ValidationException constructor.
+     *
+     * @param mixed $value
+     */
     public function __construct(
-        $message,
-        $code = null,
-        string $propertyPath = null,
+        string $message,
+        int $code = null,
+        ?string $propertyPath = null,
         $value = null,
         array $constraints = []
     ) {

@@ -11,20 +11,25 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
 
 class AttributeCollection implements AttributeCollectionInterface
 {
-    /** @var Attribute[] */
+    /** @var AttributeInterface[] */
     private $attributes;
 
+    /** @param AttributeInterface[] $attributes */
     public function __construct(array $attributes)
     {
         $this->makeSureAllAttributesAreValid($attributes);
         $this->attributes = $attributes;
     }
 
+    /** @return AttributeInterface[] */
     public function getAttributes(): array
     {
         return $this->attributes;
     }
 
+    /**
+     * @return ArrayIterator<int,AttributeInterface>
+     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getAttributes());
@@ -41,6 +46,7 @@ class AttributeCollection implements AttributeCollectionInterface
         return null;
     }
 
+    /** @param AttributeInterface[] $attributes */
     private function makeSureAllAttributesAreValid(array $attributes): void
     {
         foreach ($attributes as $attribute) {

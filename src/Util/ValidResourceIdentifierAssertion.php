@@ -7,6 +7,8 @@ namespace Undabot\JsonApi\Util;
 class ValidResourceIdentifierAssertion
 {
     /**
+     * @param array<string,mixed> $resourceIdentifier
+     *
      * @throws \Assert\AssertionFailedException
      */
     public static function assert(array $resourceIdentifier): void

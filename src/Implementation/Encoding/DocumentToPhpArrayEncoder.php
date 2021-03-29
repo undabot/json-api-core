@@ -43,6 +43,7 @@ class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
         $this->resourceCollectionEncoder = $resourceCollectionEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(DocumentInterface $document): array
     {
         $serializedDocument = [];

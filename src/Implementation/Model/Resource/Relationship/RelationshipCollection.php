@@ -11,21 +11,28 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface
 
 class RelationshipCollection implements RelationshipCollectionInterface
 {
-    /** @var array */
+    /** @var RelationshipInterface[] */
     private $relationships = [];
 
+    /** @param RelationshipInterface[] $relationships */
     public function __construct(array $relationships)
     {
         $this->makeSureThatItemsAreRelationships($relationships);
         $this->relationships = $relationships;
     }
 
+    /**
+     * @return RelationshipInterface[]
+     */
     public function getRelationships(): array
     {
         return $this->relationships;
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,RelationshipInterface>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getRelationships());
     }
@@ -42,6 +49,7 @@ class RelationshipCollection implements RelationshipCollectionInterface
         return null;
     }
 
+    /** @param RelationshipInterface[] $relationships */
     private function makeSureThatItemsAreRelationships(array $relationships): void
     {
         foreach ($relationships as $relationship) {

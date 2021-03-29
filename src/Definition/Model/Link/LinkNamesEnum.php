@@ -17,6 +17,7 @@ abstract class LinkNamesEnum
     public const LINK_NAME_PAGINATION_PREV = 'prev';
     public const LINK_NAME_PAGINATION_NEXT = 'next';
 
+    /** @return array<string,mixed> */
     public static function getValues(): array
     {
         $oClass = new ReflectionClass(__CLASS__);

@@ -37,6 +37,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
         $this->attributeCollectionEncoder = $attributeCollectionEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(ResourceInterface $resource): array
     {
         $serializedResource = [

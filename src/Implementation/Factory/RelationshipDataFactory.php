@@ -13,8 +13,14 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 class RelationshipDataFactory
 {
-    public function make(string $type, bool $toMany, $data): ?RelationshipDataInterface
-    {
+    /**
+     * @param null|string|string[] $data
+     */
+    public function make(
+        string $type,
+        bool $toMany,
+        $data
+    ): ?RelationshipDataInterface {
         if (null === $data && true === $toMany) {
             return ToManyRelationshipData::makeEmpty();
         }

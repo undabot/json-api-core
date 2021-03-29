@@ -31,6 +31,7 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
         $this->metaEncoder = $metaEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(ErrorInterface $error): array
     {
         $serializedError = [];

@@ -9,6 +9,9 @@ use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
 
 class SourceToPhpArrayEncoder implements SourceToPhpArrayEncoderInterface
 {
+    /**
+     * @return array<string,null|string>
+     */
     public function encode(SourceInterface $source): array
     {
         $serializedSource = [];

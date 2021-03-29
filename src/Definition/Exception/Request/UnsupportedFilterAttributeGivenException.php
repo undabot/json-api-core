@@ -8,10 +8,13 @@ use Throwable;
 
 class UnsupportedFilterAttributeGivenException extends RequestException
 {
+    /**
+     * @param string[] $unsupportedFilters
+     */
     public function __construct(
         array $unsupportedFilters,
         ?string $message = null,
-        $code = 0,
+        int $code = 0,
         Throwable $previous = null
     ) {
         if (null === $message) {

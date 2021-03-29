@@ -19,6 +19,9 @@ class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionT
         $this->relationshipToPhpArrayEncoder = $relationshipToPhpArrayEncoder;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function encode(RelationshipCollectionInterface $relationshipCollection): array
     {
         $relationships = [];
