@@ -37,6 +37,8 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
     }
 
     /**
+     * @param array<string,mixed> $resource
+     *
      * @throws JsonApiEncodingException
      */
     public function decode(array $resource): ResourceInterface
@@ -69,6 +71,9 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
         );
     }
 
+    /**
+     * @param null|array<string,mixed> $rawMeta
+     */
     private function parseMeta(?array $rawMeta): ?MetaInterface
     {
         if (null === $rawMeta) {

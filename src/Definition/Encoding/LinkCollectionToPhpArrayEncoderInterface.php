@@ -8,5 +8,8 @@ use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 
 interface LinkCollectionToPhpArrayEncoderInterface
 {
+    /**
+     * @return array<string,mixed>
+     */
     public function encode(LinkCollectionInterface $linkCollection): array;
 }

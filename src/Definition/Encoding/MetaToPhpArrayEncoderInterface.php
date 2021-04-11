@@ -8,5 +8,6 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 
 interface MetaToPhpArrayEncoderInterface
 {
-    public function encode(MetaInterface $meta);
+    /** @return array<string,mixed> */
+    public function encode(MetaInterface $meta): array;
 }

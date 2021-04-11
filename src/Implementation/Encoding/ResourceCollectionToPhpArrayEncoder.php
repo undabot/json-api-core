@@ -18,6 +18,7 @@ class ResourceCollectionToPhpArrayEncoder implements ResourceCollectionToPhpArra
         $this->resourceToPhpArrayEncoder = $resourceToPhpArrayEncoder;
     }
 
+    /** @return array<int,array<string,mixed>> */
     public function encode(ResourceCollectionInterface $resourceCollection): array
     {
         $resources = [];

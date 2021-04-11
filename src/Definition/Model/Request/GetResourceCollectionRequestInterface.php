@@ -14,10 +14,16 @@ use Undabot\JsonApi\Implementation\Model\Request\Sort\SortSet;
 
 interface GetResourceCollectionRequestInterface
 {
+    /**
+     * @return null|array<int,mixed>
+     */
     public function getIncludes(): ?array;
 
     public function isIncluded(string $name): bool;
 
+    /**
+     * @return null|array<int,mixed>
+     */
     public function getSparseFieldset(): ?array;
 
     public function getFilterSet(): ?FilterSet;

@@ -8,5 +8,6 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
 interface ResourceIdentifierToPhpArrayEncoderInterface
 {
+    /** @return array<string,mixed> */
     public function encode(ResourceIdentifierInterface $resourceIdentifier);
 }

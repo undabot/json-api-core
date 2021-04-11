@@ -18,6 +18,7 @@ class ResourceIdentifierToPhpArrayEncoder implements ResourceIdentifierToPhpArra
         $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(ResourceIdentifierInterface $resourceIdentifier)
     {
         $serializedResourceIdentifier = [
