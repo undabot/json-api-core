@@ -8,6 +8,6 @@ use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
 
 interface ErrorCollectionToPhpArrayEncoderInterface
 {
-    /** @return array<string,mixed> */
-    public function encode(ErrorCollectionInterface $errorCollection);
+    /** @return array<int,array<string,mixed>> */
+    public function encode(ErrorCollectionInterface $errorCollection): array;
 }

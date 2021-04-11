@@ -11,10 +11,20 @@ interface GetResourceRequestInterface
 {
     public function getId(): string;
 
+    /**
+     * @todo change definition after interface implementation
+     *
+     * @return null|array<mixed>
+     */
     public function getIncludes(): ?array;
 
     public function isIncluded(string $name): bool;
 
+    /**
+     * @todo change definition after interface implementation
+     *
+     * @return null|array<mixed>
+     */
     public function getSparseFieldset(): ?array;
 
     /**

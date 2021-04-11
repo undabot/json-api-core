@@ -9,6 +9,10 @@ namespace Undabot\JsonApi\Util;
  */
 abstract class ArrayUtil
 {
+    /**
+     * @param array<string,mixed> $array
+     * @param string[]            $requiredKeys
+     */
     public static function hasRequiredKeys(array $array, array $requiredKeys): bool
     {
         $missingRequiredKeys = array_diff($requiredKeys, array_keys($array));
@@ -16,6 +20,9 @@ abstract class ArrayUtil
         return true === empty($missingRequiredKeys);
     }
 
+    /**
+     * @param array<string,mixed> $array
+     */
     public static function isMap(array $array): bool
     {
         $keys = array_keys($array);

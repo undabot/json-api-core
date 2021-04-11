@@ -57,6 +57,9 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         return $serializedRelationship;
     }
 
+    /**
+     * @return null|array<mixed,mixed>
+     */
     private function encodeRelationshipData(?RelationshipDataInterface $data): ?array
     {
         if ($data instanceof ToOneRelationshipDataInterface) {
@@ -71,7 +74,10 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         throw new DomainException('Invalid relationship data');
     }
 
-    private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data)
+    /**
+     * @return null|array<string,mixed>
+     */
+    private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data): ?array
     {
         if (null === $data->getData()) {
             return null;
@@ -80,7 +86,10 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         return $this->resourceIdentifierToPhpArrayEncoder->encode($data->getData());
     }
 
-    private function encodeToManyRelationshipData(ToManyRelationshipDataInterface $data)
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    private function encodeToManyRelationshipData(ToManyRelationshipDataInterface $data): array
     {
         if ($data->isEmpty()) {
             return [];
