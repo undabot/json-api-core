@@ -28,6 +28,7 @@ class ToManyRelationshipData implements ToManyRelationshipDataInterface
         return new self($resourceIdentifierCollection);
     }
 
+    /** {@inheritDoc} */
     public function isEmpty(): bool
     {
         return null === $this->resourceIdentifierCollection

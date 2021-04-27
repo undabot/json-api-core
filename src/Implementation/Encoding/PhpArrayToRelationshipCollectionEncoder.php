@@ -91,6 +91,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param null|array<int,array<string,string>> $resourceLinkage
+     *
      * @throws JsonApiEncodingException
      */
     private function parseRelationshipData(?array $resourceLinkage): RelationshipDataInterface
