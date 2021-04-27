@@ -8,8 +8,15 @@ use Throwable;
 
 class UnsupportedSortRequestedException extends RequestException
 {
-    public function __construct(array $unsupportedSorts, ?string $message = null, $code = 0, Throwable $previous = null)
-    {
+    /**
+     * @param string[] $unsupportedSorts
+     */
+    public function __construct(
+        array $unsupportedSorts,
+        ?string $message = null,
+        int $code = 0,
+        Throwable $previous = null
+    ) {
         if (null === $message) {
             $message = sprintf(
                 'Unsupported sort query params given: `%s`',

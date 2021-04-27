@@ -8,11 +8,15 @@ use ArrayIterator;
 use Assert\Assertion;
 use IteratorAggregate;
 
+/**
+ * @implements IteratorAggregate<int,Sort>
+ */
 class SortSet implements IteratorAggregate
 {
     /** @var Sort[] */
     private $sorts;
 
+    /** @param Sort[] $sorts */
     public function __construct(array $sorts)
     {
         Assertion::allIsInstanceOf($sorts, Sort::class);
@@ -38,11 +42,17 @@ class SortSet implements IteratorAggregate
         return new self($sorts);
     }
 
-    public function getIterator()
+    /**
+     * @return ArrayIterator<int,Sort>
+     */
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->sorts);
     }
 
+    /**
+     * @return array<string,null|string>
+     */
     public function getSortsArray(): array
     {
         $sortSet = [];

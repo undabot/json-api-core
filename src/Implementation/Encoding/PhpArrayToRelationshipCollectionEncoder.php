@@ -38,6 +38,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param array<string,array<string,mixed>> $relationships
+     *
      * @throws JsonApiEncodingException
      */
     public function encode(array $relationships): RelationshipCollectionInterface
@@ -54,6 +56,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param array<string,mixed> $relationshipValue
+     *
      * @throws JsonApiEncodingException
      */
     private function decodeRelationship(string $relationshipName, array $relationshipValue): Relationship
@@ -82,6 +86,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param null|array<int,array<string,string>> $resourceLinkage
+     *
      * @throws JsonApiEncodingException
      */
     private function parseRelationshipData(?array $resourceLinkage): RelationshipDataInterface

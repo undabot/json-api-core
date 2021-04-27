@@ -8,5 +8,5 @@ interface AttributeInterface
 {
     public function getName(): string;
 
-    public function getValue();
+    public function getValue(): mixed;
 }

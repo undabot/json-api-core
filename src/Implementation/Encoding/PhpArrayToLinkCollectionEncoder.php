@@ -10,6 +10,7 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
 class PhpArrayToLinkCollectionEncoder implements PhpArrayToLinkCollectionEncoderInterface
 {
+    /** @param array<string,string> $links */
     public function encode(array $links): LinkCollectionInterface
     {
         throw new \RuntimeException('Not implemented');

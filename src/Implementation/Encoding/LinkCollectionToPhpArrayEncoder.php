@@ -19,6 +19,9 @@ class LinkCollectionToPhpArrayEncoder implements LinkCollectionToPhpArrayEncoder
         $this->linkEncoder = $linkEncoder;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function encode(LinkCollectionInterface $linkCollection): array
     {
         $links = [];
