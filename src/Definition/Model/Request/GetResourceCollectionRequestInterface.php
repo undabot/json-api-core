@@ -38,6 +38,8 @@ interface GetResourceCollectionRequestInterface
     public function disablePagination(): self;
 
     /**
+     * @param string[] $allowedFilters
+     *
      * @throws UnsupportedFilterAttributeGivenException
      */
     public function allowFilters(array $allowedFilters): self;

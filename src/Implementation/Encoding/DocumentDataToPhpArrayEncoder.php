@@ -37,6 +37,7 @@ class DocumentDataToPhpArrayEncoder implements DocumentDataToPhpArrayEncoderInte
         $this->resourceIdentifierCollectionEncoder = $resourceIdentifierCollectionEncoder;
     }
 
+    /** @return array<mixed,mixed> */
     public function encode(DocumentDataInterface $documentData): ?array
     {
         if ($documentData->isResource()) {
