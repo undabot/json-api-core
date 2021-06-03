@@ -5,28 +5,30 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
 use PHPUnit\Framework\TestCase;
-use Undabot\JsonApi\Definition\Encoding\PhpArrayToLinkCollectionEncoderInterface;
-use Undabot\JsonApi\Definition\Encoding\PhpArrayToMetaEncoderInterface;
+use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
 use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
+use Undabot\JsonApi\Implementation\Encoding\PhpArrayToLinkCollectionEncoder;
+use Undabot\JsonApi\Implementation\Encoding\PhpArrayToMetaEncoder;
 use Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
+use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder
  *
  * @small
  */
 final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 {
-    /** @var PhpArrayToRelationshipCollectionEncoder */
+    /** @var PhpArrayToRelationshipCollectionEncoder $encoder */
     private $encoder;
 
     protected function setUp(): void
     {
-        $phpArrayToMetaEncoder = $this->createMock(PhpArrayToMetaEncoderInterface::class);
-        $phpArrayToLinkCollectionEncoder = $this->createMock(PhpArrayToLinkCollectionEncoderInterface::class);
+        $phpArrayToMetaEncoder = new PhpArrayToMetaEncoder();
+        $phpArrayToLinkCollectionEncoder = new PhpArrayToLinkCollectionEncoder();
 
         $this->encoder = new PhpArrayToRelationshipCollectionEncoder(
             $phpArrayToMetaEncoder,
@@ -76,20 +78,43 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 
         $relationshipsCollection = $this->encoder->encode($validRelationshipsArray);
 
-        /** @var Relationship singleRelationship */
-        $singleRelationship = $relationshipsCollection->getRelationshipByName('fakeResourceName');
+        $this->validateRelationship($relationshipsCollection, 'fakeResourceName');
 
-        static::assertCount(1, $relationshipsCollection->getRelationships());
+        /** @var ResourceIdentifier $resourceIdentifier */
+        foreach ($relationshipsCollection->getRelationshipByName('fakeResourceName')->getData()->getData()->getResourceIdentifiers() as $resourceIdentifier) {
+            static::assertInstanceOf(ResourceIdentifier::class, $resourceIdentifier);
+            static::assertNull($resourceIdentifier->getMeta());
+        }
+    }
 
-        /** @var ToManyRelationshipData relationshipData */
-        $relationshipData = $singleRelationship->getData();
+    public function testValidRelationshipsArrayIsEncodedToRelationshipsCollectionWithMetaAttributesGiven(): void
+    {
+        $validRelationshipsArray = [
+            'fakeResourceName' => [
+                'type' => 'fakeResourceNames',
+                'data' => [
+                    ['id' => 'rand-str-Id-1', 'type' => 'fakeResourceName', 'meta' => []],
+                    ['id' => 'rand-str-Id-2', 'type' => 'fakeResourceName', 'meta' => ['foo' => 'bar']],
+                    ['id' => 'rand-str-Id-3', 'type' => 'fakeResourceName', 'meta' => ['foo' => ['bar' => 'baz']]],
+                ],
+            ],
+        ];
 
-        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+        $relationshipsCollection = $this->encoder->encode($validRelationshipsArray);
 
-        /** @var ToManyRelationshipData $relationships */
-        $relationships = $singleRelationship->getData();
+        $this->validateRelationship($relationshipsCollection, 'fakeResourceName');
 
-        static::assertCount(3, $relationships->getData());
+        /** @var array<int,ResourceIdentifier> $resourceIdentifiers */
+        $resourceIdentifiers = $relationshipsCollection->getRelationshipByName('fakeResourceName')->getData()->getData()->getResourceIdentifiers();
+        $firstResourceIdentifier = $resourceIdentifiers[0] ?? null;
+        $secondResourceIdentifier = $resourceIdentifiers[1] ?? null;
+        $thirdResourceIdentifier = $resourceIdentifiers[2] ?? null;
+        static::assertInstanceOf(ResourceIdentifier::class, $firstResourceIdentifier);
+        static::assertInstanceOf(ResourceIdentifier::class, $secondResourceIdentifier);
+        static::assertInstanceOf(ResourceIdentifier::class, $thirdResourceIdentifier);
+        static::assertSame([], $firstResourceIdentifier->getMeta()->getData());
+        static::assertSame(['foo' => 'bar'], $secondResourceIdentifier->getMeta()->getData());
+        static::assertSame(['foo' => ['bar' => 'baz']], $thirdResourceIdentifier->getMeta()->getData());
     }
 
     public function testMissingRelationshipTypeRaisesException(): void
@@ -122,5 +147,23 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         $this->expectException(JsonApiEncodingException::class);
         $this->expectExceptionMessage('Resource identifier must have key `id`');
         $this->encoder->encode($invalidRelationshipArray);
+    }
+
+    private function validateRelationship(RelationshipCollectionInterface $relationshipsCollection, string $relationshipName): void
+    {
+        /** @var Relationship $singleRelationship */
+        $singleRelationship = $relationshipsCollection->getRelationshipByName($relationshipName);
+
+        static::assertCount(1, $relationshipsCollection->getRelationships());
+
+        /** @var ToManyRelationshipData $relationshipData */
+        $relationshipData = $singleRelationship->getData();
+
+        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+
+        /** @var ToManyRelationshipData $relationships */
+        $relationships = $singleRelationship->getData();
+
+        static::assertCount(3, $relationships->getData());
     }
 }
