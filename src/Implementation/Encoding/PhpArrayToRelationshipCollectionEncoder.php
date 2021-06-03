@@ -8,6 +8,8 @@ use Undabot\JsonApi\Definition\Encoding\PhpArrayToLinkCollectionEncoderInterface
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToMetaEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\PhpArrayToRelationshipCollectionEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipDataInterface;
+use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToManyRelationshipDataInterface;
+use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToOneRelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
 use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
@@ -23,18 +25,10 @@ use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
-    /** @var PhpArrayToMetaEncoderInterface */
-    private $phpArrayToMetaEncoder;
-
-    /** @var PhpArrayToLinkCollectionEncoderInterface */
-    private $phpArrayToLinkCollectionEncoder;
-
     public function __construct(
-        PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
-        PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
+        private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
+        private PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
     ) {
-        $this->phpArrayToMetaEncoder = $phpArrayToMetaEncoder;
-        $this->phpArrayToLinkCollectionEncoder = $phpArrayToLinkCollectionEncoder;
     }
 
     /**
@@ -59,18 +53,28 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     private function decodeRelationship(string $relationshipName, array $relationshipValue): Relationship
     {
         $relationshipData = null;
+        $relationshipMeta = null;
         if (true === \array_key_exists('data', $relationshipValue)) {
             $relationshipData = $this->parseRelationshipData($relationshipValue['data']);
+            if ($relationshipData instanceof ToOneRelationshipDataInterface) {
+                if (true === \array_key_exists('meta', $relationshipValue['data'])) {
+                    $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['data']['meta']);
+                }
+            } elseif ($relationshipData instanceof ToManyRelationshipDataInterface) {
+                $relationshipMetas = [];
+                foreach ($relationshipValue['data'] as $relationshipDatum) {
+                    if (true === \array_key_exists('meta', $relationshipDatum)) {
+                        $relationshipMetas[] = $relationshipDatum['meta'];
+                    }
+                }
+
+                $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipMetas);
+            }
         }
 
         $relationshipLinks = null;
         if (true === \array_key_exists('links', $relationshipValue)) {
             $relationshipLinks = $this->phpArrayToLinkCollectionEncoder->encode($relationshipValue['links']);
-        }
-
-        $relationshipMeta = null;
-        if (true === \array_key_exists('meta', $relationshipValue)) {
-            $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['meta']);
         }
 
         return new Relationship(
@@ -114,7 +118,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         $resourceIdentifier = new ResourceIdentifier(
             $resourceLinkage['id'],
             $resourceLinkage['type'],
-            $resourceLinkage['meta'] ?? null
+            (true === \array_key_exists('meta', $resourceLinkage)) ? $this->phpArrayToMetaEncoder->decode($resourceLinkage['meta']) : null,
         );
 
         return ToOneRelationshipData::make($resourceIdentifier);
@@ -129,7 +133,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             $resourceIdentifiers[] = new ResourceIdentifier(
                 $datum['id'],
                 $datum['type'],
-                $datum['meta'] ?? null
+                (true === \array_key_exists('meta', $datum)) ? $this->phpArrayToMetaEncoder->decode($datum['meta']) : null,
             );
         }
 
