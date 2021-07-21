@@ -3,6 +3,7 @@ FROM undabot/php_dev:8 AS dev
 ARG env
 ARG XDEBUG_ENABLED=true
 
+USER root
 RUN if [[ $XDEBUG_ENABLED = false ]]; then echo "xdebug.mode=off" > /usr/local/etc/php/conf.d/xdebug.ini; fi
 
 COPY --chown=app:app . /opt/app
