@@ -3,6 +3,22 @@ name: json_api_core
 on: [push, pull_request]
 
 jobs:
+  build_image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build work image
+        run: |
+          docker build -f docker/Dockerfile.dev --build-arg XDEBUG_ENABLED="false" -t undabot/json_api_core:latest .
+      - name: Push image to DockerHub
+        run: |
+          docker push undabot/json_api_core:latest
+
   test_image:
     runs-on: ubuntu-latest
     container: 
@@ -10,10 +26,10 @@ jobs:
     steps:
       - name: Test image
         run: |
-          ls -lah
-          pwd
-          whoami
-          cd /
-          ls -lah
-          cd /opt
-          docker ps
+          cd /opt/app
+          composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
+          composer validate --no-check-publish --no-interaction --ansi
+          composer run lint
+          composer run qc
+          phpdbg -qrr ./vendor/bin/phpunit
+          cat tests/_reports/coverage.txt | head -n 10 | grep "Lines"

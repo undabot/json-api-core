@@ -11,7 +11,3 @@ USER app
 RUN echo "$env" > /opt/app/.env.local
 
 WORKDIR /opt/app
-
-FROM dev AS test
-
-ENTRYPOINT ["/bin/bash"]
