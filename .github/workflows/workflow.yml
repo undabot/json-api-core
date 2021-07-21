@@ -15,3 +15,5 @@ jobs:
           whoami
           cd /
           ls -lah
+          cd /opt
+          docker ps
