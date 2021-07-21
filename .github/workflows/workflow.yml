@@ -14,7 +14,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build work image
         run: |
-          docker build -f docker/Dockerfile.dev -t undabot/json_api_core:¢ .
+          docker build -f docker/Dockerfile.dev --build-arg XDEBUG_ENABLED="false" -t undabot/json_api_core:latest .
       - name: Push image to DockerHub
         run: |
           docker push undabot/json_api_core:latest

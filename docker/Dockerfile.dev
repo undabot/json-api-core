@@ -1,25 +1,12 @@
-FROM php:8.0.1-fpm as build-stage
+FROM undabot/php_dev:8 AS dev
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    git \
-    zip \
-    wget \
-    unzip \
-    nano \
-    zlib1g-dev libicu-dev g++
+ARG env
+ARG XDEBUG_ENABLED=true
 
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-install intl
+RUN if [[ $XDEBUG_ENABLED = false ]]; then echo "xdebug.mode=off" > /usr/local/etc/php/conf.d/xdebug.ini; fi
 
-# Install composer
-ADD docker/install-composer.sh .
-RUN chmod u+x install-composer.sh
-RUN ./install-composer.sh
-RUN composer --version
-
-# Install XDebug
-RUN pecl install -f xdebug \
-    && docker-php-ext-enable xdebug
-ADD docker/.dev_files/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY --chown=app:app . /opt/app
+USER app
+RUN echo "$env" > /opt/app/.env.local
 
 WORKDIR /opt/app
