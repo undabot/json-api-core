@@ -13,3 +13,5 @@ jobs:
           ls -lah
           pwd
           whoami
+          cd /
+          ls -lah
