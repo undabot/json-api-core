@@ -57,7 +57,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         if (true === \array_key_exists('data', $relationshipValue)) {
             $relationshipData = $this->parseRelationshipData($relationshipValue['data']);
             if ($relationshipData instanceof ToOneRelationshipDataInterface) {
-                if (true === \array_key_exists('meta', $relationshipValue['data'])) {
+                $data = $relationshipValue['data'] ?? null;
+                if (null !== $data && true === \array_key_exists('meta', $data)) {
                     $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['data']['meta']);
                 }
             } elseif ($relationshipData instanceof ToManyRelationshipDataInterface) {
