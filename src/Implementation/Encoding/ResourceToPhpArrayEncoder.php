@@ -59,7 +59,15 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
         }
 
         if (null !== $resource->getRelationships()) {
-            $serializedResource['relationships'] = $this->relationshipCollectionEncoder->encode($resource->getRelationships());
+            $encodedRelationships = $this->relationshipCollectionEncoder->encode($resource->getRelationships());
+            // relationships key must be object
+            // if it's empty, we'll get empty array and it will be encoded to array
+            // so in that case we'll create php object so json encode will return object
+            if (true === empty($encodedRelationships)) {
+                $encodedRelationships = new \stdClass();
+            }
+
+            $serializedResource['relationships'] = $encodedRelationships;
         }
 
         return $serializedResource;
