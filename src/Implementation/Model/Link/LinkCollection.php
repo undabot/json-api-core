@@ -11,10 +11,8 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
 final class LinkCollection implements LinkCollectionInterface
 {
-    /** @var LinkInterface[] */
-    private $links;
-
-    public function __construct(array $links)
+    /** @param array<int,LinkInterface> $links */
+    public function __construct(private array $links)
     {
         Assertion::allIsInstanceOf($links, LinkInterface::class);
         $this->links = $links;
@@ -36,7 +34,7 @@ final class LinkCollection implements LinkCollectionInterface
         return false;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->links);
     }

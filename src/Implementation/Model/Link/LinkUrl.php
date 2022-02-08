@@ -8,12 +8,8 @@ use Undabot\JsonApi\Definition\Model\Link\LinkMemberInterface;
 
 final class LinkUrl implements LinkMemberInterface
 {
-    /** @var string */
-    private $url;
-
-    public function __construct(string $url)
+    public function __construct(private string $url)
     {
-        $this->url = $url;
     }
 
     public function getUrl(): string

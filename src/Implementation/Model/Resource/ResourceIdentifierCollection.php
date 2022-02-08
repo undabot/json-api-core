@@ -11,13 +11,10 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
 final class ResourceIdentifierCollection implements ResourceIdentifierCollectionInterface
 {
-    /** @var ResourceIdentifierInterface[] */
-    private $resourceIdentifiers;
-
-    public function __construct(array $resourceIdentifiers)
+    /** @param array<int,ResourceIdentifierInterface> $resourceIdentifiers */
+    public function __construct(private array $resourceIdentifiers)
     {
         $this->makeSureResourcesIdentifiersAreValid($resourceIdentifiers);
-        $this->resourceIdentifiers = $resourceIdentifiers;
     }
 
     public function getResourceIdentifiers(): array
@@ -25,7 +22,7 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
         return $this->resourceIdentifiers;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getResourceIdentifiers());
     }

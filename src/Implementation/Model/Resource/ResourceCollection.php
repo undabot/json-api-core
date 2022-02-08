@@ -11,13 +11,10 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
 final class ResourceCollection implements ResourceCollectionInterface
 {
-    /** @var ResourceInterface[] */
-    private $resources;
-
-    public function __construct(array $resources)
+    /** @param array<int,ResourceInterface> $resources */
+    public function __construct(private array $resources)
     {
         $this->makeSureResourcesAreValid($resources);
-        $this->resources = $resources;
     }
 
     public function getResources(): array
@@ -25,7 +22,7 @@ final class ResourceCollection implements ResourceCollectionInterface
         return $this->resources;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getResources());
     }

@@ -11,17 +11,9 @@ use Undabot\JsonApi\Definition\Model\Link\LinkNamesEnum;
 
 final class Link implements LinkInterface
 {
-    /** @var string */
-    private $name;
-
-    /** @var LinkMemberInterface */
-    private $link;
-
-    public function __construct(string $name, LinkMemberInterface $link)
+    public function __construct(private string $name, private LinkMemberInterface $link)
     {
         $this->makeSureNameIsValid($name);
-        $this->name = $name;
-        $this->link = $link;
     }
 
     public function getName(): string
