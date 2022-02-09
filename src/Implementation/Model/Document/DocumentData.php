@@ -53,25 +53,46 @@ class DocumentData implements DocumentDataInterface
 
     public function getResource(): ResourceInterface
     {
-        return $this->returnDataIfTrue($this->isResource(), 'Data is not Resource');
+        $data = $this->data;
+        if (true !== $this->isResource()) {
+            throw new DomainException('Data is not Resource');
+        }
+        /** @var ResourceInterface $data */
+
+        return $data;
     }
 
     public function getResourceCollection(): ResourceCollectionInterface
     {
-        return $this->returnDataIfTrue($this->isResourceCollection(), 'Data is not Resource Collection');
+        $data = $this->data;
+        if (true !== $this->isResourceCollection()) {
+            throw new DomainException('Data is not Resource Collection');
+        }
+        /** @var ResourceCollectionInterface $data */
+
+        return $data;
     }
 
     public function getResourceIdentifier(): ResourceIdentifierInterface
     {
-        return $this->returnDataIfTrue($this->isResourceIdentifier(), 'Data is not Resource Identifier');
+        $data = $this->data;
+        if (true !== $this->isResourceIdentifier()) {
+            throw new DomainException('Data is not Resource Identifier');
+        }
+        /** @var ResourceIdentifierInterface $data */
+
+        return $data;
     }
 
     public function getResourceIdentifierCollection(): ResourceIdentifierCollectionInterface
     {
-        return $this->returnDataIfTrue(
-            $this->isResourceIdentifierCollection(),
-            'Data is not Resource Identifier Collection'
-        );
+        $data = $this->data;
+        if (true !== $this->isResourceIdentifierCollection()) {
+            throw new DomainException('Data is not Resource Identifier Collection');
+        }
+        /** @var ResourceIdentifierCollectionInterface $data */
+
+        return $data;
     }
 
     /**
@@ -114,17 +135,5 @@ class DocumentData implements DocumentDataInterface
         }
 
         throw new InvalidArgumentException('Invalid data provided');
-    }
-
-    /**
-     * @return null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface
-     */
-    private function returnDataIfTrue(bool $condition, string $errorMessage)
-    {
-        if (true !== $condition) {
-            throw new DomainException($errorMessage);
-        }
-
-        return $this->data;
     }
 }

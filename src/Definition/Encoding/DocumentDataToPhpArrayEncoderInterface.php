@@ -8,5 +8,6 @@ use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 
 interface DocumentDataToPhpArrayEncoderInterface
 {
+    /** @return null|array<mixed,mixed> */
     public function encode(DocumentDataInterface $documentData): ?array;
 }

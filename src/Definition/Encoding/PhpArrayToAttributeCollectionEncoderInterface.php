@@ -8,5 +8,6 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInter
 
 interface PhpArrayToAttributeCollectionEncoderInterface
 {
+    /** @param array<string,mixed> $attributes */
     public function encode(array $attributes): AttributeCollectionInterface;
 }

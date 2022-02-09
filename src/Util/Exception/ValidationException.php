@@ -15,12 +15,14 @@ class ValidationException extends Exception
      */
     private $value;
 
+    /** @var array<int,mixed> */
     private array $constraints;
 
     /**
      * ValidationException constructor.
      *
-     * @param mixed $value
+     * @param mixed            $value
+     * @param array<int,mixed> $constraints
      */
     public function __construct(
         string $message,
@@ -29,7 +31,7 @@ class ValidationException extends Exception
         $value = null,
         array $constraints = []
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message, $code ?? 0);
 
         $this->propertyPath = $propertyPath;
         $this->value = $value;

@@ -11,7 +11,7 @@ abstract class ArrayUtil
 {
     /**
      * @param array<string,mixed> $array
-     * @param string[]            $requiredKeys
+     * @param array<int,string>   $requiredKeys
      */
     public static function hasRequiredKeys(array $array, array $requiredKeys): bool
     {
@@ -21,7 +21,7 @@ abstract class ArrayUtil
     }
 
     /**
-     * @param array<string,mixed> $array
+     * @param array<int|string,array<string,string>|string> $array
      */
     public static function isMap(array $array): bool
     {

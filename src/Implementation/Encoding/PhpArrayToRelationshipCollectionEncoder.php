@@ -91,7 +91,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
-     * @param null|array<int,array<string,string>> $resourceLinkage
+     * @param null|array<int|string,array<string,string>|string> $resourceLinkage
      *
      * @throws JsonApiEncodingException
      */
@@ -117,11 +117,13 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
 
         $isAssociativeArray = ArrayUtil::isMap($resourceLinkage);
         if (false === $isAssociativeArray) {
+            /** @var array<int,array<string,string>> $resourceLinkage */
             $identifiersCollection = $this->parseResourceIdentifierCollection($resourceLinkage);
 
             return ToManyRelationshipData::make($identifiersCollection);
         }
-
+        // at this point we have not null to one relationship
+        /** @var array<string,string> $resourceLinkage */
         $resourceIdentifier = new ResourceIdentifier(
             $resourceLinkage['id'],
             $resourceLinkage['type'],
@@ -131,6 +133,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         return ToOneRelationshipData::make($resourceIdentifier);
     }
 
+    /** @param array<int, array<string,string>> $data */
     private function parseResourceIdentifierCollection(array $data): ResourceIdentifierCollection
     {
         $resourceIdentifiers = [];
