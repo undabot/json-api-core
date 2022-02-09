@@ -6,6 +6,6 @@ namespace Undabot\JsonApi\Definition\Model\Meta;
 
 interface MetaInterface
 {
-    /** @return array<string,mixed> */
+    /** @return array<int|string,mixed> */
     public function getData(): array;
 }

@@ -117,13 +117,13 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
 
         $isAssociativeArray = ArrayUtil::isMap($resourceLinkage);
         if (false === $isAssociativeArray) {
-            /** @var array<int,array<string,string>> $resourceLinkage */
+            /** @var array<int,array<string,mixed>> $resourceLinkage */
             $identifiersCollection = $this->parseResourceIdentifierCollection($resourceLinkage);
 
             return ToManyRelationshipData::make($identifiersCollection);
         }
         // at this point we have not null to one relationship
-        /** @var array<string,string> $resourceLinkage */
+        /** @var array<string,mixed> $resourceLinkage */
         $resourceIdentifier = new ResourceIdentifier(
             $resourceLinkage['id'],
             $resourceLinkage['type'],
@@ -133,7 +133,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         return ToOneRelationshipData::make($resourceIdentifier);
     }
 
-    /** @param array<int, array<string,string>> $data */
+    /** @param array<int, array<string,mixed>> $data */
     private function parseResourceIdentifierCollection(array $data): ResourceIdentifierCollection
     {
         $resourceIdentifiers = [];

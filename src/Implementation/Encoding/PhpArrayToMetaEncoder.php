@@ -10,7 +10,7 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 class PhpArrayToMetaEncoder implements PhpArrayToMetaEncoderInterface
 {
-    /** @param array<string,mixed> $meta */
+    /** @param array<int|string,mixed> $meta */
     public function decode(array $meta): MetaInterface
     {
         return new Meta($meta);
