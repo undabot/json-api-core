@@ -35,78 +35,97 @@ final class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function validResourceData()
+    public function validResourceData(): \Generator
     {
-        return [
+        yield 'Only valid id and type exists' => [
             [
-                [
-                    'id' => '1',
-                    'type' => 'x',
-                ],
+                'id' => '1',
+                'type' => 'x',
             ],
+        ];
+
+        yield 'Valid id and type exists with empty attributes and relationships' => [
             [
-                [
-                    'id' => '1',
-                    'type' => 'x',
-                    'attributes' => [],
-                    'relationships' => [],
-                ],
+                'id' => '1',
+                'type' => 'x',
+                'attributes' => [],
+                'relationships' => [],
             ],
+        ];
+
+        yield 'Valid id and type exists with empty meta and links' => [
             [
-                [
-                    'id' => '1',
-                    'type' => 'x',
-                    'meta' => [],
-                    'links' => [],
-                ],
+                'id' => '1',
+                'type' => 'x',
+                'meta' => [],
+                'links' => [],
             ],
+        ];
+
+        yield 'Valid id and type exists with empty attributes, relationships, meta and links' => [
             [
-                [
-                    'id' => '1',
-                    'type' => 'x',
-                    'attributes' => [],
-                    'relationships' => [],
-                    'meta' => [],
-                    'links' => [],
-                ],
+                'id' => '1',
+                'type' => 'x',
+                'attributes' => [],
+                'relationships' => [],
+                'meta' => [],
+                'links' => [],
+            ],
+        ];
+
+        yield 'Only valid lid and type exists' => [
+            [
+                'lid' => '1',
+                'type' => 'x',
             ],
         ];
     }
 
-    public function invalidResourceData()
+    public function invalidResourceData(): \Generator
     {
-        return [
+        yield 'Missing type' => [
             [
-                [
-                    'id' => '1',
-                ],
+                'id' => '1',
             ],
+        ];
+
+        yield 'Typo in type' => [
             [
-                [
-                    'id' => '1',
-                    'typex' => 'x',
-                    'attributes' => [],
-                    'relationships' => [],
-                ],
+                'id' => '1',
+                'typex' => 'x',
+                'attributes' => [],
+                'relationships' => [],
             ],
+        ];
+
+        yield 'Typo in id' => [
             [
-                [
-                    'idx' => '1',
-                    'type' => 'x',
-                    'meta' => [],
-                    'links' => [],
-                ],
+                'idx' => '1',
+                'type' => 'x',
+                'meta' => [],
+                'links' => [],
             ],
+        ];
+
+        yield 'Forbidden extra sent' => [
             [
-                [
-                    'id' => '1',
-                    'type' => 'x',
-                    'attributes' => [],
-                    'relationships' => [],
-                    'meta' => [],
-                    'links' => [],
-                    'extra' => [],
-                ],
+                'id' => '1',
+                'type' => 'x',
+                'attributes' => [],
+                'relationships' => [],
+                'meta' => [],
+                'links' => [],
+                'extra' => [],
+            ],
+        ];
+
+        yield 'Both lid and id sent' => [
+            [
+                'id' => '1',
+                'lid' => '2',
+                'type' => 'x',
+                'meta' => [],
+                'links' => [],
             ],
         ];
     }
