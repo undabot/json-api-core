@@ -39,77 +39,83 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider(): array
+    public function invalidPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'No pagination' => [
+            [],
+        ];
+
+        yield 'Missing offset' => [
+            ['limit' => 10],
+        ];
+
+        yield 'Missing limit' => [
+            ['offset' => 2],
+        ];
+
+        yield 'Limit and offset are both 0 as string' => [
             [
-                [],
+                'limit' => '0',
+                'offset' => '0',
             ],
+        ];
+
+        yield 'Limit and offset are both 0 as integer' => [
             [
-                ['limit' => 10],
+                'limit' => 0,
+                'offset' => 0,
             ],
+        ];
+
+        yield 'Limit and offset are both null' => [
             [
-                ['offset' => 2],
+                'limit' => null,
+                'offset' => null,
             ],
+        ];
+
+        yield 'Limit and offset are both floats' => [
             [
-                [
-                    'limit' => '0',
-                    'offset' => '0',
-                ],
-            ],
-            [
-                [
-                    'limit' => 0,
-                    'offset' => 0,
-                ],
-            ],
-            [
-                [
-                    'limit' => null,
-                    'offset' => null,
-                ],
-            ],
-            [
-                [
-                    'limit' => 10.1,
-                    'offset' => 2.1,
-                ],
+                'limit' => 10.1,
+                'offset' => 2.1,
             ],
         ];
     }
 
-    public function validOffsetBasedPaginationParamsProvider(): array
+    public function validOffsetBasedPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'Valid params as integer' => [
             [
-                [
-                    'limit' => 10,
-                    'offset' => 2,
-                ],
+                'limit' => 10,
+                'offset' => 2,
             ],
+        ];
+
+        yield 'Valid params as string' => [
             [
-                [
-                    'limit' => '10',
-                    'offset' => '2',
-                ],
+                'limit' => '10',
+                'offset' => '2',
             ],
+        ];
+
+        yield 'Valid params where offset is string and limit is number' => [
             [
-                [
-                    'limit' => 10,
-                    'offset' => '2',
-                ],
+                'limit' => 10,
+                'offset' => '2',
             ],
+        ];
+
+        yield 'Valid params where offset is number and limit is string' => [
             [
-                [
-                    'limit' => '10',
-                    'offset' => 2,
-                ],
+                'limit' => '10',
+                'offset' => 2,
             ],
+        ];
+
+        yield 'Valid params as rounded floats' => [
             [
-                [
-                    'limit' => 10.0,
-                    'offset' => 2.0,
-                ],
+                'limit' => 10.0,
+                'offset' => 2.0,
             ],
         ];
     }

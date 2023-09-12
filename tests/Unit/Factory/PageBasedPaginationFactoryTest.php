@@ -39,74 +39,79 @@ final class PageBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider(): array
+    public function invalidPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'No pagination' => [
+            [],
+        ];
+
+        yield 'Number provided without size' => [
+            ['number' => 2],
+        ];
+
+        yield 'Number and size with value of 0 as string' => [
             [
-                [],
+                'size' => '0',
+                'number' => '0',
             ],
+        ];
+
+        yield 'Number and size with value of 0 as integer' => [
             [
-                ['number' => 2],
+                'size' => 0,
+                'number' => 0,
             ],
+        ];
+
+        yield 'Number and size with value of null' => [
             [
-                [
-                    'size' => '0',
-                    'number' => '0',
-                ],
+                'size' => null,
+                'number' => null,
             ],
+        ];
+
+        yield 'Number and size as a float' => [
             [
-                [
-                    'size' => 0,
-                    'number' => 0,
-                ],
-            ],
-            [
-                [
-                    'size' => null,
-                    'number' => null,
-                ],
-            ],
-            [
-                [
-                    'size' => 10.1,
-                    'number' => 2.1,
-                ],
+                'size' => 10.1,
+                'number' => 2.1,
             ],
         ];
     }
 
-    public function validPageBasedPaginationParamsProvider(): array
+    public function validPageBasedPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'Number and size as integer' => [
             [
-                [
-                    'size' => 10,
-                    'number' => 2,
-                ],
+                'size' => 10,
+                'number' => 2,
             ],
+        ];
+
+        yield 'Number and size as string' => [
             [
-                [
-                    'size' => '10',
-                    'number' => '2',
-                ],
+                'size' => '10',
+                'number' => '2',
             ],
+        ];
+
+        yield 'Number as string and size as integer' => [
             [
-                [
-                    'size' => 10,
-                    'number' => '2',
-                ],
+                'size' => 10,
+                'number' => '2',
             ],
+        ];
+
+        yield 'Size as string and number as integer' => [
             [
-                [
-                    'size' => '10',
-                    'number' => 2,
-                ],
+                'size' => '10',
+                'number' => 2,
             ],
+        ];
+
+        yield 'Number and size as rounded float' => [
             [
-                [
-                    'size' => 10.0,
-                    'number' => 2.0,
-                ],
+                'size' => 10.0,
+                'number' => 2.0,
             ],
         ];
     }

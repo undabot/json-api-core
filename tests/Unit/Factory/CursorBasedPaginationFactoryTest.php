@@ -39,87 +39,95 @@ final class CursorBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider(): array
+    public function invalidPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'No pagination' => [
+            [],
+        ];
+
+        yield 'Incomplete page based pagination key provided' => [
+            ['number' => 2],
+        ];
+
+        yield 'Incomplete offset based pagination key provided' => [
+            ['offset' => 2],
+        ];
+
+        yield 'After and before provided with no values' => [
             [
-                [],
+                'after' => null,
+                'before' => null,
             ],
+        ];
+
+        yield 'Invalid size number format provided' => [
             [
-                ['number' => 2],
-            ],
-            [
-                ['offset' => 2],
-            ],
-            [
-                [
-                    'after' => null,
-                    'before' => null,
-                ],
-            ],
-            [
-                [
-                    'size' => 10.1,
-                    'after' => 'aaa',
-                ],
+                'size' => 10.1,
+                'after' => 'aaa',
             ],
         ];
     }
 
-    public function validCursorBasedPaginationParamsProvider(): array
+    public function validCursorBasedPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'Valid before and size' => [
             [
-                [
-                    'before' => 'aaa',
-                    'size' => 2,
-                ],
+                'before' => 'aaa',
+                'size' => 2,
             ],
+        ];
+
+        yield 'Valid after and size' => [
             [
-                [
-                    'after' => 'aaa',
-                    'size' => 2,
-                ],
+                'after' => 'aaa',
+                'size' => 2,
             ],
+        ];
+
+        yield 'Valid before and size as string' => [
             [
-                [
-                    'before' => 'aaa',
-                    'size' => '2',
-                ],
+                'before' => 'aaa',
+                'size' => '2',
             ],
+        ];
+
+        yield 'Valid after and size as string' => [
             [
-                [
-                    'after' => 'aaa',
-                    'size' => '2',
-                ],
+                'after' => 'aaa',
+                'size' => '2',
             ],
+        ];
+
+        yield 'Valid after and size as rounded float' => [
             [
-                [
-                    'after' => 'aaa',
-                    'size' => 2.0,
-                ],
+                'after' => 'aaa',
+                'size' => 2.0,
             ],
+        ];
+
+        yield 'Only after' => [
             [
-                [
-                    'after' => 'aaa',
-                ],
+                'after' => 'aaa',
             ],
+        ];
+
+        yield 'Only before' => [
             [
-                [
-                    'before' => 'aaa',
-                ],
+                'before' => 'aaa',
             ],
+        ];
+
+        yield 'After and before with same values' => [
             [
-                [
-                    'after' => 'aaa',
-                    'before' => 'aaa',
-                ],
+                'after' => 'aaa',
+                'before' => 'aaa',
             ],
+        ];
+
+        yield 'After and before with different values' => [
             [
-                [
-                    'after' => 'aaa',
-                    'before' => 'bbb',
-                ],
+                'after' => 'aaa',
+                'before' => 'bbb',
             ],
         ];
     }
