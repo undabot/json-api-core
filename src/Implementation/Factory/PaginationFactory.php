@@ -6,7 +6,6 @@ namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Exception\Request\InvalidParameterValueException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\CursorBasedPagination;
@@ -41,7 +40,7 @@ class PaginationFactory
 
         $message = sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
 
-        throw new InvalidArgumentException($message);
+        throw new InvalidParameterValueException(new Source(null), $message);
     }
 
     /** @param array<string, int> $paginationParams */
@@ -96,6 +95,7 @@ class PaginationFactory
         $size = $paginationParams[CursorBasedPagination::PARAM_PAGE_SIZE] ?? null;
         if (null !== $size) {
             $this->validatePaginationParams([CursorBasedPagination::PARAM_PAGE_SIZE => $paginationParams[CursorBasedPagination::PARAM_PAGE_SIZE]]);
+            $size = (int) $size;
         }
 
         return new CursorBasedPagination(

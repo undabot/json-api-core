@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Factory;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Undabot\JsonApi\Definition\Exception\Request\InvalidParameterValueException;
 use Undabot\JsonApi\Implementation\Factory\PaginationFactory;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 
@@ -35,11 +35,11 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
     /** @dataProvider invalidPaginationParamsProvider */
     public function testItWillThrowExceptionForInvalidParams(array $invalidParams): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidParameterValueException::class);
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider()
+    public function invalidPaginationParamsProvider(): array
     {
         return [
             [
@@ -78,7 +78,7 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
         ];
     }
 
-    public function validOffsetBasedPaginationParamsProvider()
+    public function validOffsetBasedPaginationParamsProvider(): array
     {
         return [
             [
