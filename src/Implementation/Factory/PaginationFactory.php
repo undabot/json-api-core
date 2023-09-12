@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use InvalidArgumentException;
+use Undabot\JsonApi\Definition\Exception\Request\InvalidParameterValueException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
+use Undabot\JsonApi\Implementation\Model\Request\Pagination\CursorBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
+use Undabot\JsonApi\Implementation\Model\Source\Source;
 
 class PaginationFactory
 {
@@ -29,16 +33,18 @@ class PaginationFactory
             return $this->makeOffsetBasedPagination($paginationParams);
         }
 
+        if (true === \array_key_exists(CursorBasedPagination::PARAM_PAGE_SIZE, $paginationParams)
+            || true === \array_key_exists(CursorBasedPagination::PARAM_PAGE_AFTER, $paginationParams)
+            || true === \array_key_exists(CursorBasedPagination::PARAM_PAGE_BEFORE, $paginationParams)) {
+            return $this->makeCursorBasedPagination($paginationParams);
+        }
+
         $message = sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
 
         throw new InvalidArgumentException($message);
     }
 
-    /**
-     * @param array<string, int> $paginationParams
-     *
-     * @throws \Assert\AssertionFailedException
-     */
+    /** @param array<string, int> $paginationParams */
     private function makePageBasedPagination(array $paginationParams): PageBasedPagination
     {
         Assertion::keyExists($paginationParams, PageBasedPagination::PARAM_PAGE_SIZE);
@@ -53,29 +59,15 @@ class PaginationFactory
             ]
         );
 
-        foreach ($paginationParams as $paginationParam) {
-            Assertion::integerish(
-                $paginationParam,
-                sprintf('Params must be integer(ish): %s', $paginationParam)
-            );
-            Assertion::greaterThan(
-                $paginationParam,
-                0,
-                sprintf('Params can\'t be zero: %s', $paginationParam)
-            );
-        }
+        $this->validatePaginationParams($paginationParams);
 
         return new PageBasedPagination(
             (int) $paginationParams[PageBasedPagination::PARAM_PAGE_NUMBER],
-            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE]
+            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE],
         );
     }
 
-    /**
-     * @param array<string, int> $paginationParams
-     *
-     * @throws \Assert\AssertionFailedException
-     */
+    /** @param array<string, int> $paginationParams */
     private function makeOffsetBasedPagination(array $paginationParams): OffsetBasedPagination
     {
         Assertion::keyExists($paginationParams, OffsetBasedPagination::PARAM_PAGE_OFFSET);
@@ -90,26 +82,49 @@ class PaginationFactory
             ]
         );
 
-        $limit = $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT];
-        Assertion::integerish(
-            $limit,
-            sprintf('Param must be integer(ish): %s', $limit)
-        );
-        Assertion::greaterThan(
-            $limit,
-            0,
-            sprintf('Param can\'t be zero: %s', $limit)
-        );
-
-        $offset = $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET];
-        Assertion::integerish(
-            $offset,
-            sprintf('Param must be integer(ish): %s', $offset)
-        );
+        $this->validatePaginationParams($paginationParams);
 
         return new OffsetBasedPagination(
             (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET],
-            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT]
+            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT],
         );
+    }
+
+    /** @param array<string, int> $paginationParams */
+    private function makeCursorBasedPagination(array $paginationParams): CursorBasedPagination
+    {
+        $size = $paginationParams[CursorBasedPagination::PARAM_PAGE_SIZE] ?? null;
+        if (null !== $size) {
+            $this->validatePaginationParams([CursorBasedPagination::PARAM_PAGE_SIZE => $paginationParams[CursorBasedPagination::PARAM_PAGE_SIZE]]);
+        }
+
+        return new CursorBasedPagination(
+            $paginationParams[CursorBasedPagination::PARAM_PAGE_AFTER] ?? null,
+            $paginationParams[CursorBasedPagination::PARAM_PAGE_BEFORE] ?? null,
+            $size,
+        );
+    }
+
+
+    /**
+     * @param array<string, int> $paginationParams
+     *
+     * @throws InvalidParameterValueException
+     * */
+    private function validatePaginationParams(array $paginationParams): void
+    {
+        foreach ($paginationParams as $paginationParam) {
+            try {
+                Assertion::integerish($paginationParam);
+                Assertion::greaterThan($paginationParam, 0);
+            } catch (AssertionFailedException $exception) {
+                throw new InvalidParameterValueException(
+                    new Source(null, "page[$paginationParam]"),
+                    "page[$paginationParam] must be a positive integer",
+                    0,
+                    $exception,
+                );
+            }
+        }
     }
 }
