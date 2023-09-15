@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Factory;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Undabot\JsonApi\Definition\Exception\Request\InvalidParameterValueException;
 use Undabot\JsonApi\Implementation\Factory\PaginationFactory;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
@@ -35,81 +35,83 @@ final class PageBasedPaginationFactoryTest extends TestCase
     /** @dataProvider invalidPaginationParamsProvider */
     public function testPaginationFactoryWillThrowExceptionForInvalidParams(array $invalidParams): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidParameterValueException::class);
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider()
+    public function invalidPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'No pagination' => [
+            [],
+        ];
+
+        yield 'Number provided without size' => [
+            ['number' => 2],
+        ];
+
+        yield 'Number and size with value of 0 as string' => [
             [
-                [],
+                'size' => '0',
+                'number' => '0',
             ],
+        ];
+
+        yield 'Number and size with value of 0 as integer' => [
             [
-                ['size' => 10],
+                'size' => 0,
+                'number' => 0,
             ],
+        ];
+
+        yield 'Number and size with value of null' => [
             [
-                ['number' => 2],
+                'size' => null,
+                'number' => null,
             ],
+        ];
+
+        yield 'Number and size as a float' => [
             [
-                [
-                    'size' => '0',
-                    'number' => '0',
-                ],
-            ],
-            [
-                [
-                    'size' => 0,
-                    'number' => 0,
-                ],
-            ],
-            [
-                [
-                    'size' => null,
-                    'number' => null,
-                ],
-            ],
-            [
-                [
-                    'size' => 10.1,
-                    'number' => 2.1,
-                ],
+                'size' => 10.1,
+                'number' => 2.1,
             ],
         ];
     }
 
-    public function validPageBasedPaginationParamsProvider()
+    public function validPageBasedPaginationParamsProvider(): \Generator
     {
-        return [
+        yield 'Number and size as integer' => [
             [
-                [
-                    'size' => 10,
-                    'number' => 2,
-                ],
+                'size' => 10,
+                'number' => 2,
             ],
+        ];
+
+        yield 'Number and size as string' => [
             [
-                [
-                    'size' => '10',
-                    'number' => '2',
-                ],
+                'size' => '10',
+                'number' => '2',
             ],
+        ];
+
+        yield 'Number as string and size as integer' => [
             [
-                [
-                    'size' => 10,
-                    'number' => '2',
-                ],
+                'size' => 10,
+                'number' => '2',
             ],
+        ];
+
+        yield 'Size as string and number as integer' => [
             [
-                [
-                    'size' => '10',
-                    'number' => 2,
-                ],
+                'size' => '10',
+                'number' => 2,
             ],
+        ];
+
+        yield 'Number and size as rounded float' => [
             [
-                [
-                    'size' => 10.0,
-                    'number' => 2.0,
-                ],
+                'size' => 10.0,
+                'number' => 2.0,
             ],
         ];
     }
