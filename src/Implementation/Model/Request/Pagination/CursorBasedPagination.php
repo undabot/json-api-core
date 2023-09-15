@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Model\Request\Pagination;
 
 use Undabot\JsonApi\Definition\Exception\Request\InvalidParameterValueException;
-use Undabot\JsonApi\Definition\Model\Request\Pagination\CursorInterface;
+use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Source\Source;
 
-class CursorBasedPagination implements CursorInterface
+class CursorBasedPagination implements PaginationInterface
 {
     public const PARAM_PAGE_AFTER = 'after';
     public const PARAM_PAGE_BEFORE = 'before';

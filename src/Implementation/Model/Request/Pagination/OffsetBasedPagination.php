@@ -24,4 +24,14 @@ class OffsetBasedPagination implements PaginationInterface
     {
         return $this->offset;
     }
+
+    public function getAfter(): ?string
+    {
+        return null;
+    }
+
+    public function getBefore(): ?string
+    {
+        return null;
+    }
 }

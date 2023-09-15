@@ -29,4 +29,14 @@ class PageBasedPagination implements PaginationInterface
     {
         return ($this->getPageNumber() - 1) * $this->getSize();
     }
+
+    public function getAfter(): ?string
+    {
+        return null;
+    }
+
+    public function getBefore(): ?string
+    {
+        return null;
+    }
 }
