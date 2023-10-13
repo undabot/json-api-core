@@ -6,7 +6,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setRules(
@@ -28,7 +28,7 @@ return PhpCsFixer\Config::create()
             'dir_constant' => true,
             'modernize_types_casting' => true,
             'php_unit_construct' => true,
-            'psr4' => true,
+            'psr_autoloading' => true,
             'final_internal_class' => true,
             'php_unit_strict' => [
                 'assertions' => [
@@ -44,7 +44,7 @@ return PhpCsFixer\Config::create()
             'date_time_immutable' => true,
             'general_phpdoc_annotation_remove' => true,
             'mb_str_functions' => true,
-            'no_multiline_whitespace_before_semicolons' => true,
+            'multiline_whitespace_before_semicolons' => true,
             'no_php4_constructor' => true,
             'no_superfluous_phpdoc_tags' => [
                 'allow_mixed' => true,
