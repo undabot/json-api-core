@@ -8,10 +8,7 @@ class ValidationException extends \Exception
 {
     private ?string $propertyPath;
 
-    /**
-     * @var mixed
-     */
-    private $value;
+    private mixed $value;
 
     /** @var array<int,mixed> */
     private array $constraints;
@@ -19,14 +16,13 @@ class ValidationException extends \Exception
     /**
      * ValidationException constructor.
      *
-     * @param mixed            $value
      * @param array<int,mixed> $constraints
      */
     public function __construct(
         string $message,
         int $code = null,
         ?string $propertyPath = null,
-        $value = null,
+        mixed $value = null,
         array $constraints = []
     ) {
         parent::__construct($message, $code ?? 0);

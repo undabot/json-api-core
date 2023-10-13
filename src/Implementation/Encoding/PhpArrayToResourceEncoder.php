@@ -17,14 +17,11 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
-    /** @var PhpArrayToRelationshipCollectionEncoderInterface */
-    private $phpArrayToRelationshipCollectionEncoder;
+    private PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder;
 
-    /** @var PhpArrayToAttributeCollectionEncoderInterface */
-    private $phpArrayToAttributeCollectionEncoder;
+    private PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder;
 
-    /** @var PhpArrayToMetaEncoderInterface */
-    private $phpArrayToMetaEncoder;
+    private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder;
 
     public function __construct(
         PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder,
@@ -53,14 +50,17 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
             );
         }
 
-        $rawRelationships = $resource['relationships'] ?? [];
-        $rawAttributes = $resource['attributes'] ?? [];
-        $rawMeta = $resource['meta'] ?? null;
+        $rawAttributes = \is_array($resource['attributes'] ?? null) ? $resource['attributes'] : [];
+        $rawRelationships = \is_array($resource['relationships'] ?? null) ? $resource['relationships'] : [];
+        $rawMeta = \is_array($resource['meta'] ?? null) ? $resource['meta'] : null;
+
+        /** @var array{links: array{self: mixed}} $resource */
         $rawLink = $resource['links']['self'] ?? null;
         if (null !== $rawLink) {
             throw new \RuntimeException('Not implemented');
         }
 
+        /** @var array{id: string, type: string, meta?: array<string, string>} $resource */
         return new Resource(
             $resource['id'],
             $resource['type'],

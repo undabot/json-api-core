@@ -57,11 +57,11 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     {
         $relationshipData = null;
         $relationshipMeta = null;
-        if (true === \array_key_exists('data', $relationshipValue)) {
+        if (true === \array_key_exists('data', $relationshipValue) && \is_array($relationshipValue['data'])) {
             $relationshipData = $this->parseRelationshipData($relationshipValue['data']);
             if ($relationshipData instanceof ToOneRelationshipDataInterface) {
-                $data = $relationshipValue['data'] ?? null;
-                if (null !== $data && true === \array_key_exists('meta', $data)) {
+                $data = $relationshipValue['data'];
+                if (true === \array_key_exists('meta', $data)) {
                     $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['data']['meta']);
                 }
             } elseif ($relationshipData instanceof ToManyRelationshipDataInterface) {
@@ -77,7 +77,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         }
 
         $relationshipLinks = null;
-        if (true === \array_key_exists('links', $relationshipValue)) {
+        if (true === \array_key_exists('links', $relationshipValue) && \is_array($relationshipValue['links'])) {
             $relationshipLinks = $this->phpArrayToLinkCollectionEncoder->encode($relationshipValue['links']);
         }
 
@@ -110,7 +110,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             return ToOneRelationshipData::makeEmpty();
         }
 
-        if (true === \is_array($resourceLinkage) && 0 === \count($resourceLinkage)) {
+        if (0 === \count($resourceLinkage)) {
             return ToManyRelationshipData::makeEmpty();
         }
 
@@ -123,7 +123,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         }
 
         // at this point we have not null to one relationship
-        /** @var array<string,mixed> $resourceLinkage */
+        /** @var array{id: string, type: string, meta?: array<string, string>} $resourceLinkage */
         $resourceIdentifier = new ResourceIdentifier(
             $resourceLinkage['id'],
             $resourceLinkage['type'],
@@ -138,6 +138,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     {
         $resourceIdentifiers = [];
 
+        /** @var array{id: string, type: string, meta?: array<string, string>} $datum */
         foreach ($data as $datum) {
             ValidResourceIdentifierAssertion::assert($datum);
             $resourceIdentifiers[] = new ResourceIdentifier(
