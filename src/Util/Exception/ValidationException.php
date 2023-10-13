@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Util\Exception;
 
-use Exception;
-
-class ValidationException extends Exception
+class ValidationException extends \Exception
 {
     private ?string $propertyPath;
 

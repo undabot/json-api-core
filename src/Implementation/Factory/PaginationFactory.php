@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
@@ -31,7 +30,7 @@ class PaginationFactory
 
         $message = sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
 
-        throw new InvalidArgumentException($message);
+        throw new \InvalidArgumentException($message);
     }
 
     /**

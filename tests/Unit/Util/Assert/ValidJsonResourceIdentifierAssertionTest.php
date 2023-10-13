@@ -10,13 +10,14 @@ use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Util\ValidResourceIdentifierAssertion
  *
  * @small
  */
 final class ValidJsonResourceIdentifierAssertionTest extends TestCase
 {
-    public function validResourceIdentifierData()
+    public function provideValidateValidResourceIdentifierArrayCases(): iterable
     {
         return [
             [
@@ -36,7 +37,7 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
     }
 
     /**
-     * @dataProvider validResourceIdentifierData
+     * @dataProvider provideValidateValidResourceIdentifierArrayCases
      */
     public function testValidateValidResourceIdentifierArray(array $resourceIdentifier): void
     {
@@ -45,7 +46,7 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
         ValidResourceIdentifierAssertion::assert($resourceIdentifier);
     }
 
-    public function invalidResourceIdentifierData()
+    public function provideValidateInvalidResourceIdentifierArrayCases(): iterable
     {
         return [
             [
@@ -97,7 +98,7 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidResourceIdentifierData
+     * @dataProvider provideValidateInvalidResourceIdentifierArrayCases
      */
     public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier): void
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource;
 
-use ArrayIterator;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
@@ -22,9 +21,9 @@ final class ResourceCollection implements ResourceCollectionInterface
         try {
             Assertion::allIsInstanceOf($resources, ResourceInterface::class);
         } catch (AssertionFailedException $exception) {
-//            $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
-//
-//            throw new InvalidArgumentException($message);
+            //            $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
+            //
+            //            throw new InvalidArgumentException($message);
         }
         $this->resources = $resources;
     }
@@ -38,10 +37,10 @@ final class ResourceCollection implements ResourceCollectionInterface
     }
 
     /**
-     * @return ArrayIterator<int,ResourceInterface>
+     * @return \ArrayIterator<int,ResourceInterface>
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->getResources());
+        return new \ArrayIterator($this->getResources());
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource\Relationship;
 
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipDataInterface;
@@ -45,7 +44,7 @@ class Relationship implements RelationshipInterface
         if (null === $links
             && null === $data
             && null === $meta) {
-            throw new InvalidArgumentException('A “relationship object” MUST contain at least one of the following: links, data, meta');
+            throw new \InvalidArgumentException('A “relationship object” MUST contain at least one of the following: links, data, meta');
         }
 
         if (null !== $links) {
@@ -88,10 +87,10 @@ class Relationship implements RelationshipInterface
         if (0 !== \count($disallowedLinks)) {
             $message = sprintf(
                 'Relationship can only have `self` and `related` links, %s given.',
-                (implode(', ', $disallowedLinks))
+                implode(', ', $disallowedLinks)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new \InvalidArgumentException($message);
         }
 
         // @todo A relationship object that represents a to-many relationship MAY

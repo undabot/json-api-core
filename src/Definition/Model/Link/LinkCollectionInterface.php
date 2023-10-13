@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,LinkInterface>
  */
-interface LinkCollectionInterface extends IteratorAggregate
+interface LinkCollectionInterface extends \IteratorAggregate
 {
     public function hasLink(string $linkName): bool;
 

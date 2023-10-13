@@ -77,8 +77,8 @@ final class DocumentToPhpArrayEncoderTest extends TestCase
      */
     public function testItCanBeConstructed(): void
     {
-        static::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
-        static::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
+        self::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
+        self::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
     }
 
     /**
@@ -99,16 +99,16 @@ final class DocumentToPhpArrayEncoderTest extends TestCase
         $document->method('getJsonApiMeta')->willReturn($jsonApiMeta);
         $document->method('getLinks')->willReturn($links);
 
-        $this->documentDataEncoderMock->expects(static::once())->method('encode');
-        $this->errorCollectionEncoderMock->expects(static::once())->method('encode');
-        $this->metaEncoderMock->expects(static::exactly(2))->method('encode');
+        $this->documentDataEncoderMock->expects(self::once())->method('encode');
+        $this->errorCollectionEncoderMock->expects(self::once())->method('encode');
+        $this->metaEncoderMock->expects(self::exactly(2))->method('encode');
 
         $encoded = $this->documentEncoder->encode($document);
-        static::assertIsArray($encoded);
-        static::assertArrayHasKey('data', $encoded);
-        static::assertArrayHasKey('errors', $encoded);
-        static::assertArrayHasKey('meta', $encoded);
-        static::assertArrayHasKey('jsonapi', $encoded);
-        static::assertArrayHasKey('links', $encoded);
+        self::assertIsArray($encoded);
+        self::assertArrayHasKey('data', $encoded);
+        self::assertArrayHasKey('errors', $encoded);
+        self::assertArrayHasKey('meta', $encoded);
+        self::assertArrayHasKey('jsonapi', $encoded);
+        self::assertArrayHasKey('links', $encoded);
     }
 }

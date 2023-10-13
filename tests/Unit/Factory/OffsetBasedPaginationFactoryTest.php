@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Factory;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Implementation\Factory\PaginationFactory;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination
  *
  * @small
@@ -24,22 +24,22 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory = new PaginationFactory();
     }
 
-    /** @dataProvider validOffsetBasedPaginationParamsProvider */
+    /** @dataProvider provideItCanCreateOffsetBasedPaginationFromValidParamsCases */
     public function testItCanCreateOffsetBasedPaginationFromValidParams($params): void
     {
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertInstanceOf(OffsetBasedPagination::class, $pagination);
+        self::assertInstanceOf(OffsetBasedPagination::class, $pagination);
     }
 
-    /** @dataProvider invalidPaginationParamsProvider */
+    /** @dataProvider provideItWillThrowExceptionForInvalidParamsCases */
     public function testItWillThrowExceptionForInvalidParams(array $invalidParams): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider()
+    public function provideItWillThrowExceptionForInvalidParamsCases(): iterable
     {
         return [
             [
@@ -78,7 +78,7 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
         ];
     }
 
-    public function validOffsetBasedPaginationParamsProvider()
+    public function provideItCanCreateOffsetBasedPaginationFromValidParamsCases(): iterable
     {
         return [
             [
@@ -124,7 +124,7 @@ final class OffsetBasedPaginationFactoryTest extends TestCase
         /** @var OffsetBasedPagination $pagination */
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertSame(3, $pagination->getOffset());
-        static::assertSame(10, $pagination->getSize());
+        self::assertSame(3, $pagination->getOffset());
+        self::assertSame(10, $pagination->getSize());
     }
 }

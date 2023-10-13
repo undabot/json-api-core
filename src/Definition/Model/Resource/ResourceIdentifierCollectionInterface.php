@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,ResourceIdentifierInterface>
  */
-interface ResourceIdentifierCollectionInterface extends IteratorAggregate
+interface ResourceIdentifierCollectionInterface extends \IteratorAggregate
 {
     /**
      * @return ResourceIdentifierInterface[]

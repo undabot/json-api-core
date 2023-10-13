@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Document;
 
-use DomainException;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
@@ -55,7 +53,7 @@ class DocumentData implements DocumentDataInterface
     {
         $data = $this->data;
         if (true !== $this->isResource()) {
-            throw new DomainException('Data is not Resource');
+            throw new \DomainException('Data is not Resource');
         }
         /** @var ResourceInterface $data */
 
@@ -66,7 +64,7 @@ class DocumentData implements DocumentDataInterface
     {
         $data = $this->data;
         if (true !== $this->isResourceCollection()) {
-            throw new DomainException('Data is not Resource Collection');
+            throw new \DomainException('Data is not Resource Collection');
         }
         /** @var ResourceCollectionInterface $data */
 
@@ -77,7 +75,7 @@ class DocumentData implements DocumentDataInterface
     {
         $data = $this->data;
         if (true !== $this->isResourceIdentifier()) {
-            throw new DomainException('Data is not Resource Identifier');
+            throw new \DomainException('Data is not Resource Identifier');
         }
         /** @var ResourceIdentifierInterface $data */
 
@@ -88,7 +86,7 @@ class DocumentData implements DocumentDataInterface
     {
         $data = $this->data;
         if (true !== $this->isResourceIdentifierCollection()) {
-            throw new DomainException('Data is not Resource Identifier Collection');
+            throw new \DomainException('Data is not Resource Identifier Collection');
         }
         /** @var ResourceIdentifierCollectionInterface $data */
 
@@ -134,6 +132,6 @@ class DocumentData implements DocumentDataInterface
             return;
         }
 
-        throw new InvalidArgumentException('Invalid data provided');
+        throw new \InvalidArgumentException('Invalid data provided');
     }
 }

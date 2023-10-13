@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,RelationshipInterface>
  */
-interface RelationshipCollectionInterface extends IteratorAggregate
+interface RelationshipCollectionInterface extends \IteratorAggregate
 {
     /**
      * @return RelationshipInterface[]

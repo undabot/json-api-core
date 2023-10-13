@@ -39,6 +39,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
  *
  * @small
@@ -145,7 +146,7 @@ final class DocumentSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        self::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 
     public function testDocumentWithIncludedResourcesIsSerializedCorrectly(): void
@@ -334,6 +335,6 @@ final class DocumentSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        self::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 }

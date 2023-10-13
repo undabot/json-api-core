@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Factory;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Implementation\Factory\PaginationFactory;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination
  *
  * @small
@@ -24,22 +24,22 @@ final class PageBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory = new PaginationFactory();
     }
 
-    /** @dataProvider validPageBasedPaginationParamsProvider */
+    /** @dataProvider providePaginationFactoryCanCreatePageBasedPaginationFromValidParamsCases */
     public function testPaginationFactoryCanCreatePageBasedPaginationFromValidParams($params): void
     {
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertInstanceOf(PageBasedPagination::class, $pagination);
+        self::assertInstanceOf(PageBasedPagination::class, $pagination);
     }
 
-    /** @dataProvider invalidPaginationParamsProvider */
+    /** @dataProvider providePaginationFactoryWillThrowExceptionForInvalidParamsCases */
     public function testPaginationFactoryWillThrowExceptionForInvalidParams(array $invalidParams): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider()
+    public function providePaginationFactoryWillThrowExceptionForInvalidParamsCases(): iterable
     {
         return [
             [
@@ -78,7 +78,7 @@ final class PageBasedPaginationFactoryTest extends TestCase
         ];
     }
 
-    public function validPageBasedPaginationParamsProvider()
+    public function providePaginationFactoryCanCreatePageBasedPaginationFromValidParamsCases(): iterable
     {
         return [
             [
@@ -124,7 +124,7 @@ final class PageBasedPaginationFactoryTest extends TestCase
         /** @var PageBasedPagination $pagination */
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertSame(3, $pagination->getPageNumber());
-        static::assertSame(10, $pagination->getSize());
+        self::assertSame(3, $pagination->getPageNumber());
+        self::assertSame(10, $pagination->getSize());
     }
 }

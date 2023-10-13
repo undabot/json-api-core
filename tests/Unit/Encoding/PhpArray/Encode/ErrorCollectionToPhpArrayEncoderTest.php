@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
-use ArrayIterator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\ErrorCollectionToPhpArrayEncoderInterface;
@@ -15,6 +14,7 @@ use Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Encoding\ErrorCollectionToPhpArrayEncoder
  *
  * @small
@@ -34,8 +34,8 @@ final class ErrorCollectionToPhpArrayEncoderTest extends TestCase
 
     public function testItCanBeConstructed(): void
     {
-        static::assertInstanceOf(ErrorCollectionToPhpArrayEncoder::class, $this->errorCollectionEncoder);
-        static::assertInstanceOf(ErrorCollectionToPhpArrayEncoderInterface::class, $this->errorCollectionEncoder);
+        self::assertInstanceOf(ErrorCollectionToPhpArrayEncoder::class, $this->errorCollectionEncoder);
+        self::assertInstanceOf(ErrorCollectionToPhpArrayEncoderInterface::class, $this->errorCollectionEncoder);
     }
 
     public function testErrorCollectionEncoderWillCallErrorEncoder(): void
@@ -52,12 +52,12 @@ final class ErrorCollectionToPhpArrayEncoderTest extends TestCase
         ];
 
         $errorCollection->method('getErrors')->willReturn($errors);
-        $errorCollection->method('getIterator')->willReturn(new ArrayIterator($errors));
+        $errorCollection->method('getIterator')->willReturn(new \ArrayIterator($errors));
 
-        $this->errorEncoder->expects(static::exactly(3))->method('encode');
+        $this->errorEncoder->expects(self::exactly(3))->method('encode');
 
         $encoded = $this->errorCollectionEncoder->encode($errorCollection);
-        static::assertIsArray($encoded);
-        static::assertCount(3, $encoded);
+        self::assertIsArray($encoded);
+        self::assertCount(3, $encoded);
     }
 }

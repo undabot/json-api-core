@@ -13,6 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Document\DocumentData;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Document\DocumentData
  *
  * @small
@@ -23,14 +24,14 @@ final class DocumentDataTest extends TestCase
     {
         $documentData = new DocumentData(null);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     public function testItCanBeConstructedWithEmptyArrayArgument(): void
     {
         $documentData = new DocumentData([]);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     public function testItCanBeConstructedWithResourceArgument(): void
@@ -39,7 +40,7 @@ final class DocumentDataTest extends TestCase
 
         $documentData = new DocumentData($resourceMock);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     public function testItCanBeConstructedWithResourceIdentifierArgument(): void
@@ -48,7 +49,7 @@ final class DocumentDataTest extends TestCase
 
         $documentData = new DocumentData($resourceIdentifierMock);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     public function testItCanBeConstructedWithResourceCollectionArgument(): void
@@ -57,7 +58,7 @@ final class DocumentDataTest extends TestCase
 
         $documentData = new DocumentData($resourceCollectionMock);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     public function testItCanBeConstructedWithResourceIdentifierCollectionArgument(): void
@@ -66,11 +67,11 @@ final class DocumentDataTest extends TestCase
 
         $documentData = new DocumentData($resourceIdentifierCollectionMock);
 
-        static::assertInstanceOf(DocumentData::class, $documentData);
+        self::assertInstanceOf(DocumentData::class, $documentData);
     }
 
     /**
-     * @dataProvider provideInvalidConstructorArguments
+     * @dataProvider provideItWillThrowExceptionIfConstructedWithInvalidArgumentCases
      *
      * @param mixed $invalidArgument
      */
@@ -88,7 +89,7 @@ final class DocumentDataTest extends TestCase
 
         $document = new DocumentData($resourceMock);
 
-        static::assertInstanceOf(ResourceInterface::class, $document->getResource());
+        self::assertInstanceOf(ResourceInterface::class, $document->getResource());
     }
 
     public function testGetResourceCollectionWillReturnDataIfDataIsTypeOfResourceCollection(): void
@@ -98,7 +99,7 @@ final class DocumentDataTest extends TestCase
 
         $document = new DocumentData($resourceCollectionMock);
 
-        static::assertInstanceOf(ResourceCollectionInterface::class, $document->getResourceCollection());
+        self::assertInstanceOf(ResourceCollectionInterface::class, $document->getResourceCollection());
     }
 
     public function testGetResourceWillThrowExceptionIfDataIsNotTypeOfResource(): void
@@ -127,7 +128,7 @@ final class DocumentDataTest extends TestCase
         $document->getResourceCollection();
     }
 
-    public function provideInvalidConstructorArguments()
+    public function provideItWillThrowExceptionIfConstructedWithInvalidArgumentCases(): iterable
     {
         return [
             [''], // empty string

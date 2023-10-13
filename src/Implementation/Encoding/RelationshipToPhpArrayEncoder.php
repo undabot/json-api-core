@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Encoding;
 
-use DomainException;
 use Undabot\JsonApi\Definition\Encoding\LinkCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\RelationshipToPhpArrayEncoderInterface;
@@ -71,7 +70,7 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         }
 
         // @todo this is not a domain exception, but rather UI...
-        throw new DomainException('Invalid relationship data');
+        throw new \DomainException('Invalid relationship data');
     }
 
     /**

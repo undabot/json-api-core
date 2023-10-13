@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Exception\Request;
 
-use Throwable;
-
 class UnsupportedSortRequestedException extends RequestException
 {
     /**
@@ -15,7 +13,7 @@ class UnsupportedSortRequestedException extends RequestException
         array $unsupportedSorts,
         ?string $message = null,
         int $code = 0,
-        Throwable $previous = null
+        \Throwable $previous = null
     ) {
         if (null === $message) {
             $message = sprintf(

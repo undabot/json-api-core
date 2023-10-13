@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Exception\Request;
 
-class InvalidRequestAcceptHeaderException extends RequestException
-{
-}
+class InvalidRequestAcceptHeaderException extends RequestException {}

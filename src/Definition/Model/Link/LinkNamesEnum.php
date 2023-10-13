@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Model\Link;
 
-use ReflectionClass;
-
 abstract class LinkNamesEnum
 {
     public const LINK_NAME_SELF = 'self';
@@ -20,7 +18,7 @@ abstract class LinkNamesEnum
     /** @return array<string,mixed> */
     public static function getValues(): array
     {
-        $oClass = new ReflectionClass(__CLASS__);
+        $oClass = new \ReflectionClass(__CLASS__);
 
         return $oClass->getConstants();
     }

@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,AttributeInterface>
  */
-interface AttributeCollectionInterface extends IteratorAggregate
+interface AttributeCollectionInterface extends \IteratorAggregate
 {
     /** @return AttributeInterface[] */
     public function getAttributes(): array;

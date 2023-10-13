@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Request\Filter;
 
-use InvalidArgumentException;
-
 class Filter
 {
     private string $name;
@@ -35,15 +33,15 @@ class Filter
     private function makeSureValueIsValid($value): void
     {
         if (true === \is_object($value)) {
-            throw new InvalidArgumentException('Filter value can\'t be object');
+            throw new \InvalidArgumentException('Filter value can\'t be object');
         }
 
         if (null === $value) {
-            throw new InvalidArgumentException('Filter value can\'t be null');
+            throw new \InvalidArgumentException('Filter value can\'t be null');
         }
 
         if (true === \is_array($value)) {
-            throw new InvalidArgumentException('Filter value can\'t be array');
+            throw new \InvalidArgumentException('Filter value can\'t be array');
         }
 
         if (
@@ -51,7 +49,7 @@ class Filter
             && false === \is_float($value)
             && false === \is_int($value)
         ) {
-            throw new InvalidArgumentException('Value must be either string, integer or float');
+            throw new \InvalidArgumentException('Value must be either string, integer or float');
         }
     }
 }

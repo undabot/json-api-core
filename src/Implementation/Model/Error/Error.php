@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Error;
 
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
@@ -156,7 +155,7 @@ final class Error implements ErrorInterface
     private function makeSureAboutLinkIsNamedAbout(LinkInterface $link): void
     {
         if ('about' !== $link->getName()) {
-            throw new InvalidArgumentException('Error links only should have about member');
+            throw new \InvalidArgumentException('Error links only should have about member');
         }
     }
 }

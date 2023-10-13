@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Error;
 
-use ArrayIterator;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
@@ -22,9 +21,9 @@ final class ErrorCollection implements ErrorCollectionInterface
         try {
             Assertion::allIsInstanceOf($errors, ErrorInterface::class);
         } catch (AssertionFailedException $exception) {
-//            $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
-//
-//            throw new InvalidArgumentException($message);
+            //            $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
+            //
+            //            throw new InvalidArgumentException($message);
         }
         $this->errors = $errors;
     }
@@ -38,10 +37,10 @@ final class ErrorCollection implements ErrorCollectionInterface
     }
 
     /**
-     * @return ArrayIterator<int,ErrorInterface>
+     * @return \ArrayIterator<int,ErrorInterface>
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->getErrors());
+        return new \ArrayIterator($this->getErrors());
     }
 }

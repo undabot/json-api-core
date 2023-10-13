@@ -9,6 +9,7 @@ use Undabot\JsonApi\Util\ArrayUtil;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Util\ArrayUtil
  *
  * @small
@@ -18,19 +19,19 @@ final class ArrayUtilTest extends TestCase
     public function testItCorrectlyValidatesValidArrays(): void
     {
         $requiredKeys = ['key1'];
-        static::assertTrue(
+        self::assertTrue(
             ArrayUtil::hasRequiredKeys(['key1' => 'x'], $requiredKeys)
         );
 
-        static::assertTrue(
+        self::assertTrue(
             ArrayUtil::hasRequiredKeys(['key1' => 'x', 'key2' => 'x'], $requiredKeys)
         );
 
-        static::assertTrue(
+        self::assertTrue(
             ArrayUtil::hasRequiredKeys(['key1' => 'x', 'key2' => 'x', 'key3' => 'x'], $requiredKeys)
         );
 
-        static::assertTrue(
+        self::assertTrue(
             ArrayUtil::hasRequiredKeys(['key1' => 'x', 'key3' => 'x'], $requiredKeys)
         );
     }
@@ -38,15 +39,15 @@ final class ArrayUtilTest extends TestCase
     public function testItRecognizesInvalidArrays(): void
     {
         $requiredKeys = ['key1'];
-        static::assertFalse(
+        self::assertFalse(
             ArrayUtil::hasRequiredKeys(['key1x' => 'x'], $requiredKeys)
         );
 
-        static::assertFalse(
+        self::assertFalse(
             ArrayUtil::hasRequiredKeys(['key2' => 'x', 'key3x' => 'x'], $requiredKeys)
         );
 
-        static::assertFalse(
+        self::assertFalse(
             ArrayUtil::hasRequiredKeys([], $requiredKeys)
         );
     }

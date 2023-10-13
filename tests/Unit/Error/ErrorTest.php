@@ -13,6 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Source\Source;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Error\Error
  *
  * @small
@@ -38,52 +39,52 @@ final class ErrorTest extends TestCase
     public function testItsPossibleToConstructErrorWithIdOnly(): void
     {
         $error = new Error('e500');
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithLinksOnly(): void
     {
         $error = new Error(null, new Link('about', new LinkUrl('/error')));
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithStatusOnly(): void
     {
         $error = new Error(null, null, 'status');
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithCodeOnly(): void
     {
         $error = new Error(null, null, null, '500');
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithTitleOnly(): void
     {
         $error = new Error(null, null, null, null, 'Server error');
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithDetailOnly(): void
     {
         $error = new Error(null, null, null, null, null, 'Server error details');
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithSourceOnly(): void
     {
         $error = new Error(null, null, null, null, null, null, new Source('/foo/bar'));
-        static::assertNotNull($error);
+        self::assertNotNull($error);
 
         $error2 = new Error(null, null, null, null, null, null, new Source('/data/attributes/title', 'foo'));
-        static::assertNotNull($error2);
+        self::assertNotNull($error2);
     }
 
     public function testItsPossibleToConstructErrorWithMetaOnly(): void
     {
         $error = new Error(null, null, null, null, null, null, null, new Meta(['foo' => 'bar']));
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 
     public function testItsPossibleToConstructErrorWithAllAttributes(): void
@@ -99,6 +100,6 @@ final class ErrorTest extends TestCase
             new Meta(['foo' => 'bar'])
         );
 
-        static::assertNotNull($error);
+        self::assertNotNull($error);
     }
 }

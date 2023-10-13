@@ -28,8 +28,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     public function __construct(
         private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
         private PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string,array<string,mixed>> $relationships
@@ -122,6 +121,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
 
             return ToManyRelationshipData::make($identifiersCollection);
         }
+
         // at this point we have not null to one relationship
         /** @var array<string,mixed> $resourceLinkage */
         $resourceIdentifier = new ResourceIdentifier(

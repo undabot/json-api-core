@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,ErrorInterface>
  */
-interface ErrorCollectionInterface extends IteratorAggregate
+interface ErrorCollectionInterface extends \IteratorAggregate
 {
     /** @return ErrorInterface[] */
     public function getErrors(): array;

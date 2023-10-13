@@ -9,7 +9,7 @@ use IteratorAggregate;
 /**
  * @extends IteratorAggregate<int,ResourceInterface>
  */
-interface ResourceCollectionInterface extends IteratorAggregate
+interface ResourceCollectionInterface extends \IteratorAggregate
 {
     /**
      * @return ResourceInterface[] $resources

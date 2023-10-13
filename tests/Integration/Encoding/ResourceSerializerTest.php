@@ -29,6 +29,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Encoding\ResourceToPhpArrayEncoder
  *
  * @small
@@ -102,7 +103,7 @@ final class ResourceSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 
     public function testComplexResourceCanBeSerialized(): void
@@ -181,6 +182,6 @@ final class ResourceSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 }
