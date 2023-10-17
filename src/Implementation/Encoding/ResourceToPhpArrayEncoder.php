@@ -11,6 +11,7 @@ use Undabot\JsonApi\Definition\Encoding\RelationshipCollectionToPhpArrayEncoderI
 use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
+/** @psalm-suppress UnusedClass */
 class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
 {
     /** @var MetaToPhpArrayEncoderInterface */
@@ -22,8 +23,7 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
     /** @var LinkToPhpArrayEncoderInterface */
     private $linkEncoder;
 
-    /** @var AttributeCollectionToPhpArrayEncoderInterface */
-    private $attributeCollectionEncoder;
+    private AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionEncoder;
 
     public function __construct(
         MetaToPhpArrayEncoderInterface $metaEncoder,
@@ -45,22 +45,26 @@ class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
             'id' => $resource->getId(),
         ];
 
-        if (null !== $resource->getAttributes()) {
-            $serializedResource['attributes'] = $this->attributeCollectionEncoder->encode($resource->getAttributes());
+        $attributes = $resource->getAttributes();
+        if (null !== $attributes) {
+            $serializedResource['attributes'] = $this->attributeCollectionEncoder->encode($attributes);
         }
 
-        if (null !== $resource->getMeta()) {
-            $serializedResource['meta'] = $this->metaEncoder->encode($resource->getMeta());
+        $meta = $resource->getMeta();
+        if (null !== $meta) {
+            $serializedResource['meta'] = $this->metaEncoder->encode($meta);
         }
 
-        if (null !== $resource->getSelfUrl()) {
+        $selfUrl = $resource->getSelfUrl();
+        if (null !== $selfUrl) {
             $serializedResource['links'] = [
-                'self' => $this->linkEncoder->encode($resource->getSelfUrl()),
+                'self' => $this->linkEncoder->encode($selfUrl),
             ];
         }
 
-        if (null !== $resource->getRelationships()) {
-            $encodedRelationships = $this->relationshipCollectionEncoder->encode($resource->getRelationships());
+        $relationships = $resource->getRelationships();
+        if (null !== $relationships) {
+            $encodedRelationships = $this->relationshipCollectionEncoder->encode($relationships);
             // relationships key must be object
             // if it's empty, we'll get empty array and it will be encoded to array
             // so in that case we'll create php object so json encode will return object

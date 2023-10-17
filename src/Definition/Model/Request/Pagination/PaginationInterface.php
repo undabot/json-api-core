@@ -8,5 +8,6 @@ interface PaginationInterface
 {
     public function getSize(): int;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getOffset(): int;
 }

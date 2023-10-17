@@ -5,21 +5,25 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipDataInterface;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToOneRelationshipData;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
+/** @psalm-suppress UnusedClass */
 class RelationshipDataFactory
 {
     /**
      * @param null|string|string[] $data
+     *
+     * @throws AssertionFailedException
      */
     public function make(
         string $type,
         bool $toMany,
-        $data
+        null|array|string $data
     ): ?RelationshipDataInterface {
         if (null === $data && true === $toMany) {
             return ToManyRelationshipData::makeEmpty();
@@ -46,12 +50,10 @@ class RelationshipDataFactory
             );
         }
 
-        if (false === $toMany) {
-            Assertion::string($data);
+        Assertion::string($data);
 
-            return ToOneRelationshipData::make(
-                new ResourceIdentifier($data, $type)
-            );
-        }
+        return ToOneRelationshipData::make(
+            new ResourceIdentifier($data, $type)
+        );
     }
 }

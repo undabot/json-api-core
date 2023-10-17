@@ -12,6 +12,8 @@ abstract class ArrayUtil
     /**
      * @param array<string,mixed> $array
      * @param array<int,string>   $requiredKeys
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function hasRequiredKeys(array $array, array $requiredKeys): bool
     {
@@ -22,6 +24,8 @@ abstract class ArrayUtil
 
     /**
      * @param array<int|string,array<string,string>|string> $array
+     *
+     * @psalm-suppress DocblockTypeContradiction
      */
     public static function isMap(array $array): bool
     {

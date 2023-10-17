@@ -12,22 +12,18 @@ use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\ResourceCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
 
+/** @psalm-suppress UnusedClass */
 class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
 {
-    /** @var DocumentDataToPhpArrayEncoderInterface */
-    private $documentDataEncoder;
+    private DocumentDataToPhpArrayEncoderInterface $documentDataEncoder;
 
-    /** @var ErrorCollectionToPhpArrayEncoderInterface */
-    private $errorCollectionEncoder;
+    private ErrorCollectionToPhpArrayEncoderInterface $errorCollectionEncoder;
 
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaEncoder;
+    private MetaToPhpArrayEncoderInterface $metaEncoder;
 
-    /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionEncoder;
+    private LinkCollectionToPhpArrayEncoderInterface $linkCollectionEncoder;
 
-    /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionEncoder;
+    private ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder;
 
     public function __construct(
         DocumentDataToPhpArrayEncoderInterface $documentDataEncoder,
@@ -48,28 +44,34 @@ class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
     {
         $serializedDocument = [];
 
-        if (null !== $document->getJsonApiMeta()) {
-            $serializedDocument['jsonapi'] = $this->metaEncoder->encode($document->getJsonApiMeta());
+        $jsonApiMeta = $document->getJsonApiMeta();
+        if (null !== $jsonApiMeta) {
+            $serializedDocument['jsonapi'] = $this->metaEncoder->encode($jsonApiMeta);
         }
 
-        if (null !== $document->getErrors()) {
-            $serializedDocument['errors'] = $this->errorCollectionEncoder->encode($document->getErrors());
+        $errors = $document->getErrors();
+        if (null !== $errors) {
+            $serializedDocument['errors'] = $this->errorCollectionEncoder->encode($errors);
         }
 
-        if (null !== $document->getMeta()) {
-            $serializedDocument['meta'] = $this->metaEncoder->encode($document->getMeta());
+        $meta = $document->getMeta();
+        if (null !== $meta) {
+            $serializedDocument['meta'] = $this->metaEncoder->encode($meta);
         }
 
-        if (null !== $document->getLinks()) {
-            $serializedDocument['links'] = $this->linkCollectionEncoder->encode($document->getLinks());
+        $links = $document->getLinks();
+        if (null !== $links) {
+            $serializedDocument['links'] = $this->linkCollectionEncoder->encode($links);
         }
 
-        if (null !== $document->getData()) {
-            $serializedDocument['data'] = $this->documentDataEncoder->encode($document->getData());
+        $data = $document->getData();
+        if (null !== $data) {
+            $serializedDocument['data'] = $this->documentDataEncoder->encode($data);
         }
 
-        if (null !== $document->getIncluded()) {
-            $serializedDocument['included'] = $this->resourceCollectionEncoder->encode($document->getIncluded());
+        $included = $document->getIncluded();
+        if (null !== $included) {
+            $serializedDocument['included'] = $this->resourceCollectionEncoder->encode($included);
         }
 
         return $serializedDocument;

@@ -8,6 +8,7 @@ use Undabot\JsonApi\Definition\Encoding\PhpArrayToMetaEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
+/** @psalm-suppress UnusedClass */
 class PhpArrayToMetaEncoder implements PhpArrayToMetaEncoderInterface
 {
     /** @param array<int|string,mixed> $meta */

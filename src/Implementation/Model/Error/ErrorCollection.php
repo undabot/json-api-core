@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
+/** @psalm-suppress UnusedClass */
 final class ErrorCollection implements ErrorCollectionInterface
 {
     /** @var ErrorInterface[] */

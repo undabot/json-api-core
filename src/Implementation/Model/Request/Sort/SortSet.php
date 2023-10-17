@@ -22,6 +22,9 @@ class SortSet implements \IteratorAggregate
         $this->sorts = $sorts;
     }
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public static function make(string $sortDefinition): self
     {
         $sorts = [];
@@ -51,6 +54,8 @@ class SortSet implements \IteratorAggregate
 
     /**
      * @return array<string,null|string>
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function getSortsArray(): array
     {

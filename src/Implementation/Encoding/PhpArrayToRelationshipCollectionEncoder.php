@@ -23,6 +23,7 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
+/** @psalm-suppress UnusedClass */
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
     public function __construct(

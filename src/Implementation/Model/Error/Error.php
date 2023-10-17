@@ -9,43 +9,34 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
 
+/** @psalm-suppress UnusedClass */
 final class Error implements ErrorInterface
 {
-    /** @var string */
-    private $id;
+    private ?string $id;
 
-    /** @var LinkInterface */
-    private $aboutLink;
+    private ?LinkInterface $aboutLink;
 
     /**
      * the HTTP status code applicable to this problem, expressed as a string value.
-     *
-     * @var null|string
      */
-    private $status;
+    private ?string $status;
 
     /**
      * an application-specific error code, expressed as a string value.
-     *
-     * @var null|string
      */
-    private $code;
+    private ?string $code;
 
     /**
      * a short, human-readable summary of the problem that SHOULD NOT change from occurrence to
      * occurrence of the problem, except for purposes of localization.
-     *
-     * @var null|string
      */
-    private $title;
+    private ?string $title;
 
     /**
      * detail: a human-readable explanation specific to this occurrence of the problem.
      * Like title, this field’s value can be localized.
-     *
-     * @var null|string
      */
-    private $detail;
+    private ?string $detail;
 
     /**
      * an object containing references to the source of the error.
@@ -56,10 +47,8 @@ final class Error implements ErrorInterface
 
     /**
      * an object containing references to the source of the error.
-     *
-     * @var null|MetaInterface
      */
-    private $meta;
+    private ?MetaInterface $meta;
 
     public function __construct(
         ?string $id,
@@ -71,38 +60,21 @@ final class Error implements ErrorInterface
         ?SourceInterface $source = null,
         ?MetaInterface $meta = null
     ) {
-        if (null !== $aboutLink) {
-            $this->makeSureAboutLinkIsNamedAbout($aboutLink);
-            $this->aboutLink = $aboutLink;
-        }
+        $this->makeSureAboutLinkIsNamedAbout($aboutLink);
+        $this->aboutLink = $aboutLink;
 
-        if (null !== $id) {
-            $this->id = $id;
-        }
+        $this->id = $id;
+        $this->status = $status;
 
-        if (null !== $status) {
-            $this->status = $status;
-        }
+        $this->code = $code;
 
-        if (null !== $code) {
-            $this->code = $code;
-        }
+        $this->title = $title;
 
-        if (null !== $title) {
-            $this->title = $title;
-        }
+        $this->detail = $detail;
 
-        if (null !== $detail) {
-            $this->detail = $detail;
-        }
+        $this->source = $source;
 
-        if (null !== $source) {
-            $this->source = $source;
-        }
-
-        if (null !== $meta) {
-            $this->meta = $meta;
-        }
+        $this->meta = $meta;
     }
 
     public function getId(): ?string
@@ -152,9 +124,9 @@ final class Error implements ErrorInterface
      * links: a links object containing the following members:
      *   - about: a link that leads to further details about this particular occurrence of the problem.
      */
-    private function makeSureAboutLinkIsNamedAbout(LinkInterface $link): void
+    private function makeSureAboutLinkIsNamedAbout(?LinkInterface $link): void
     {
-        if ('about' !== $link->getName()) {
+        if (null !== $link && 'about' !== $link->getName()) {
             throw new \InvalidArgumentException('Error links only should have about member');
         }
     }

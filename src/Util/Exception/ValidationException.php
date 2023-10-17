@@ -6,17 +6,22 @@ namespace Undabot\JsonApi\Util\Exception;
 
 class ValidationException extends \Exception
 {
+    /** @psalm-suppress UnusedProperty */
     private ?string $propertyPath;
 
+    /** @psalm-suppress UnusedProperty */
     private mixed $value;
 
     /** @var array<int,mixed> */
+    /** @psalm-suppress UnusedProperty */
     private array $constraints;
 
     /**
      * ValidationException constructor.
      *
      * @param array<int,mixed> $constraints
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
         string $message,

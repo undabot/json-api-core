@@ -11,18 +11,15 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipData
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToManyRelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToOneRelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface;
-use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
+/** @psalm-suppress UnusedClass */
 class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaToPhpArrayEncoder;
+    private MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder;
 
-    /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionToPhpArrayEncoder;
+    private LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder;
 
-    /** @var ResourceIdentifierToPhpArrayEncoder */
-    private $resourceIdentifierToPhpArrayEncoder;
+    private ResourceIdentifierToPhpArrayEncoder $resourceIdentifierToPhpArrayEncoder;
 
     public function __construct(
         MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
@@ -40,17 +37,18 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
     public function encode(RelationshipInterface $relationship): array
     {
         $serializedRelationship = [];
-
-        if (null !== $relationship->getMeta()) {
-            $serializedRelationship['meta'] = $this->metaToPhpArrayEncoder->encode($relationship->getMeta());
+        $meta = $relationship->getMeta();
+        if (null !== $meta) {
+            $serializedRelationship['meta'] = $this->metaToPhpArrayEncoder->encode($meta);
         }
 
-        if (null !== $relationship->getLinks()) {
-            $serializedRelationship['links'] = $this->linkCollectionToPhpArrayEncoder->encode($relationship->getLinks());
+        $links = $relationship->getLinks();
+        if (null !== $links) {
+            $serializedRelationship['links'] = $this->linkCollectionToPhpArrayEncoder->encode($links);
         }
-
-        if (null !== $relationship->getData()) {
-            $serializedRelationship['data'] = $this->encodeRelationshipData($relationship->getData());
+        $data = $relationship->getData();
+        if (null !== $data) {
+            $serializedRelationship['data'] = $this->encodeRelationshipData($data);
         }
 
         return $serializedRelationship;
@@ -78,11 +76,12 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
      */
     private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data): ?array
     {
-        if (null === $data->getData()) {
+        $data = $data->getData();
+        if (null === $data) {
             return null;
         }
 
-        return $this->resourceIdentifierToPhpArrayEncoder->encode($data->getData());
+        return $this->resourceIdentifierToPhpArrayEncoder->encode($data);
     }
 
     /**
@@ -96,7 +95,6 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
 
         $serializedData = [];
 
-        /** @var ResourceIdentifierInterface $resourceIdentifier */
         foreach ($data->getData() as $resourceIdentifier) {
             $serializedData[] = $this->resourceIdentifierToPhpArrayEncoder->encode($resourceIdentifier);
         }

@@ -13,7 +13,8 @@
     "phpunit/phpunit": "^9.5",
     "phpstan/extension-installer": "^1.3.1",
     "phpstan/phpstan-beberlei-assert": "^1.1.2",
-    "ekino/phpstan-banned-code": "v1.0.0"
+    "ekino/phpstan-banned-code": "v1.0.0",
+    "vimeo/psalm": "^5.15"
   },
   "autoload": {
     "psr-4": {

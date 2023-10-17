@@ -7,6 +7,7 @@ namespace Undabot\JsonApi\Implementation\Encoding;
 use Undabot\JsonApi\Definition\Encoding\SourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
 
+/** @psalm-suppress UnusedClass */
 class SourceToPhpArrayEncoder implements SourceToPhpArrayEncoderInterface
 {
     /**

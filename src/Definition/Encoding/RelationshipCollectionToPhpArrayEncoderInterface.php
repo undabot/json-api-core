@@ -11,5 +11,5 @@ interface RelationshipCollectionToPhpArrayEncoderInterface
     /**
      * @return array<string,mixed>
      */
-    public function encode(RelationshipCollectionInterface $relationship): array;
+    public function encode(RelationshipCollectionInterface $relationships): array;
 }

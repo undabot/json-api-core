@@ -16,6 +16,7 @@ final class ResourceCollection implements ResourceCollectionInterface
     private $resources;
 
     /** @param ResourceInterface[] $resources */
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function __construct(array $resources)
     {
         try {

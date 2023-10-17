@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Util;
 
+/** @psalm-suppress UnusedClass */
 class ValidMemberNameAssertion
 {
     public function assert(string $memberName): bool

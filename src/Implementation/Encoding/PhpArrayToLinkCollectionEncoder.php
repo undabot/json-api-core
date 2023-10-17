@@ -8,6 +8,7 @@ use Undabot\JsonApi\Definition\Encoding\PhpArrayToLinkCollectionEncoderInterface
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
+/** @psalm-suppress UnusedClass */
 class PhpArrayToLinkCollectionEncoder implements PhpArrayToLinkCollectionEncoderInterface
 {
     /** @param array<string,string> $links */
@@ -17,6 +18,7 @@ class PhpArrayToLinkCollectionEncoder implements PhpArrayToLinkCollectionEncoder
         // @todo implement
     }
 
+    /** @psalm-suppress PossiblyUnusedParam */
     public function decodeLinkObject(string $name, string $url): LinkInterface
     {
         throw new \RuntimeException('Not implemented');

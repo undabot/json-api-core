@@ -24,6 +24,8 @@ class FilterSet implements \IteratorAggregate
 
     /**
      * @param array<string,mixed> $rawFilters Key value pairs of filters
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function fromArray(array $rawFilters): self
     {
@@ -55,6 +57,7 @@ class FilterSet implements \IteratorAggregate
         return null;
     }
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getFilterValue(string $name): mixed
     {
         $filter = $this->getFilter($name);
@@ -67,6 +70,8 @@ class FilterSet implements \IteratorAggregate
 
     /**
      * @return string[]
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function getFilterNames(): array
     {

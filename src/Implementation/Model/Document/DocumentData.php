@@ -12,13 +12,12 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceCollection;
 use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
+/** @psalm-suppress UnusedClass */
 class DocumentData implements DocumentDataInterface
 {
-    /** @var null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface */
-    private $data;
+    private null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data;
 
-    /** @param null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data */
-    public function __construct($data)
+    public function __construct(null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data)
     {
         $this->makeSureDataIsValid($data);
         $this->data = $data;

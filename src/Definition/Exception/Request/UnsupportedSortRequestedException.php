@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Definition\Exception\Request;
 
+/** @psalm-suppress UnusedClass */
 class UnsupportedSortRequestedException extends RequestException
 {
     /**
      * @param string[] $unsupportedSorts
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
         array $unsupportedSorts,

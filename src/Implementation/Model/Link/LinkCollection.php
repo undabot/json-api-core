@@ -8,6 +8,9 @@ use Assert\Assertion;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 final class LinkCollection implements LinkCollectionInterface
 {
     /** @var LinkInterface[] */

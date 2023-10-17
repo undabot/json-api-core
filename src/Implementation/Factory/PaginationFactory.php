@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
+/** @psalm-suppress UnusedClass */
 class PaginationFactory
 {
     /**
      * @param array<string, int> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function fromArray(array $paginationParams): PaginationInterface
     {
@@ -36,7 +38,7 @@ class PaginationFactory
     /**
      * @param array<string, int> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makePageBasedPagination(array $paginationParams): PageBasedPagination
     {
@@ -65,15 +67,15 @@ class PaginationFactory
         }
 
         return new PageBasedPagination(
-            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_NUMBER],
-            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE]
+            $paginationParams[PageBasedPagination::PARAM_PAGE_NUMBER],
+            $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE]
         );
     }
 
     /**
      * @param array<string, int> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makeOffsetBasedPagination(array $paginationParams): OffsetBasedPagination
     {
@@ -107,8 +109,8 @@ class PaginationFactory
         );
 
         return new OffsetBasedPagination(
-            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET],
-            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT]
+            $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET],
+            $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT]
         );
     }
 }

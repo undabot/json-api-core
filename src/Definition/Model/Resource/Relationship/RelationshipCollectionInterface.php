@@ -16,5 +16,6 @@ interface RelationshipCollectionInterface extends \IteratorAggregate
      */
     public function getRelationships(): array;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getRelationshipByName(string $name): ?RelationshipInterface;
 }

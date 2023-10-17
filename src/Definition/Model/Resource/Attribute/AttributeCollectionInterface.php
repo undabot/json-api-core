@@ -14,5 +14,6 @@ interface AttributeCollectionInterface extends \IteratorAggregate
     /** @return AttributeInterface[] */
     public function getAttributes(): array;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getAttributeByName(string $name): ?AttributeInterface;
 }

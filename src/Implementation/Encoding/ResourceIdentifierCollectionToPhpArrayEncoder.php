@@ -8,11 +8,13 @@ use Undabot\JsonApi\Definition\Encoding\ResourceIdentifierCollectionToPhpArrayEn
 use Undabot\JsonApi\Definition\Encoding\ResourceIdentifierToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
 
+/** @psalm-suppress UnusedClass */
 class ResourceIdentifierCollectionToPhpArrayEncoder implements ResourceIdentifierCollectionToPhpArrayEncoderInterface
 {
     /** @var ResourceIdentifierToPhpArrayEncoderInterface */
     private $resourceIdentifierToPhpArrayEncoder;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function __construct(ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierToPhpArrayEncoder)
     {
         $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;

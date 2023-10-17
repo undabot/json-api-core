@@ -37,7 +37,6 @@ class RelationshipCollection implements RelationshipCollectionInterface
 
     public function getRelationshipByName(string $name): ?RelationshipInterface
     {
-        /** @var RelationshipInterface $relationship */
         foreach ($this->getRelationships() as $relationship) {
             if ($name === $relationship->getName()) {
                 return $relationship;

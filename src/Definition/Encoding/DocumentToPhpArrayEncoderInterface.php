@@ -8,6 +8,10 @@ use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
 
 interface DocumentToPhpArrayEncoderInterface
 {
-    /** @return array<string,mixed> */
+    /**
+     * @return array<string,mixed>
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function encode(DocumentInterface $document): array;
 }

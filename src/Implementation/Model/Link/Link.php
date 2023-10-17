@@ -16,6 +16,9 @@ final class Link implements LinkInterface
     /** @var LinkMemberInterface */
     private $link;
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function __construct(string $name, LinkMemberInterface $link)
     {
         $this->makeSureNameIsValid($name);
@@ -33,6 +36,9 @@ final class Link implements LinkInterface
         return $this->link;
     }
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function isLinkUrl(): bool
     {
         return $this->link instanceof LinkUrl;

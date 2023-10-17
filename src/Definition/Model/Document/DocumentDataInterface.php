@@ -19,6 +19,7 @@ interface DocumentDataInterface
 
     public function isResourceIdentifierCollection(): bool;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function isEmpty(): bool;
 
     public function getResource(): ResourceInterface;

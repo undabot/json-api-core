@@ -13,6 +13,7 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Implementation\Model\Link\Link;
 
+/** @psalm-suppress UnusedClass */
 class Document implements DocumentInterface
 {
     private ?DocumentDataInterface $data;

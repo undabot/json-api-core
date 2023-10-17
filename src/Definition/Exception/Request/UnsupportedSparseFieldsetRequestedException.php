@@ -8,6 +8,8 @@ class UnsupportedSparseFieldsetRequestedException extends RequestException
 {
     /**
      * @param string[] $unsupportedIncludes
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
         array $unsupportedIncludes,
