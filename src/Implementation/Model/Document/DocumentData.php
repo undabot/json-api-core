@@ -9,15 +9,13 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
-use Undabot\JsonApi\Implementation\Model\Resource\ResourceCollection;
-use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /** @psalm-suppress UnusedClass */
 class DocumentData implements DocumentDataInterface
 {
-    private null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data;
+    private mixed $data;
 
-    public function __construct(null|ResourceCollection|ResourceIdentifierCollection|ResourceIdentifierInterface|ResourceInterface $data)
+    public function __construct(mixed $data)
     {
         $this->makeSureDataIsValid($data);
         $this->data = $data;

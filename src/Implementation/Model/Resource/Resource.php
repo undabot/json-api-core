@@ -10,6 +10,7 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInter
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
+/** @psalm-suppress UnusedClass */
 class Resource implements ResourceInterface
 {
     /** @var string */

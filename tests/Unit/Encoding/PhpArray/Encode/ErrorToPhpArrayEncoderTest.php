@@ -52,11 +52,11 @@ final class ErrorToPhpArrayEncoderTest extends TestCase
     public function testEncoderSuccessfullyEncodesPrimitiveValues(): void
     {
         $error = $this->createMock(ErrorInterface::class);
-        $error->expects(self::exactly(2))->method('getId')->willReturn('id');
-        $error->expects(self::exactly(2))->method('getStatus')->willReturn('status 1');
-        $error->expects(self::exactly(2))->method('getCode')->willReturn('code 1');
-        $error->expects(self::exactly(2))->method('getTitle')->willReturn('title 1');
-        $error->expects(self::exactly(2))->method('getDetail')->willReturn('detail 1');
+        $error->expects(self::exactly(1))->method('getId')->willReturn('id');
+        $error->expects(self::exactly(1))->method('getStatus')->willReturn('status 1');
+        $error->expects(self::exactly(1))->method('getCode')->willReturn('code 1');
+        $error->expects(self::exactly(1))->method('getTitle')->willReturn('title 1');
+        $error->expects(self::exactly(1))->method('getDetail')->willReturn('detail 1');
 
         $encoded = $this->errorEncoder->encode($error);
         self::assertIsArray($encoded);
@@ -73,13 +73,13 @@ final class ErrorToPhpArrayEncoderTest extends TestCase
         $error = $this->createMock(ErrorInterface::class);
 
         $link = $this->createMock(LinkInterface::class);
-        $error->expects(self::exactly(2))->method('getAboutLink')->willReturn($link);
+        $error->expects(self::exactly(1))->method('getAboutLink')->willReturn($link);
 
         $source = $this->createMock(SourceInterface::class);
-        $error->expects(self::exactly(2))->method('getSource')->willReturn($source);
+        $error->expects(self::exactly(1))->method('getSource')->willReturn($source);
 
         $meta = $this->createMock(MetaInterface::class);
-        $error->expects(self::exactly(2))->method('getMeta')->willReturn($meta);
+        $error->expects(self::exactly(1))->method('getMeta')->willReturn($meta);
 
         $encoded = $this->errorEncoder->encode($error);
         self::assertIsArray($encoded);

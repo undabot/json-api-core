@@ -12,15 +12,18 @@ class ValidationException extends \Exception
     /** @psalm-suppress UnusedProperty */
     private mixed $value;
 
-    /** @var array<int,mixed> */
-    /** @psalm-suppress UnusedProperty */
+    /**
+     * @var array<int, mixed>
+     *
+     * @psalm-suppress UnusedProperty
+     */
+    /** @phpstan-ignore-next-line */
     private array $constraints;
 
     /**
-     * ValidationException constructor.
-     *
      * @param array<int,mixed> $constraints
      *
+     * @psalm-suppress UnusedProperty
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(

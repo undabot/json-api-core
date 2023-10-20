@@ -7,6 +7,7 @@ namespace Undabot\JsonApi\Implementation\Model\Resource\Attribute;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
 
+/** @psalm-suppress UnusedClass */
 class AttributeCollection implements AttributeCollectionInterface
 {
     /** @var AttributeInterface[] */

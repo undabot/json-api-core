@@ -36,7 +36,7 @@ class PaginationFactory
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
      * @throws AssertionFailedException
      */
@@ -67,13 +67,13 @@ class PaginationFactory
         }
 
         return new PageBasedPagination(
-            $paginationParams[PageBasedPagination::PARAM_PAGE_NUMBER],
-            $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE]
+            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_NUMBER],
+            (int) $paginationParams[PageBasedPagination::PARAM_PAGE_SIZE]
         );
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
      * @throws AssertionFailedException
      */
@@ -109,8 +109,8 @@ class PaginationFactory
         );
 
         return new OffsetBasedPagination(
-            $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET],
-            $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT]
+            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET],
+            (int) $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT]
         );
     }
 }

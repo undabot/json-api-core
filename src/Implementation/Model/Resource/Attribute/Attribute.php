@@ -16,6 +16,8 @@ class Attribute implements AttributeInterface
 
     /**
      * @param mixed $value
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(string $name, $value)
     {

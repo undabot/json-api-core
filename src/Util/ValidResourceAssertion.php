@@ -8,6 +8,8 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 
 /**
  * @internal
+ *
+ * @psalm-suppress UnusedClass
  */
 final class ValidResourceAssertion
 {
