@@ -14,10 +14,8 @@ class ValidationException extends \Exception
 
     /**
      * @var array<int, mixed>
-     *
      * @psalm-suppress UnusedProperty
      */
-    /** @phpstan-ignore-next-line */
     private array $constraints;
 
     /**
@@ -27,12 +25,13 @@ class ValidationException extends \Exception
      * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
-        string $message,
-        int $code = null,
+        string  $message,
+        int     $code = null,
         ?string $propertyPath = null,
-        mixed $value = null,
-        array $constraints = []
-    ) {
+        mixed   $value = null,
+        array   $constraints = []
+    )
+    {
         parent::__construct($message, $code ?? 0);
 
         $this->propertyPath = $propertyPath;

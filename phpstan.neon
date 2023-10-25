@@ -3,6 +3,6 @@ parameters:
         - src/
     level: max
     ignoreErrors:
+        - '#Property Undabot\\JsonApi\\Util\\Exception\\ValidationException::\$constraints is never read, only written.#'
         - '#Property Undabot\\JsonApi\\Util\\Exception\\ValidationException::\$propertyPath is never read, only written.#'
         - '#Property Undabot\\JsonApi\\Util\\Exception\\ValidationException::\$value is never read, only written.#'
-        - '#Property Undabot\\JsonApi\\Util\\Exception\\ValidationException::\$constraints is never read, only written.#'
