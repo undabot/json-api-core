@@ -9,8 +9,6 @@ class UnsupportedSortRequestedException extends RequestException
 {
     /**
      * @param string[] $unsupportedSorts
-     *
-     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
         array $unsupportedSorts,

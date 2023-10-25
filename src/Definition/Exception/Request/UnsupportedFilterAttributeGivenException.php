@@ -10,7 +10,6 @@ class UnsupportedFilterAttributeGivenException extends RequestException
     /**
      * @param string[] $unsupportedFilters
      *
-     * @psalm-suppress PossiblyUnusedMethod
      */
     public function __construct(
         array $unsupportedFilters,
