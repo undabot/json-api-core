@@ -7,7 +7,6 @@ namespace Undabot\JsonApi\Definition\Encoding;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
 use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 
-/** @psalm-suppress PossiblyUnusedMethod */
 interface PhpArrayToRelationshipCollectionEncoderInterface
 {
     /**
