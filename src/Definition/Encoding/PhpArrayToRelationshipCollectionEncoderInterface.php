@@ -13,8 +13,6 @@ interface PhpArrayToRelationshipCollectionEncoderInterface
      * @param array<string,array<string,mixed>> $relationships
      *
      * @throws JsonApiEncodingException
-     *
-     * @psalm-suppress PossiblyUnusedMethod
      */
     public function encode(array $relationships): RelationshipCollectionInterface;
 }
