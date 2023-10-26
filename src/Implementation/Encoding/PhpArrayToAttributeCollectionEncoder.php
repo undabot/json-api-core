@@ -9,7 +9,7 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInter
 use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
 use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
 
-/** @psalm-suppress UnusedClass */
+/** @psalm-api */
 class PhpArrayToAttributeCollectionEncoder implements PhpArrayToAttributeCollectionEncoderInterface
 {
     public function encode(array $attributes): AttributeCollectionInterface

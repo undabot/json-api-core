@@ -6,7 +6,7 @@ namespace Undabot\JsonApi\Definition\Model\Request;
 
 use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
-/** @psalm-suppress UnusedClass */
+/** @psalm-api */
 interface ResourcePayloadRequest
 {
     /** @psalm-suppress PossiblyUnusedMethod */

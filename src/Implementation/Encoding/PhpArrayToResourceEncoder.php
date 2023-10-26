@@ -15,7 +15,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\Resource;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceAssertion;
 
-/** @psalm-suppress UnusedClass */
+/** @psalm-api */
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
     /** @var PhpArrayToRelationshipCollectionEncoderInterface */
