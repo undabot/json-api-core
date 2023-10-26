@@ -13,7 +13,7 @@ use IteratorAggregate;
 class SortSet implements \IteratorAggregate
 {
     /** @var Sort[] */
-    private $sorts;
+    private array $sorts;
 
     /** @param Sort[] $sorts */
     public function __construct(array $sorts)

@@ -11,7 +11,7 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
 class AttributeCollection implements AttributeCollectionInterface
 {
     /** @var AttributeInterface[] */
-    private $attributes;
+    private array $attributes;
 
     /** @param AttributeInterface[] $attributes */
     public function __construct(array $attributes)

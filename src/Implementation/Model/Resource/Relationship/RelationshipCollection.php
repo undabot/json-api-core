@@ -10,7 +10,7 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface
 class RelationshipCollection implements RelationshipCollectionInterface
 {
     /** @var RelationshipInterface[] */
-    private $relationships = [];
+    private array $relationships = [];
 
     /** @param RelationshipInterface[] $relationships */
     public function __construct(array $relationships)
