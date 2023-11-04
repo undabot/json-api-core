@@ -9,7 +9,6 @@ class UnsupportedFilterAttributeGivenException extends RequestException
 {
     /**
      * @param string[] $unsupportedFilters
-     *
      */
     public function __construct(
         array $unsupportedFilters,

@@ -19,21 +19,17 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 /** @psalm-api */
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
-    /** @var PhpArrayToRelationshipCollectionEncoderInterface */
     private PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder;
 
-    /** @var PhpArrayToAttributeCollectionEncoderInterface */
     private PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder;
 
-    /** @var PhpArrayToMetaEncoderInterface */
     private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder;
 
     public function __construct(
         PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder,
-        PhpArrayToAttributeCollectionEncoderInterface    $phpArrayToAttributeCollectionEncoder,
-        PhpArrayToMetaEncoderInterface                   $phpArrayToMetaEncoder
-    )
-    {
+        PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder,
+        PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder
+    ) {
         $this->phpArrayToRelationshipCollectionEncoder = $phpArrayToRelationshipCollectionEncoder;
         $this->phpArrayToAttributeCollectionEncoder = $phpArrayToAttributeCollectionEncoder;
         $this->phpArrayToMetaEncoder = $phpArrayToMetaEncoder;
@@ -54,18 +50,17 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
             );
         }
 
-
         $rawAttributes = ArrayUtil::assertStringKeyArray($resource, 'attributes');
         $rawMeta = ArrayUtil::assertStringKeyArray($resource, 'meta');
-        $rawLink = is_array($resource['links'] ?? null) ? ($resource['links']['self'] ?? null) : null;
+        $rawLink = \is_array($resource['links'] ?? null) ? ($resource['links']['self'] ?? null) : null;
         $rawRelationships = ArrayUtil::assertStringKeyArrayNested($resource, 'relationships');
 
         if (null !== $rawLink) {
             throw new \RuntimeException('Not implemented');
         }
 
-        $id = is_string($resource['id']) ? $resource['id'] : throw new \InvalidArgumentException("Expected a string for 'id'");
-        $type = is_string($resource['type']) ? $resource['type'] : throw new \InvalidArgumentException("Expected a string for 'type'");
+        $id = \is_string($resource['id']) ? $resource['id'] : throw new \InvalidArgumentException("Expected a string for 'id'");
+        $type = \is_string($resource['type']) ? $resource['type'] : throw new \InvalidArgumentException("Expected a string for 'type'");
 
         return new Resource(
             $id,
