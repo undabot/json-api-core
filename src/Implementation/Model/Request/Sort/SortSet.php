@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Request\Sort;
 
-use ArrayIterator;
 use Assert\Assertion;
 use IteratorAggregate;
 
-class SortSet implements IteratorAggregate
+/**
+ * @implements IteratorAggregate<int,Sort>
+ */
+class SortSet implements \IteratorAggregate
 {
     /** @var Sort[] */
-    private $sorts;
+    private array $sorts;
 
+    /** @param Sort[] $sorts */
     public function __construct(array $sorts)
     {
         Assertion::allIsInstanceOf($sorts, Sort::class);
         $this->sorts = $sorts;
     }
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public static function make(string $sortDefinition): self
     {
         $sorts = [];
@@ -38,11 +44,19 @@ class SortSet implements IteratorAggregate
         return new self($sorts);
     }
 
-    public function getIterator()
+    /**
+     * @return \ArrayIterator<int,Sort>
+     */
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->sorts);
+        return new \ArrayIterator($this->sorts);
     }
 
+    /**
+     * @return array<string,null|string>
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function getSortsArray(): array
     {
         $sortSet = [];

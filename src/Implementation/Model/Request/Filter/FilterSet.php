@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Request\Filter;
 
-use ArrayIterator;
 use Assert\Assertion;
 use IteratorAggregate;
 
-class FilterSet implements IteratorAggregate
+/**
+ * @implements IteratorAggregate<int,Filter>
+ */
+class FilterSet implements \IteratorAggregate
 {
     /** @var Filter[] */
     private $filters;
 
+    /** @param Filter[] $filters */
     public function __construct(array $filters)
     {
         Assertion::allIsInstanceOf($filters, Filter::class);
@@ -20,9 +23,11 @@ class FilterSet implements IteratorAggregate
     }
 
     /**
-     * @param array $rawFilters Key value pairs of filters
+     * @param array<string,mixed> $rawFilters Key value pairs of filters
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
-    public static function fromArray(array $rawFilters)
+    public static function fromArray(array $rawFilters): self
     {
         $filters = [];
 
@@ -33,9 +38,12 @@ class FilterSet implements IteratorAggregate
         return new self($filters);
     }
 
-    public function getIterator()
+    /**
+     * @return \ArrayIterator<int,Filter>
+     */
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->filters);
+        return new \ArrayIterator($this->filters);
     }
 
     public function getFilter(string $name): ?Filter
@@ -49,7 +57,8 @@ class FilterSet implements IteratorAggregate
         return null;
     }
 
-    public function getFilterValue(string $name)
+    /** @psalm-suppress PossiblyUnusedMethod */
+    public function getFilterValue(string $name): mixed
     {
         $filter = $this->getFilter($name);
         if (null === $filter) {
@@ -59,6 +68,11 @@ class FilterSet implements IteratorAggregate
         return $filter->getValue();
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function getFilterNames(): array
     {
         return array_map(

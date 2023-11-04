@@ -15,6 +15,9 @@ final class LinkObject implements LinkMemberInterface
     /** @var null|MetaInterface */
     private $meta;
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function __construct(string $href, ?MetaInterface $meta)
     {
         $this->href = $href;

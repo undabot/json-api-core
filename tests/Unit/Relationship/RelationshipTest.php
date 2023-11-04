@@ -13,6 +13,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship
  *
  * @small
@@ -34,7 +35,7 @@ final class RelationshipTest extends TestCase
     {
         $relationship = new Relationship('relationshipName', $this->linksCollection);
 
-        static::assertInstanceOf(Relationship::class, $relationship);
+        self::assertInstanceOf(Relationship::class, $relationship);
     }
 
     public function testItCannotBeCreatedWithInvalidLinkCollection(): void
@@ -50,14 +51,14 @@ final class RelationshipTest extends TestCase
     {
         $emptyToOneRelationshipData = ToOneRelationshipData::makeEmpty();
 
-        static::assertTrue($emptyToOneRelationshipData->isEmpty());
+        self::assertTrue($emptyToOneRelationshipData->isEmpty());
     }
 
     public function testToManyRelationshipDataCanBeCreatedEmpty(): void
     {
         $emptyToManyRelationshipData = ToManyRelationshipData::makeEmpty();
 
-        static::assertTrue($emptyToManyRelationshipData->isEmpty());
+        self::assertTrue($emptyToManyRelationshipData->isEmpty());
     }
 
     public function testRelationshipCanBeCreatedWithNoData(): void
@@ -69,6 +70,6 @@ final class RelationshipTest extends TestCase
         /** @var ToOneRelationshipData $relationshipData */
         $relationshipData = $emptyRelationship->getData();
 
-        static::assertTrue($relationshipData->isEmpty());
+        self::assertTrue($relationshipData->isEmpty());
     }
 }

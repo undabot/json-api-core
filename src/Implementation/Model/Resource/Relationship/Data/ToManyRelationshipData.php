@@ -10,8 +10,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 class ToManyRelationshipData implements ToManyRelationshipDataInterface
 {
-    /** @var ResourceIdentifierCollectionInterface */
-    private $resourceIdentifierCollection;
+    private ResourceIdentifierCollectionInterface $resourceIdentifierCollection;
 
     public function __construct(ResourceIdentifierCollectionInterface $resourceIdentifierCollection)
     {
@@ -30,8 +29,7 @@ class ToManyRelationshipData implements ToManyRelationshipDataInterface
 
     public function isEmpty(): bool
     {
-        return null === $this->resourceIdentifierCollection
-            || 0 === \count($this->resourceIdentifierCollection->getResourceIdentifiers());
+        return 0 === \count($this->resourceIdentifierCollection->getResourceIdentifiers());
     }
 
     public function getData(): ResourceIdentifierCollectionInterface

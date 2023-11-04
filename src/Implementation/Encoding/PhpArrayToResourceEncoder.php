@@ -12,19 +12,18 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 use Undabot\JsonApi\Implementation\Model\Resource\Resource;
+use Undabot\JsonApi\Util\ArrayUtil;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceAssertion;
 
+/** @psalm-api */
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
-    /** @var PhpArrayToRelationshipCollectionEncoderInterface */
-    private $phpArrayToRelationshipCollectionEncoder;
+    private PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder;
 
-    /** @var PhpArrayToAttributeCollectionEncoderInterface */
-    private $phpArrayToAttributeCollectionEncoder;
+    private PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder;
 
-    /** @var PhpArrayToMetaEncoderInterface */
-    private $phpArrayToMetaEncoder;
+    private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder;
 
     public function __construct(
         PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder,
@@ -51,17 +50,21 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
             );
         }
 
-        $rawRelationships = $resource['relationships'] ?? [];
-        $rawAttributes = $resource['attributes'] ?? [];
-        $rawMeta = $resource['meta'] ?? null;
-        $rawLink = $resource['links']['self'] ?? null;
+        $rawAttributes = ArrayUtil::assertStringKeyArray($resource, 'attributes');
+        $rawMeta = ArrayUtil::assertStringKeyArray($resource, 'meta');
+        $rawLink = \is_array($resource['links'] ?? null) ? ($resource['links']['self'] ?? null) : null;
+        $rawRelationships = ArrayUtil::assertStringKeyArrayNested($resource, 'relationships');
+
         if (null !== $rawLink) {
             throw new \RuntimeException('Not implemented');
         }
 
+        $id = \is_string($resource['id']) ? $resource['id'] : throw new \InvalidArgumentException("Expected a string for 'id'");
+        $type = \is_string($resource['type']) ? $resource['type'] : throw new \InvalidArgumentException("Expected a string for 'type'");
+
         return new Resource(
-            $resource['id'],
-            $resource['type'],
+            $id,
+            $type,
             $this->phpArrayToAttributeCollectionEncoder->encode($rawAttributes),
             $this->phpArrayToRelationshipCollectionEncoder->encode($rawRelationships),
             null,
@@ -69,6 +72,9 @@ class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
         );
     }
 
+    /**
+     * @param null|array<string, mixed> $rawMeta
+     */
     private function parseMeta(?array $rawMeta): ?MetaInterface
     {
         if (null === $rawMeta) {

@@ -6,9 +6,16 @@ namespace Undabot\JsonApi\Definition\Model\Resource\Relationship;
 
 use IteratorAggregate;
 
-interface RelationshipCollectionInterface extends IteratorAggregate
+/**
+ * @extends IteratorAggregate<int,RelationshipInterface>
+ */
+interface RelationshipCollectionInterface extends \IteratorAggregate
 {
+    /**
+     * @return RelationshipInterface[]
+     */
     public function getRelationships(): array;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getRelationshipByName(string $name): ?RelationshipInterface;
 }

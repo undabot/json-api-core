@@ -9,6 +9,7 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 
 class MetaToPhpArrayEncoder implements MetaToPhpArrayEncoderInterface
 {
+    /** @return array<int|string,mixed> */
     public function encode(MetaInterface $meta): array
     {
         return $meta->getData();

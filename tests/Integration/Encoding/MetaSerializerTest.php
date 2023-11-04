@@ -12,6 +12,7 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder
  *
  * @small
@@ -51,7 +52,7 @@ final class MetaSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 
     public function testJsonApiObjectIsSerializedCorrectly(): void
@@ -68,6 +69,6 @@ final class MetaSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 }

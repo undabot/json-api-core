@@ -6,6 +6,7 @@ namespace Undabot\JsonApi\Implementation\Model\Source;
 
 use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
 
+/** @psalm-suppress UnusedClass */
 final class Source implements SourceInterface
 {
     /**

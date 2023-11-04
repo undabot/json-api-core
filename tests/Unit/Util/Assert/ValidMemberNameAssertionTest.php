@@ -9,6 +9,7 @@ use Undabot\JsonApi\Util\ValidMemberNameAssertion;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Util\ValidMemberNameAssertion
  *
  * @small
@@ -23,11 +24,11 @@ final class ValidMemberNameAssertionTest extends TestCase
     }
 
     /**
-     * @dataProvider validMemberNameExamples
+     * @dataProvider provideValidateMemberNameCases
      */
     public function testValidateMemberName(string $memberName): void
     {
-        static::assertTrue($this->assertion->assert($memberName));
+        self::assertTrue($this->assertion->assert($memberName));
     }
 
     /**
@@ -36,10 +37,10 @@ final class ValidMemberNameAssertionTest extends TestCase
      */
     public function testInValidateMemberName(string $memberName): void
     {
-        static::assertFalse($this->assertion->assert($memberName));
+        self::assertFalse($this->assertion->assert($memberName));
     }
 
-    public function validMemberNameExamples(): array
+    public function provideValidateMemberNameCases(): iterable
     {
         return [
             ['1'],
@@ -50,7 +51,7 @@ final class ValidMemberNameAssertionTest extends TestCase
         ];
     }
 
-    public function invalidMemberNameExamples(): array
+    public function invalidMemberNameExamples(): iterable
     {
         return [
             [''],
@@ -74,7 +75,7 @@ final class ValidMemberNameAssertionTest extends TestCase
      *
      * @see https://jsonapi.org/format/#document-member-names-reserved-characters
      */
-    public function reservedCharacters(): array
+    public function reservedCharacters(): iterable
     {
         return [
             ['+'],

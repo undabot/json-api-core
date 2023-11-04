@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Encoding;
 
-use DomainException;
 use Undabot\JsonApi\Definition\Encoding\LinkCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\RelationshipToPhpArrayEncoderInterface;
@@ -12,18 +11,15 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipData
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToManyRelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\ToOneRelationshipDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface;
-use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
+/** @psalm-suppress UnusedClass */
 class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaToPhpArrayEncoder;
+    private MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder;
 
-    /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionToPhpArrayEncoder;
+    private LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder;
 
-    /** @var ResourceIdentifierToPhpArrayEncoder */
-    private $resourceIdentifierToPhpArrayEncoder;
+    private ResourceIdentifierToPhpArrayEncoder $resourceIdentifierToPhpArrayEncoder;
 
     public function __construct(
         MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
@@ -35,25 +31,32 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function encode(RelationshipInterface $relationship): array
     {
         $serializedRelationship = [];
-
-        if (null !== $relationship->getMeta()) {
-            $serializedRelationship['meta'] = $this->metaToPhpArrayEncoder->encode($relationship->getMeta());
+        $meta = $relationship->getMeta();
+        if (null !== $meta) {
+            $serializedRelationship['meta'] = $this->metaToPhpArrayEncoder->encode($meta);
         }
 
-        if (null !== $relationship->getLinks()) {
-            $serializedRelationship['links'] = $this->linkCollectionToPhpArrayEncoder->encode($relationship->getLinks());
+        $links = $relationship->getLinks();
+        if (null !== $links) {
+            $serializedRelationship['links'] = $this->linkCollectionToPhpArrayEncoder->encode($links);
         }
-
-        if (null !== $relationship->getData()) {
-            $serializedRelationship['data'] = $this->encodeRelationshipData($relationship->getData());
+        $data = $relationship->getData();
+        if (null !== $data) {
+            $serializedRelationship['data'] = $this->encodeRelationshipData($data);
         }
 
         return $serializedRelationship;
     }
 
+    /**
+     * @return null|array<mixed,mixed>
+     */
     private function encodeRelationshipData(?RelationshipDataInterface $data): ?array
     {
         if ($data instanceof ToOneRelationshipDataInterface) {
@@ -65,19 +68,26 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         }
 
         // @todo this is not a domain exception, but rather UI...
-        throw new DomainException('Invalid relationship data');
+        throw new \DomainException('Invalid relationship data');
     }
 
-    private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data)
+    /**
+     * @return null|array<string,mixed>
+     */
+    private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data): ?array
     {
-        if (null === $data->getData()) {
+        $data = $data->getData();
+        if (null === $data) {
             return null;
         }
 
-        return $this->resourceIdentifierToPhpArrayEncoder->encode($data->getData());
+        return $this->resourceIdentifierToPhpArrayEncoder->encode($data);
     }
 
-    private function encodeToManyRelationshipData(ToManyRelationshipDataInterface $data)
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    private function encodeToManyRelationshipData(ToManyRelationshipDataInterface $data): array
     {
         if ($data->isEmpty()) {
             return [];
@@ -85,7 +95,6 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
 
         $serializedData = [];
 
-        /** @var ResourceIdentifierInterface $resourceIdentifier */
         foreach ($data->getData() as $resourceIdentifier) {
             $serializedData[] = $this->resourceIdentifierToPhpArrayEncoder->encode($resourceIdentifier);
         }

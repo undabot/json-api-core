@@ -10,7 +10,11 @@ use Undabot\JsonApi\Implementation\Encoding\Exception\JsonApiEncodingException;
 interface PhpArrayToResourceEncoderInterface
 {
     /**
+     * @param array<string,mixed> $resource
+     *
      * @throws JsonApiEncodingException
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function decode(array $resource): ResourceInterface;
 }

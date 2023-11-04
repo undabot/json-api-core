@@ -11,6 +11,9 @@ final class LinkUrl implements LinkMemberInterface
     /** @var string */
     private $url;
 
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function __construct(string $url)
     {
         $this->url = $url;

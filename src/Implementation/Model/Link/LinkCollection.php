@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Link;
 
-use ArrayIterator;
 use Assert\Assertion;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 final class LinkCollection implements LinkCollectionInterface
 {
     /** @var LinkInterface[] */
-    private $links;
+    private array $links;
 
+    /** @param LinkInterface[] $links */
     public function __construct(array $links)
     {
         Assertion::allIsInstanceOf($links, LinkInterface::class);
         $this->links = $links;
     }
 
+    /** @return LinkInterface[] */
     public function getLinks(): array
     {
         return $this->links;
@@ -36,9 +40,12 @@ final class LinkCollection implements LinkCollectionInterface
         return false;
     }
 
-    public function getIterator()
+    /**
+     * @return \ArrayIterator<int,LinkInterface>
+     */
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->links);
+        return new \ArrayIterator($this->links);
     }
 
     public function getLink(string $linkName): ?LinkInterface
@@ -52,6 +59,7 @@ final class LinkCollection implements LinkCollectionInterface
         return null;
     }
 
+    /** @return string[] */
     public function getLinkNames(): array
     {
         $linkNames = [];

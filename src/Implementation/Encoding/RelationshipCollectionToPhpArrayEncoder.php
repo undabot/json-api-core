@@ -7,27 +7,28 @@ namespace Undabot\JsonApi\Implementation\Encoding;
 use Undabot\JsonApi\Definition\Encoding\RelationshipCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\RelationshipToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
-use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface;
 
+/** @psalm-suppress UnusedClass */
 class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionToPhpArrayEncoderInterface
 {
-    /** @var RelationshipToPhpArrayEncoderInterface */
-    private $relationshipToPhpArrayEncoder;
+    private RelationshipToPhpArrayEncoderInterface $relationshipToPhpArrayEncoder;
 
     public function __construct(RelationshipToPhpArrayEncoderInterface $relationshipToPhpArrayEncoder)
     {
         $this->relationshipToPhpArrayEncoder = $relationshipToPhpArrayEncoder;
     }
 
-    public function encode(RelationshipCollectionInterface $relationshipCollection): array
+    /**
+     * @return array<string,mixed>
+     */
+    public function encode(RelationshipCollectionInterface $relationships): array
     {
-        $relationships = [];
+        $relationshipsArray = [];
 
-        /** @var RelationshipInterface $relationship */
-        foreach ($relationshipCollection as $relationship) {
-            $relationships[$relationship->getName()] = $this->relationshipToPhpArrayEncoder->encode($relationship);
+        foreach ($relationships as $relationship) {
+            $relationshipsArray[$relationship->getName()] = $this->relationshipToPhpArrayEncoder->encode($relationship);
         }
 
-        return $relationships;
+        return $relationshipsArray;
     }
 }

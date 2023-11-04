@@ -10,6 +10,7 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Util\ValidResourceAssertion
  *
  * @small
@@ -17,7 +18,7 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 final class ValidJsonResourceAssertionTest extends TestCase
 {
     /**
-     * @dataProvider validResourceData
+     * @dataProvider provideValidateValidResourceArrayCases
      */
     public function testValidateValidResourceArray(array $resource): void
     {
@@ -27,7 +28,7 @@ final class ValidJsonResourceAssertionTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidResourceData
+     * @dataProvider provideValidateInvalidResourceArrayCases
      */
     public function testValidateInvalidResourceArray(array $resource): void
     {
@@ -35,7 +36,7 @@ final class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    public function validResourceData()
+    public function provideValidateValidResourceArrayCases(): iterable
     {
         return [
             [
@@ -73,7 +74,7 @@ final class ValidJsonResourceAssertionTest extends TestCase
         ];
     }
 
-    public function invalidResourceData()
+    public function provideValidateInvalidResourceArrayCases(): iterable
     {
         return [
             [

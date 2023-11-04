@@ -70,7 +70,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
      */
     public function testItCanBeConstructed(): void
     {
-        static::assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->encoder);
+        self::assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->encoder);
     }
 
     /**
@@ -78,7 +78,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
      */
     public function testItWillReturnNullIfDocumentDataIsNotValidType(): void
     {
-        static::assertNull($this->encoder->encode($this->documentDataMock));
+        self::assertNull($this->encoder->encode($this->documentDataMock));
     }
 
     /**
@@ -87,7 +87,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
     public function testResourcePhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResource(): void
     {
         $this->resourceToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -103,7 +103,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
     public function testResourceCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceCollection(): void
     {
         $this->resourceCollectionToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -119,7 +119,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
     public function testResourceIdentifierPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifier(): void
     {
         $this->resourceIdentifierToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -135,7 +135,7 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
     public function testItWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection(): void
     {
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock

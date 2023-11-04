@@ -8,24 +8,25 @@ use Undabot\JsonApi\Definition\Encoding\ResourceCollectionToPhpArrayEncoderInter
 use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 
+/** @psalm-suppress UnusedClass */
 class ResourceCollectionToPhpArrayEncoder implements ResourceCollectionToPhpArrayEncoderInterface
 {
-    /** @var ResourceToPhpArrayEncoderInterface */
-    private $resourceToPhpArrayEncoder;
+    private ResourceToPhpArrayEncoderInterface $resourceToPhpArrayEncoder;
 
     public function __construct(ResourceToPhpArrayEncoderInterface $resourceToPhpArrayEncoder)
     {
         $this->resourceToPhpArrayEncoder = $resourceToPhpArrayEncoder;
     }
 
-    public function encode(ResourceCollectionInterface $resourceCollection): array
+    /** @return array<int,array<string,mixed>> */
+    public function encode(ResourceCollectionInterface $resources): array
     {
-        $resources = [];
+        $resourcesArray = [];
 
-        foreach ($resourceCollection as $resource) {
-            $resources[] = $this->resourceToPhpArrayEncoder->encode($resource);
+        foreach ($resources as $resource) {
+            $resourcesArray[] = $this->resourceToPhpArrayEncoder->encode($resource);
         }
 
-        return $resources;
+        return $resourcesArray;
     }
 }

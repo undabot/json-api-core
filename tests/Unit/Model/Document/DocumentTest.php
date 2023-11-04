@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Model\Document;
 
-use ArrayIterator;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
@@ -18,6 +16,7 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Document\Document
  *
  * @small
@@ -31,7 +30,7 @@ final class DocumentTest extends TestCase
 
         $document = new Document($documentDataMock);
 
-        static::assertInstanceOf(Document::class, $document);
+        self::assertInstanceOf(Document::class, $document);
     }
 
     public function testItCanBeConstructedWithErrorCollectionOnly(): void
@@ -41,7 +40,7 @@ final class DocumentTest extends TestCase
 
         $document = new Document(null, $errorCollectionMock);
 
-        static::assertInstanceOf(Document::class, $document);
+        self::assertInstanceOf(Document::class, $document);
     }
 
     public function testItCanBeConstructedWithMetaOnly(): void
@@ -51,7 +50,7 @@ final class DocumentTest extends TestCase
 
         $document = new Document(null, null, $metaMock);
 
-        static::assertInstanceOf(Document::class, $document);
+        self::assertInstanceOf(Document::class, $document);
     }
 
     public function testItMustContainAtLeastOneOfTheRequiredTopLevelMembers(): void
@@ -65,6 +64,7 @@ final class DocumentTest extends TestCase
     {
         /** @var DocumentDataInterface $documentDataMock */
         $documentDataMock = $this->createMock(DocumentDataInterface::class);
+
         /** @var ErrorCollectionInterface $errorCollectionMock */
         $errorCollectionMock = $this->createMock(ErrorCollectionInterface::class);
 
@@ -78,18 +78,18 @@ final class DocumentTest extends TestCase
         $linkCollection = $this->createMock(LinkCollectionInterface::class);
 
         $invalidLink = $this->createMock(LinkInterface::class);
-        $invalidLink->expects(static::exactly(2))
+        $invalidLink->expects(self::exactly(2))
             ->method('getName')
             ->willReturn('invalidLink');
 
-        $linkCollection->expects(static::once())
+        $linkCollection->expects(self::once())
             ->method('getIterator')
-            ->willReturn(new ArrayIterator([$invalidLink]));
+            ->willReturn(new \ArrayIterator([$invalidLink]));
 
         /** @var DocumentDataInterface $documentDataMock */
         $documentDataMock = $this->createMock(DocumentDataInterface::class);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Document($documentDataMock, null, null, null, $linkCollection);
     }
 
@@ -101,7 +101,7 @@ final class DocumentTest extends TestCase
         /** @var ErrorCollectionInterface $errorCollectionMock */
         $errorCollectionMock = $this->createMock(ErrorCollectionInterface::class);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Document(null, $errorCollectionMock, null, null, null, $included);
     }
 }

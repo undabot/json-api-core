@@ -8,10 +8,14 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 
 /**
  * @internal
+ *
+ * @psalm-suppress UnusedClass
  */
 final class ValidResourceAssertion
 {
     /**
+     * @param array<string,mixed> $resource
+     *
      * @throws ValidationException
      */
     public static function assert(array $resource): void

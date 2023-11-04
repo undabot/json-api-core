@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Document;
 
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
 use Undabot\JsonApi\Definition\Model\Error\ErrorCollectionInterface;
@@ -14,25 +13,20 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Implementation\Model\Link\Link;
 
+/** @psalm-suppress UnusedClass */
 class Document implements DocumentInterface
 {
-    /** @var null|DocumentDataInterface */
-    private $data;
+    private ?DocumentDataInterface $data;
 
-    /** @var null|ErrorCollectionInterface */
-    private $errors;
+    private ?ErrorCollectionInterface $errors;
 
-    /** @var null|MetaInterface */
-    private $meta;
+    private ?MetaInterface $meta;
 
-    /** @var null|MetaInterface */
-    private $jsonApiMeta;
+    private ?MetaInterface $jsonApiMeta;
 
-    /** @var null|LinkCollectionInterface */
-    private $links;
+    private ?LinkCollectionInterface $links;
 
-    /** @var null|ResourceCollectionInterface */
-    private $included;
+    private ?ResourceCollectionInterface $included;
 
     public function __construct(
         ?DocumentDataInterface $data,
@@ -96,7 +90,7 @@ class Document implements DocumentInterface
         $hasErrors = null !== $errors;
 
         if (true === $hasData && true === $hasErrors) {
-            throw new InvalidArgumentException('The members data and errors MUST NOT coexist in the same document.');
+            throw new \InvalidArgumentException('The members data and errors MUST NOT coexist in the same document.');
         }
     }
 
@@ -124,7 +118,7 @@ class Document implements DocumentInterface
         /** @var Link $link */
         foreach ($links as $link) {
             if (false === \in_array($link->getName(), $validNames, true)) {
-                throw new InvalidArgumentException("{$link->getName()} is not acceptable link");
+                throw new \InvalidArgumentException("{$link->getName()} is not acceptable link");
             }
         }
     }
@@ -142,7 +136,7 @@ class Document implements DocumentInterface
         if (null === $errors
             && null === $data
             && null === $meta) {
-            throw new InvalidArgumentException('A document MUST contain at least one of the following top-level members: data, errors, meta');
+            throw new \InvalidArgumentException('A document MUST contain at least one of the following top-level members: data, errors, meta');
         }
     }
 
@@ -154,7 +148,7 @@ class Document implements DocumentInterface
         ?ResourceCollectionInterface $included
     ): void {
         if (null === $data && null !== $included) {
-            throw new InvalidArgumentException('a document does not contain a top-level data key, the included member MUST NOT be present either.');
+            throw new \InvalidArgumentException('a document does not contain a top-level data key, the included member MUST NOT be present either.');
         }
     }
 }

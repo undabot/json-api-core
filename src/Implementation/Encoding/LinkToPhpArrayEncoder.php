@@ -9,10 +9,10 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 use Undabot\JsonApi\Implementation\Model\Link\LinkObject;
 use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
 
+/** @psalm-suppress UnusedClass */
 class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoder */
-    private $metaToPhpArrayEncoder;
+    private MetaToPhpArrayEncoder $metaToPhpArrayEncoder;
 
     public function __construct(MetaToPhpArrayEncoder $metaToPhpArrayEncoder)
     {
@@ -20,7 +20,7 @@ class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
     }
 
     /**
-     * @return null|array|string
+     * @return null|array<string,mixed>|string
      */
     public function encode(LinkInterface $link)
     {
@@ -40,6 +40,9 @@ class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
         return null;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     private function encodeLinkObject(LinkObject $linkObject): array
     {
         $serializedLinkObject = [];

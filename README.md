@@ -47,4 +47,5 @@ A script called dev.sh can be used to manage the image. Here are the avaliable c
       executes qc tests
 
 - ./dev.sh install
+
       executes composer install --optimize-autoloader

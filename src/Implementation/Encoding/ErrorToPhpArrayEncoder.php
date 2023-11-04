@@ -10,16 +10,14 @@ use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\SourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
+/** @psalm-suppress UnusedClass */
 class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
 {
-    /** @var LinkToPhpArrayEncoderInterface */
-    private $linkEncoder;
+    private LinkToPhpArrayEncoderInterface $linkEncoder;
 
-    /** @var SourceToPhpArrayEncoderInterface */
-    private $sourceEncoder;
+    private SourceToPhpArrayEncoderInterface $sourceEncoder;
 
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaEncoder;
+    private MetaToPhpArrayEncoderInterface $metaEncoder;
 
     public function __construct(
         LinkToPhpArrayEncoderInterface $linkEncoder,
@@ -31,40 +29,48 @@ class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
         $this->metaEncoder = $metaEncoder;
     }
 
+    /** @return array<string,mixed> */
     public function encode(ErrorInterface $error): array
     {
         $serializedError = [];
-
-        if (null !== $error->getId()) {
-            $serializedError['id'] = $error->getId();
+        $id = $error->getId();
+        if (null !== $id) {
+            $serializedError['id'] = $id;
         }
 
-        if (null !== $error->getAboutLink()) {
-            $serializedError['links'] = $this->linkEncoder->encode($error->getAboutLink());
+        $aboutLink = $error->getAboutLink();
+        if (null !== $aboutLink) {
+            $serializedError['links'] = $this->linkEncoder->encode($aboutLink);
         }
 
-        if (null !== $error->getStatus()) {
-            $serializedError['status'] = $error->getStatus();
+        $status = $error->getStatus();
+        if (null !== $status) {
+            $serializedError['status'] = $status;
         }
 
-        if (null !== $error->getCode()) {
-            $serializedError['code'] = $error->getCode();
+        $code = $error->getCode();
+        if (null !== $code) {
+            $serializedError['code'] = $code;
         }
 
-        if (null !== $error->getTitle()) {
-            $serializedError['title'] = $error->getTitle();
+        $title = $error->getTitle();
+        if (null !== $title) {
+            $serializedError['title'] = $title;
         }
 
-        if (null !== $error->getDetail()) {
-            $serializedError['detail'] = $error->getDetail();
+        $detail = $error->getDetail();
+        if (null !== $detail) {
+            $serializedError['detail'] = $detail;
         }
 
-        if (null !== $error->getSource()) {
-            $serializedError['source'] = $this->sourceEncoder->encode($error->getSource());
+        $source = $error->getSource();
+        if (null !== $source) {
+            $serializedError['source'] = $this->sourceEncoder->encode($source);
         }
 
-        if (null !== $error->getMeta()) {
-            $serializedError['meta'] = $this->metaEncoder->encode($error->getMeta());
+        $meta = $error->getMeta();
+        if (null !== $meta) {
+            $serializedError['meta'] = $this->metaEncoder->encode($meta);
         }
 
         return $serializedError;

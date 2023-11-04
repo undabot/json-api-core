@@ -8,5 +8,8 @@ use Undabot\JsonApi\Definition\Model\Source\SourceInterface;
 
 interface SourceToPhpArrayEncoderInterface
 {
-    public function encode(SourceInterface $source);
+    /**
+     * @return array<string,null|string>
+     */
+    public function encode(SourceInterface $source): array;
 }

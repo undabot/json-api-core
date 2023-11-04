@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
-use InvalidArgumentException;
+use Assert\AssertionFailedException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
+/** @psalm-suppress UnusedClass */
 class PaginationFactory
 {
     /**
      * @param array<string, int> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function fromArray(array $paginationParams): PaginationInterface
     {
@@ -31,13 +32,13 @@ class PaginationFactory
 
         $message = sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
 
-        throw new InvalidArgumentException($message);
+        throw new \InvalidArgumentException($message);
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makePageBasedPagination(array $paginationParams): PageBasedPagination
     {
@@ -72,9 +73,9 @@ class PaginationFactory
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makeOffsetBasedPagination(array $paginationParams): OffsetBasedPagination
     {

@@ -23,15 +23,17 @@ use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
+/** @psalm-suppress UnusedClass */
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
     public function __construct(
         private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
         private PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
-    ) {
-    }
+    ) {}
 
     /**
+     * @param array<string,array<string,mixed>> $relationships
+     *
      * @throws JsonApiEncodingException
      */
     public function encode(array $relationships): RelationshipCollectionInterface
@@ -48,17 +50,19 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param array<string,mixed> $relationshipValue
+     *
      * @throws JsonApiEncodingException
      */
     private function decodeRelationship(string $relationshipName, array $relationshipValue): Relationship
     {
         $relationshipData = null;
         $relationshipMeta = null;
-        if (true === \array_key_exists('data', $relationshipValue)) {
+        if (true === \array_key_exists('data', $relationshipValue) && \is_array($relationshipValue['data'])) {
             $relationshipData = $this->parseRelationshipData($relationshipValue['data']);
             if ($relationshipData instanceof ToOneRelationshipDataInterface) {
-                $data = $relationshipValue['data'] ?? null;
-                if (null !== $data && true === \array_key_exists('meta', $data)) {
+                $data = $relationshipValue['data'];
+                if (true === \array_key_exists('meta', $data)) {
                     $relationshipMeta = $this->phpArrayToMetaEncoder->decode($relationshipValue['data']['meta']);
                 }
             } elseif ($relationshipData instanceof ToManyRelationshipDataInterface) {
@@ -74,7 +78,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         }
 
         $relationshipLinks = null;
-        if (true === \array_key_exists('links', $relationshipValue)) {
+        if (true === \array_key_exists('links', $relationshipValue) && \is_array($relationshipValue['links'])) {
             $relationshipLinks = $this->phpArrayToLinkCollectionEncoder->encode($relationshipValue['links']);
         }
 
@@ -87,6 +91,8 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
     }
 
     /**
+     * @param null|array<int|string,array<string,string>|string> $resourceLinkage
+     *
      * @throws JsonApiEncodingException
      */
     private function parseRelationshipData(?array $resourceLinkage): RelationshipDataInterface
@@ -105,17 +111,20 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             return ToOneRelationshipData::makeEmpty();
         }
 
-        if (true === \is_array($resourceLinkage) && 0 === \count($resourceLinkage)) {
+        if (0 === \count($resourceLinkage)) {
             return ToManyRelationshipData::makeEmpty();
         }
 
         $isAssociativeArray = ArrayUtil::isMap($resourceLinkage);
         if (false === $isAssociativeArray) {
+            /** @var array<int,array<string,mixed>> $resourceLinkage */
             $identifiersCollection = $this->parseResourceIdentifierCollection($resourceLinkage);
 
             return ToManyRelationshipData::make($identifiersCollection);
         }
 
+        // at this point we have not null to one relationship
+        /** @var array{id: string, type: string, meta?: array<string, string>} $resourceLinkage */
         $resourceIdentifier = new ResourceIdentifier(
             $resourceLinkage['id'],
             $resourceLinkage['type'],
@@ -125,10 +134,12 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
         return ToOneRelationshipData::make($resourceIdentifier);
     }
 
+    /** @param array<int, array<string,mixed>> $data */
     private function parseResourceIdentifierCollection(array $data): ResourceIdentifierCollection
     {
         $resourceIdentifiers = [];
 
+        /** @var array{id: string, type: string, meta?: array<string, string>} $datum */
         foreach ($data as $datum) {
             ValidResourceIdentifierAssertion::assert($datum);
             $resourceIdentifiers[] = new ResourceIdentifier(

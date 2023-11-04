@@ -11,6 +11,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection
  *
  * @small
@@ -23,7 +24,7 @@ final class AttributeCollectionTest extends TestCase
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
+        self::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
     }
 
     public function testItCanBeConstructedWithArrayOfAttributes(): void
@@ -32,7 +33,7 @@ final class AttributeCollectionTest extends TestCase
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
+        self::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
     }
 
     public function testItWillThrowExceptionIfOneAttributeIsNotInstanceOfAttribute(): void
@@ -65,6 +66,6 @@ final class AttributeCollectionTest extends TestCase
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(\ArrayIterator::class, $attributeCollection->getIterator());
+        self::assertInstanceOf(\ArrayIterator::class, $attributeCollection->getIterator());
     }
 }

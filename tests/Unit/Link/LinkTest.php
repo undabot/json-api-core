@@ -11,6 +11,7 @@ use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Model\Link\Link
  *
  * @small
@@ -25,17 +26,17 @@ final class LinkTest extends TestCase
     }
 
     /**
-     * @dataProvider validLinkNames
+     * @dataProvider provideLinkCanBeConstructedWithValidNameOnlyCases
      */
     public function testLinkCanBeConstructedWithValidNameOnly(string $validLinkName): void
     {
         $validLink = new Link($validLinkName, $this->linkUrlMock);
 
-        static::assertInstanceOf(Link::class, $validLink);
+        self::assertInstanceOf(Link::class, $validLink);
     }
 
     /**
-     * @dataProvider invalidLinkNames
+     * @dataProvider provideLinkCannotBeConstructedWithInvalidNameCases
      */
     public function testLinkCannotBeConstructedWithInvalidName(string $invalidLinkName): void
     {
@@ -44,7 +45,7 @@ final class LinkTest extends TestCase
         new Link($invalidLinkName, $this->linkUrlMock);
     }
 
-    public function validLinkNames(): array
+    public function provideLinkCanBeConstructedWithValidNameOnlyCases(): iterable
     {
         return [
             ['self'],
@@ -52,7 +53,7 @@ final class LinkTest extends TestCase
         ];
     }
 
-    public function invalidLinkNames(): array
+    public function provideLinkCannotBeConstructedWithInvalidNameCases(): iterable
     {
         return [
             ['invalid'],

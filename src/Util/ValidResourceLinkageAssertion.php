@@ -15,6 +15,8 @@ class ValidResourceLinkageAssertion
      * - a single resource identifier object for non-empty to-one relationships.
      * - an array of resource identifier objects for non-empty to-many relationships.
      *
+     * @param null|array<int|string,array<string,string>|string> $resourceLinkage
+     *
      * @throws ValidationException
      */
     public static function assert(?array $resourceLinkage): void
@@ -28,6 +30,7 @@ class ValidResourceLinkageAssertion
         }
 
         if (false === ArrayUtil::isMap($resourceLinkage)) {
+            /** @var array<int,array<string,string>> $resourceLinkage */
             foreach ($resourceLinkage as $linkItem) {
                 ValidResourceIdentifierAssertion::assert($linkItem);
             }
@@ -35,6 +38,7 @@ class ValidResourceLinkageAssertion
             return;
         }
 
+        /** @var array<string,mixed> $resourceLinkage */
         ValidResourceIdentifierAssertion::assert($resourceLinkage);
     }
 }

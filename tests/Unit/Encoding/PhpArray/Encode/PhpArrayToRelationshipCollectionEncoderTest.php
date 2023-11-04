@@ -16,6 +16,7 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifier;
 
 /**
  * @internal
+ *
  * @covers \Undabot\JsonApi\Implementation\Encoding\PhpArrayToRelationshipCollectionEncoder
  *
  * @small
@@ -46,7 +47,7 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 
         $relationshipsCollection = $this->encoder->encode($emptyRelationshipsArray);
 
-        static::assertCount(1, $relationshipsCollection);
+        self::assertCount(1, $relationshipsCollection);
 
         /** @var Relationship $singleRelationship */
         $singleRelationship = $relationshipsCollection->getRelationshipByName('fakeResourceName');
@@ -54,12 +55,12 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         /** @var ToManyRelationshipData $relationshipData */
         $relationshipData = $singleRelationship->getData();
 
-        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+        self::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
 
         /** @var ToManyRelationshipData $relationships */
         $relationships = $singleRelationship->getData();
 
-        static::assertTrue($relationships->isEmpty());
+        self::assertTrue($relationships->isEmpty());
     }
 
     public function testValidRelationshipsArrayIsEncodedToRelationshipsCollection(): void
@@ -81,8 +82,8 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
 
         /** @var ResourceIdentifier $resourceIdentifier */
         foreach ($relationshipsCollection->getRelationshipByName('fakeResourceName')->getData()->getData()->getResourceIdentifiers() as $resourceIdentifier) {
-            static::assertInstanceOf(ResourceIdentifier::class, $resourceIdentifier);
-            static::assertNull($resourceIdentifier->getMeta());
+            self::assertInstanceOf(ResourceIdentifier::class, $resourceIdentifier);
+            self::assertNull($resourceIdentifier->getMeta());
         }
     }
 
@@ -108,12 +109,12 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         $firstResourceIdentifier = $resourceIdentifiers[0] ?? null;
         $secondResourceIdentifier = $resourceIdentifiers[1] ?? null;
         $thirdResourceIdentifier = $resourceIdentifiers[2] ?? null;
-        static::assertInstanceOf(ResourceIdentifier::class, $firstResourceIdentifier);
-        static::assertInstanceOf(ResourceIdentifier::class, $secondResourceIdentifier);
-        static::assertInstanceOf(ResourceIdentifier::class, $thirdResourceIdentifier);
-        static::assertSame([], $firstResourceIdentifier->getMeta()->getData());
-        static::assertSame(['foo' => 'bar'], $secondResourceIdentifier->getMeta()->getData());
-        static::assertSame(['foo' => ['bar' => 'baz']], $thirdResourceIdentifier->getMeta()->getData());
+        self::assertInstanceOf(ResourceIdentifier::class, $firstResourceIdentifier);
+        self::assertInstanceOf(ResourceIdentifier::class, $secondResourceIdentifier);
+        self::assertInstanceOf(ResourceIdentifier::class, $thirdResourceIdentifier);
+        self::assertSame([], $firstResourceIdentifier->getMeta()->getData());
+        self::assertSame(['foo' => 'bar'], $secondResourceIdentifier->getMeta()->getData());
+        self::assertSame(['foo' => ['bar' => 'baz']], $thirdResourceIdentifier->getMeta()->getData());
     }
 
     public function testMissingRelationshipTypeRaisesException(): void
@@ -153,16 +154,16 @@ final class PhpArrayToRelationshipCollectionEncoderTest extends TestCase
         /** @var Relationship $singleRelationship */
         $singleRelationship = $relationshipsCollection->getRelationshipByName($relationshipName);
 
-        static::assertCount(1, $relationshipsCollection->getRelationships());
+        self::assertCount(1, $relationshipsCollection->getRelationships());
 
         /** @var ToManyRelationshipData $relationshipData */
         $relationshipData = $singleRelationship->getData();
 
-        static::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
+        self::assertInstanceOf(ToManyRelationshipData::class, $relationshipData);
 
         /** @var ToManyRelationshipData $relationships */
         $relationships = $singleRelationship->getData();
 
-        static::assertCount(3, $relationships->getData());
+        self::assertCount(3, $relationships->getData());
     }
 }

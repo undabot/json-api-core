@@ -8,5 +8,8 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectio
 
 interface RelationshipCollectionToPhpArrayEncoderInterface
 {
-    public function encode(RelationshipCollectionInterface $relationship);
+    /**
+     * @return array<string,mixed>
+     */
+    public function encode(RelationshipCollectionInterface $relationships): array;
 }

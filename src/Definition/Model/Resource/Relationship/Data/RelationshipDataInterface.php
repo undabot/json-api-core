@@ -8,5 +8,5 @@ interface RelationshipDataInterface
 {
     public function isEmpty(): bool;
 
-    public function getData();
+    public function getData(): mixed;
 }

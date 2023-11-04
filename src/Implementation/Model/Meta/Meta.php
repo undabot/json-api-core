@@ -8,14 +8,10 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 
 class Meta implements MetaInterface
 {
-    /** @var array */
-    private $data = [];
+    /** @param array<int|string,mixed> $data */
+    public function __construct(private array $data) {}
 
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
-
+    /** @return array<int|string,mixed> */
     public function getData(): array
     {
         return $this->data;

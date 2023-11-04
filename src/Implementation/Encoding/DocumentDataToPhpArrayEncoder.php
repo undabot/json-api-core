@@ -11,19 +11,16 @@ use Undabot\JsonApi\Definition\Encoding\ResourceIdentifierToPhpArrayEncoderInter
 use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 
+/** @psalm-suppress UnusedClass */
 class DocumentDataToPhpArrayEncoder implements DocumentDataToPhpArrayEncoderInterface
 {
-    /** @var ResourceToPhpArrayEncoderInterface */
-    private $resourceEncoder;
+    private ResourceToPhpArrayEncoderInterface $resourceEncoder;
 
-    /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionEncoder;
+    private ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder;
 
-    /** @var ResourceIdentifierToPhpArrayEncoderInterface */
-    private $resourceIdentifierEncoder;
+    private ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierEncoder;
 
-    /** @var ResourceIdentifierCollectionToPhpArrayEncoderInterface */
-    private $resourceIdentifierCollectionEncoder;
+    private ResourceIdentifierCollectionToPhpArrayEncoderInterface $resourceIdentifierCollectionEncoder;
 
     public function __construct(
         ResourceToPhpArrayEncoderInterface $resourceEncoder,
