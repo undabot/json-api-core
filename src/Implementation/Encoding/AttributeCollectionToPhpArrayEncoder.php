@@ -7,10 +7,11 @@ namespace Undabot\JsonApi\Implementation\Encoding;
 use Undabot\JsonApi\Definition\Encoding\AttributeCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
+use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attributes;
 
 class AttributeCollectionToPhpArrayEncoder implements AttributeCollectionToPhpArrayEncoderInterface
 {
-    public function encode(AttributeCollectionInterface $attributeCollection): array
+    public function encode(AttributeCollectionInterface $attributeCollection): Attributes
     {
         $serializedAttributes = [];
 
@@ -19,6 +20,6 @@ class AttributeCollectionToPhpArrayEncoder implements AttributeCollectionToPhpAr
             $serializedAttributes[$attribute->getName()] = $attribute->getValue();
         }
 
-        return $serializedAttributes;
+        return new Attributes($serializedAttributes);
     }
 }
