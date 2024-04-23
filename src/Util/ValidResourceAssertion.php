@@ -20,7 +20,7 @@ final class ValidResourceAssertion
         JsonApiAssertion::keyIsset($resource, 'type', 'Resource must have key `type`');
 
         // According to the JSON:API specification, these are the only allowed keys
-        $allowedKeys = ['type', 'id', 'links', 'meta', 'attributes', 'relationships'];
+        $allowedKeys = ['type', 'id', 'lid', 'links', 'meta', 'attributes', 'relationships'];
 
         // Assert that there are only whitelisted keys present
         $disallowedKeys = array_diff(array_keys($resource), $allowedKeys);
@@ -32,10 +32,21 @@ final class ValidResourceAssertion
 
         JsonApiAssertion::string($resource['type'], 'Resource `type` must be string');
 
-        // Id is optional for resources sent in POST requests
-        if (true === \array_key_exists('id', $resource)) {
+        // id or lid are optional for resources sent in POST requests
+        $isIdIncluded = true === \array_key_exists('id', $resource);
+        $isLidIncluded = true === \array_key_exists('lid', $resource);
+        if ($isIdIncluded) {
             JsonApiAssertion::string($resource['id'], 'Resource `id` must be string');
+            // If id is included, lid can't be included
+            if ($isLidIncluded) {
+                throw new ValidationException('Resource can not have both `id` and `lid`', 0);
+            }
         }
+        // if there is no id and lid is included, it must be a string
+        if ($isLidIncluded) {
+            JsonApiAssertion::string($resource['lid'], 'Resource `lid` must be string');
+        }
+
 
         // @todo validate attributes
         // @todo validate relationships
