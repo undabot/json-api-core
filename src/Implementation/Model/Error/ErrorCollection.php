@@ -25,7 +25,7 @@ final class ErrorCollection implements ErrorCollectionInterface
         return $this->errors;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getErrors());
     }

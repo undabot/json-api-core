@@ -25,7 +25,7 @@ final class ResourceCollection implements ResourceCollectionInterface
         return $this->resources;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getResources());
     }

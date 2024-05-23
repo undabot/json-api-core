@@ -25,7 +25,7 @@ class RelationshipCollection implements RelationshipCollectionInterface
         return $this->relationships;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getRelationships());
     }
