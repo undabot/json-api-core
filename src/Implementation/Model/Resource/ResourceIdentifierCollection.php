@@ -25,7 +25,7 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
         return $this->resourceIdentifiers;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->getResourceIdentifiers());
     }
