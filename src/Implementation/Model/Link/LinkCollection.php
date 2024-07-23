@@ -36,7 +36,7 @@ final class LinkCollection implements LinkCollectionInterface
         return false;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->links);
     }
