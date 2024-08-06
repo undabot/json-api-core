@@ -25,7 +25,7 @@ final class ResourceCollection implements ResourceCollectionInterface
         return $this->resources;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getResources());
     }

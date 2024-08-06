@@ -25,7 +25,7 @@ final class ErrorCollection implements ErrorCollectionInterface
         return $this->errors;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getErrors());
     }

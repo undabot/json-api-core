@@ -25,7 +25,7 @@ class RelationshipCollection implements RelationshipCollectionInterface
         return $this->relationships;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getRelationships());
     }
