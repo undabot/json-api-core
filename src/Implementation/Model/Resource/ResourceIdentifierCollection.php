@@ -25,7 +25,7 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
         return $this->resourceIdentifiers;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getResourceIdentifiers());
     }
