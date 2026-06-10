@@ -4,19 +4,29 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceIdentifierAssertion;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Util\ValidResourceIdentifierAssertion
- *
- * @small
  */
+#[CoversClass(ValidResourceIdentifierAssertion::class)]
+#[Small]
 final class ValidJsonResourceIdentifierAssertionTest extends TestCase
 {
-    public function validResourceIdentifierData()
+    #[DataProvider('provideValidateValidResourceIdentifierArrayCases')]
+    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier): void
+    {
+        // no exceptions expected here
+        $this->expectNotToPerformAssertions();
+        ValidResourceIdentifierAssertion::assert($resourceIdentifier);
+    }
+
+    public static function provideValidateValidResourceIdentifierArrayCases(): iterable
     {
         return [
             [
@@ -24,6 +34,8 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
                     'id' => '1',
                     'type' => 'x',
                 ],
+            ],
+            [
                 [
                     'id' => '1',
                     'type' => 'x',
@@ -35,17 +47,14 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider validResourceIdentifierData
-     */
-    public function testValidateValidResourceIdentifierArray(array $resourceIdentifier): void
+    #[DataProvider('provideValidateInvalidResourceIdentifierArrayCases')]
+    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier): void
     {
-        // no exceptions expected here
-        $this->expectNotToPerformAssertions();
+        $this->expectException(ValidationException::class);
         ValidResourceIdentifierAssertion::assert($resourceIdentifier);
     }
 
-    public function invalidResourceIdentifierData()
+    public static function provideValidateInvalidResourceIdentifierArrayCases(): iterable
     {
         return [
             [
@@ -90,18 +99,8 @@ final class ValidJsonResourceIdentifierAssertionTest extends TestCase
                 ],
             ],
             [
-                [
-                ],
+                [],
             ],
         ];
-    }
-
-    /**
-     * @dataProvider invalidResourceIdentifierData
-     */
-    public function testValidateInvalidResourceIdentifierArray(array $resourceIdentifier): void
-    {
-        $this->expectException(ValidationException::class);
-        ValidResourceIdentifierAssertion::assert($resourceIdentifier);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder;
@@ -12,10 +14,9 @@ use Undabot\JsonApi\Implementation\Model\Meta\Meta;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Encoding\MetaToPhpArrayEncoder
- *
- * @small
  */
+#[CoversClass(MetaToPhpArrayEncoder::class)]
+#[Small]
 final class MetaSerializerTest extends TestCase
 {
     private MetaToPhpArrayEncoderInterface $serializer;
@@ -51,7 +52,7 @@ final class MetaSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 
     public function testJsonApiObjectIsSerializedCorrectly(): void
@@ -68,6 +69,6 @@ final class MetaSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 }

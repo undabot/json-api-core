@@ -11,13 +11,7 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface
 
 class RelationshipCollectionToPhpArrayEncoder implements RelationshipCollectionToPhpArrayEncoderInterface
 {
-    /** @var RelationshipToPhpArrayEncoderInterface */
-    private $relationshipToPhpArrayEncoder;
-
-    public function __construct(RelationshipToPhpArrayEncoderInterface $relationshipToPhpArrayEncoder)
-    {
-        $this->relationshipToPhpArrayEncoder = $relationshipToPhpArrayEncoder;
-    }
+    public function __construct(private readonly RelationshipToPhpArrayEncoderInterface $relationshipToPhpArrayEncoder) {}
 
     public function encode(RelationshipCollectionInterface $relationshipCollection): array
     {

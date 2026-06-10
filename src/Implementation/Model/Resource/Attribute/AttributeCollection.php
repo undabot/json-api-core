@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource\Attribute;
 
-use ArrayIterator;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
 
@@ -25,9 +23,9 @@ class AttributeCollection implements AttributeCollectionInterface
         return $this->attributes;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->getAttributes());
+        return new \ArrayIterator($this->getAttributes());
     }
 
     public function getAttributeByName(string $name): ?AttributeInterface
@@ -45,9 +43,9 @@ class AttributeCollection implements AttributeCollectionInterface
     {
         foreach ($attributes as $attribute) {
             if (false === ($attribute instanceof Attribute)) {
-                $message = sprintf('Attribute expected, %s given', \get_class($attribute));
+                $message = \sprintf('Attribute expected, %s given', $attribute::class);
 
-                throw new InvalidArgumentException($message);
+                throw new \InvalidArgumentException($message);
             }
         }
     }

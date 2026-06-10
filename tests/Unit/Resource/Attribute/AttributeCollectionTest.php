@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Resource\Attribute;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeCollectionInterface;
 use Undabot\JsonApi\Implementation\Model\Resource\Attribute\Attribute;
@@ -11,10 +13,9 @@ use Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Model\Resource\Attribute\AttributeCollection
- *
- * @small
  */
+#[CoversClass(AttributeCollection::class)]
+#[Small]
 final class AttributeCollectionTest extends TestCase
 {
     public function testItCanBeConstructedWithEmptyArray(): void
@@ -23,21 +24,21 @@ final class AttributeCollectionTest extends TestCase
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
+        self::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
     }
 
     public function testItCanBeConstructedWithArrayOfAttributes(): void
     {
-        $attributes = array_fill(0, 5, $this->createMock(Attribute::class));
+        $attributes = array_fill(0, 5, self::createStub(Attribute::class));
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
+        self::assertInstanceOf(AttributeCollectionInterface::class, $attributeCollection);
     }
 
     public function testItWillThrowExceptionIfOneAttributeIsNotInstanceOfAttribute(): void
     {
-        $attributes = array_fill(0, 5, $this->createMock(Attribute::class));
+        $attributes = array_fill(0, 5, self::createStub(Attribute::class));
         $attributes[] = new \stdClass();
 
         $this->expectException(\InvalidArgumentException::class);
@@ -48,7 +49,7 @@ final class AttributeCollectionTest extends TestCase
 
     public function testItWillThrowExceptionIfMultipleAttributesAreNotInstanceOfAttribute(): void
     {
-        $validAttributes = array_fill(0, 5, $this->createMock(Attribute::class));
+        $validAttributes = array_fill(0, 5, self::createStub(Attribute::class));
         $invalidAttributes = array_fill(0, 3, new \stdClass());
 
         $attributes = array_merge($validAttributes, $invalidAttributes);
@@ -61,10 +62,10 @@ final class AttributeCollectionTest extends TestCase
 
     public function testGetIteratorWillReturnInstanceOfArrayIterator(): void
     {
-        $attributes = array_fill(0, 5, $this->createMock(Attribute::class));
+        $attributes = array_fill(0, 5, self::createStub(Attribute::class));
 
         $attributeCollection = new AttributeCollection($attributes);
 
-        static::assertInstanceOf(\ArrayIterator::class, $attributeCollection->getIterator());
+        self::assertInstanceOf(\ArrayIterator::class, $attributeCollection->getIterator());
     }
 }

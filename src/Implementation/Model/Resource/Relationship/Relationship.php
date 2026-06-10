@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource\Relationship;
 
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\Data\RelationshipDataInterface;
@@ -12,9 +11,6 @@ use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface
 
 class Relationship implements RelationshipInterface
 {
-    /** @var string */
-    private $name;
-
     /** @var null|LinkCollectionInterface */
     private $links;
 
@@ -25,13 +21,11 @@ class Relationship implements RelationshipInterface
     private $meta;
 
     public function __construct(
-        string $name,
+        private readonly string $name,
         ?LinkCollectionInterface $links = null,
         ?RelationshipDataInterface $data = null,
         ?MetaInterface $meta = null
     ) {
-        $this->name = $name;
-
         /*
         A “relationship object” MUST contain at least one of the following:
 
@@ -45,7 +39,7 @@ class Relationship implements RelationshipInterface
         if (null === $links
             && null === $data
             && null === $meta) {
-            throw new InvalidArgumentException('A “relationship object” MUST contain at least one of the following: links, data, meta');
+            throw new \InvalidArgumentException('A “relationship object” MUST contain at least one of the following: links, data, meta');
         }
 
         if (null !== $links) {
@@ -86,12 +80,12 @@ class Relationship implements RelationshipInterface
         $disallowedLinks = array_diff($linkNames, $allowedLinks);
 
         if (0 !== \count($disallowedLinks)) {
-            $message = sprintf(
+            $message = \sprintf(
                 'Relationship can only have `self` and `related` links, %s given.',
-                (implode(', ', $disallowedLinks))
+                implode(', ', $disallowedLinks)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new \InvalidArgumentException($message);
         }
 
         // @todo A relationship object that represents a to-many relationship MAY

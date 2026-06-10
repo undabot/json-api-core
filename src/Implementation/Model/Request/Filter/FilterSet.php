@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Request\Filter;
 
-use ArrayIterator;
 use Assert\Assertion;
-use IteratorAggregate;
 
-class FilterSet implements IteratorAggregate
+class FilterSet implements \IteratorAggregate
 {
     /** @var Filter[] */
     private $filters;
@@ -33,9 +31,9 @@ class FilterSet implements IteratorAggregate
         return new self($filters);
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->filters);
+        return new \ArrayIterator($this->filters);
     }
 
     public function getFilter(string $name): ?Filter
@@ -62,9 +60,7 @@ class FilterSet implements IteratorAggregate
     public function getFilterNames(): array
     {
         return array_map(
-            static function (Filter $filter) {
-                return $filter->getName();
-            },
+            static fn (Filter $filter) => $filter->getName(),
             $this->filters
         );
     }

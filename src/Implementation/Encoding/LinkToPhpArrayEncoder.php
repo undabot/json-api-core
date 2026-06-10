@@ -11,18 +11,9 @@ use Undabot\JsonApi\Implementation\Model\Link\LinkUrl;
 
 class LinkToPhpArrayEncoder implements LinkToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoder */
-    private $metaToPhpArrayEncoder;
+    public function __construct(private readonly MetaToPhpArrayEncoder $metaToPhpArrayEncoder) {}
 
-    public function __construct(MetaToPhpArrayEncoder $metaToPhpArrayEncoder)
-    {
-        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
-    }
-
-    /**
-     * @return null|array|string
-     */
-    public function encode(LinkInterface $link)
+    public function encode(LinkInterface $link): array|string|null
     {
         $linkMember = $link->getLink();
         if (null === $linkMember) {

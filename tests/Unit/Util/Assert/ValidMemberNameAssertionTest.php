@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\ValidMemberNameAssertion;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Util\ValidMemberNameAssertion
- *
- * @small
  */
+#[CoversClass(ValidMemberNameAssertion::class)]
+#[Small]
 final class ValidMemberNameAssertionTest extends TestCase
 {
     private ValidMemberNameAssertion $assertion;
@@ -22,24 +24,13 @@ final class ValidMemberNameAssertionTest extends TestCase
         $this->assertion = new ValidMemberNameAssertion();
     }
 
-    /**
-     * @dataProvider validMemberNameExamples
-     */
+    #[DataProvider('provideValidateMemberNameCases')]
     public function testValidateMemberName(string $memberName): void
     {
-        static::assertTrue($this->assertion->assert($memberName));
+        self::assertTrue($this->assertion->assert($memberName));
     }
 
-    /**
-     * @dataProvider invalidMemberNameExamples
-     * @dataProvider reservedCharacters
-     */
-    public function testInValidateMemberName(string $memberName): void
-    {
-        static::assertFalse($this->assertion->assert($memberName));
-    }
-
-    public function validMemberNameExamples(): array
+    public static function provideValidateMemberNameCases(): iterable
     {
         return [
             ['1'],
@@ -50,7 +41,14 @@ final class ValidMemberNameAssertionTest extends TestCase
         ];
     }
 
-    public function invalidMemberNameExamples(): array
+    #[DataProvider('invalidMemberNameExamples')]
+    #[DataProvider('reservedCharacters')]
+    public function testInValidateMemberName(string $memberName): void
+    {
+        self::assertFalse($this->assertion->assert($memberName));
+    }
+
+    public static function invalidMemberNameExamples(): iterable
     {
         return [
             [''],
@@ -74,7 +72,7 @@ final class ValidMemberNameAssertionTest extends TestCase
      *
      * @see https://jsonapi.org/format/#document-member-names-reserved-characters
      */
-    public function reservedCharacters(): array
+    public static function reservedCharacters(): iterable
     {
         return [
             ['+'],

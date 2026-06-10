@@ -8,17 +8,10 @@ use Undabot\JsonApi\Definition\Model\Resource\Attribute\AttributeInterface;
 
 class Attribute implements AttributeInterface
 {
-    /** @var string */
-    private $name;
-
-    /** @var mixed */
-    private $value;
-
-    public function __construct(string $name, $value)
-    {
-        $this->name = $name;
-        $this->value = $value;
-    }
+    /**
+     * @param mixed $value
+     */
+    public function __construct(private readonly string $name, private $value) {}
 
     public function getName(): string
     {

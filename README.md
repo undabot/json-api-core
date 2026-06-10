@@ -12,6 +12,9 @@
   ],
 ```
 
+# Requirements
+- PHP 8.4+
+
 # Scripts
 - PHPUnit tests: `composer test`
 - PhpStan: `composer qc`

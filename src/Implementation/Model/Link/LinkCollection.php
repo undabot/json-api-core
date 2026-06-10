@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Link;
 
-use ArrayIterator;
 use Assert\Assertion;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
@@ -36,9 +35,9 @@ final class LinkCollection implements LinkCollectionInterface
         return false;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->links);
+        return new \ArrayIterator($this->links);
     }
 
     public function getLink(string $linkName): ?LinkInterface

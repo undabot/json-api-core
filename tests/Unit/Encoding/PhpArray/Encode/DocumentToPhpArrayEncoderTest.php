@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\DocumentDataToPhpArrayEncoderInterface;
@@ -20,12 +24,13 @@ use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 use Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder;
 
 /**
- * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
- *
  * @internal
- *
- * @small
  */
+#[CoversClass(DocumentToPhpArrayEncoder::class)]
+#[CoversMethod(DocumentToPhpArrayEncoder::class, '__construct')]
+#[CoversMethod(DocumentToPhpArrayEncoder::class, 'encode')]
+#[Small]
+#[AllowMockObjectsWithoutExpectations]
 final class DocumentToPhpArrayEncoderTest extends TestCase
 {
     /** @var DocumentDataToPhpArrayEncoderInterface|MockObject */
@@ -72,25 +77,19 @@ final class DocumentToPhpArrayEncoderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::__construct
-     */
     public function testItCanBeConstructed(): void
     {
-        static::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
-        static::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
+        self::assertInstanceOf(DocumentToPhpArrayEncoder::class, $this->documentEncoder);
+        self::assertInstanceOf(DocumentToPhpArrayEncoderInterface::class, $this->documentEncoder);
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder::encode
-     */
     public function testEncoderWillCallRespectiveSpecificEncoders(): void
     {
-        $documentData = $this->createMock(DocumentDataInterface::class);
-        $errors = $this->createMock(ErrorCollectionInterface::class);
-        $meta = $this->createMock(MetaInterface::class);
-        $jsonApiMeta = $this->createMock(MetaInterface::class);
-        $links = $this->createMock(LinkCollectionInterface::class);
+        $documentData = self::createStub(DocumentDataInterface::class);
+        $errors = self::createStub(ErrorCollectionInterface::class);
+        $meta = self::createStub(MetaInterface::class);
+        $jsonApiMeta = self::createStub(MetaInterface::class);
+        $links = self::createStub(LinkCollectionInterface::class);
         $document = $this->createMock(DocumentInterface::class);
 
         $document->method('getData')->willReturn($documentData);
@@ -99,16 +98,16 @@ final class DocumentToPhpArrayEncoderTest extends TestCase
         $document->method('getJsonApiMeta')->willReturn($jsonApiMeta);
         $document->method('getLinks')->willReturn($links);
 
-        $this->documentDataEncoderMock->expects(static::once())->method('encode');
-        $this->errorCollectionEncoderMock->expects(static::once())->method('encode');
-        $this->metaEncoderMock->expects(static::exactly(2))->method('encode');
+        $this->documentDataEncoderMock->expects(self::once())->method('encode');
+        $this->errorCollectionEncoderMock->expects(self::once())->method('encode');
+        $this->metaEncoderMock->expects(self::exactly(2))->method('encode');
 
         $encoded = $this->documentEncoder->encode($document);
-        static::assertIsArray($encoded);
-        static::assertArrayHasKey('data', $encoded);
-        static::assertArrayHasKey('errors', $encoded);
-        static::assertArrayHasKey('meta', $encoded);
-        static::assertArrayHasKey('jsonapi', $encoded);
-        static::assertArrayHasKey('links', $encoded);
+        self::assertIsArray($encoded);
+        self::assertArrayHasKey('data', $encoded);
+        self::assertArrayHasKey('errors', $encoded);
+        self::assertArrayHasKey('meta', $encoded);
+        self::assertArrayHasKey('jsonapi', $encoded);
+        self::assertArrayHasKey('links', $encoded);
     }
 }

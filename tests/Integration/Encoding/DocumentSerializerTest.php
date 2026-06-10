@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\DocumentToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Implementation\Encoding\AttributeCollectionToPhpArrayEncoder;
@@ -39,10 +41,9 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentToPhpArrayEncoder
- *
- * @small
  */
+#[CoversClass(DocumentToPhpArrayEncoder::class)]
+#[Small]
 final class DocumentSerializerTest extends TestCase
 {
     private DocumentToPhpArrayEncoderInterface $serializer;
@@ -120,7 +121,7 @@ final class DocumentSerializerTest extends TestCase
 
         $serialized = $this->serializer->encode($document);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT);
-        $expectedJson = <<<'JSON'
+        $expectedJson = <<<'JSON_WRAP'
             {
                 "data": [
                     {
@@ -143,9 +144,9 @@ final class DocumentSerializerTest extends TestCase
                     }
                 ]
             }
-            JSON;
+            JSON_WRAP;
 
-        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        self::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 
     public function testDocumentWithIncludedResourcesIsSerializedCorrectly(): void
@@ -239,7 +240,7 @@ final class DocumentSerializerTest extends TestCase
         $serialized = $this->serializer->encode($document);
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-        $expectedJson = <<<'JSON'
+        $expectedJson = <<<'JSON_WRAP'
             {
                 "data": [
                     {
@@ -332,8 +333,8 @@ final class DocumentSerializerTest extends TestCase
                     }
                 ]
             }
-            JSON;
+            JSON_WRAP;
 
-        static::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
+        self::assertJsonStringEqualsJsonString($expectedJson, (string) $serializedJson);
     }
 }

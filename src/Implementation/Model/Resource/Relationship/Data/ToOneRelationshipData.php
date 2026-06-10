@@ -9,13 +9,7 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
 class ToOneRelationshipData implements ToOneRelationshipDataInterface
 {
-    /** @var null|ResourceIdentifierInterface */
-    private $resourceIdentifier;
-
-    private function __construct(?ResourceIdentifierInterface $resourceIdentifier)
-    {
-        $this->resourceIdentifier = $resourceIdentifier;
-    }
+    private function __construct(private readonly ?ResourceIdentifierInterface $resourceIdentifier) {}
 
     public static function makeEmpty(): self
     {

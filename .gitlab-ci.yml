@@ -29,5 +29,5 @@ test:
         - composer validate --no-check-publish --no-interaction --ansi
         - composer run lint
         - composer run qc
-        - phpdbg -qrr ./vendor/bin/phpunit
+        - XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text=tests/_reports/coverage.txt
         - cat tests/_reports/coverage.txt | head -n 10 | grep "Lines"

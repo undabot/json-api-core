@@ -12,39 +12,7 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
 class Resource implements ResourceInterface
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $type;
-
-    /** @var null|AttributeCollectionInterface */
-    private $attributes;
-
-    /** @var null|RelationshipCollectionInterface */
-    private $relationships;
-
-    /** @var null|LinkInterface */
-    private $selfLink;
-
-    /** @var null|MetaInterface */
-    private $meta;
-
-    public function __construct(
-        string $id,
-        string $type,
-        ?AttributeCollectionInterface $attributes = null,
-        ?RelationshipCollectionInterface $relationships = null,
-        ?LinkInterface $selfLink = null,
-        ?MetaInterface $meta = null
-    ) {
-        $this->id = $id;
-        $this->type = $type;
-        $this->attributes = $attributes;
-        $this->relationships = $relationships;
-        $this->selfLink = $selfLink;
-        $this->meta = $meta;
-    }
+    public function __construct(private readonly string $id, private readonly string $type, private readonly ?AttributeCollectionInterface $attributes = null, private readonly ?RelationshipCollectionInterface $relationships = null, private readonly ?LinkInterface $selfLink = null, private readonly ?MetaInterface $meta = null) {}
 
     public function getId(): string
     {

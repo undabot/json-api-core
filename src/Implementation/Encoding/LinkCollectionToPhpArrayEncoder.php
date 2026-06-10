@@ -11,13 +11,7 @@ use Undabot\JsonApi\Definition\Model\Link\LinkInterface;
 
 class LinkCollectionToPhpArrayEncoder implements LinkCollectionToPhpArrayEncoderInterface
 {
-    /** @var LinkToPhpArrayEncoderInterface */
-    private $linkEncoder;
-
-    public function __construct(LinkToPhpArrayEncoderInterface $linkEncoder)
-    {
-        $this->linkEncoder = $linkEncoder;
-    }
+    public function __construct(private readonly LinkToPhpArrayEncoderInterface $linkEncoder) {}
 
     public function encode(LinkCollectionInterface $linkCollection): array
     {

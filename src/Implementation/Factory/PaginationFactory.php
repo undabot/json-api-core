@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Undabot\JsonApi\Implementation\Factory;
 
 use Assert\Assertion;
-use InvalidArgumentException;
+use Assert\AssertionFailedException;
 use Undabot\JsonApi\Definition\Model\Request\Pagination\PaginationInterface;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\OffsetBasedPagination;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
@@ -13,9 +13,9 @@ use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 class PaginationFactory
 {
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function fromArray(array $paginationParams): PaginationInterface
     {
@@ -29,15 +29,15 @@ class PaginationFactory
             return $this->makeOffsetBasedPagination($paginationParams);
         }
 
-        $message = sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
+        $message = \sprintf('Couldn\'t create pagination from given params: %s', json_encode($paginationParams));
 
-        throw new InvalidArgumentException($message);
+        throw new \InvalidArgumentException($message);
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makePageBasedPagination(array $paginationParams): PageBasedPagination
     {
@@ -56,12 +56,12 @@ class PaginationFactory
         foreach ($paginationParams as $paginationParam) {
             Assertion::integerish(
                 $paginationParam,
-                sprintf('Params must be integer(ish): %s', $paginationParam)
+                \sprintf('Params must be integer(ish): %s', $paginationParam)
             );
             Assertion::greaterThan(
                 $paginationParam,
                 0,
-                sprintf('Params can\'t be zero: %s', $paginationParam)
+                \sprintf('Params can\'t be zero: %s', $paginationParam)
             );
         }
 
@@ -72,9 +72,9 @@ class PaginationFactory
     }
 
     /**
-     * @param array<string, int> $paginationParams
+     * @param array<string, int|string> $paginationParams
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private function makeOffsetBasedPagination(array $paginationParams): OffsetBasedPagination
     {
@@ -93,18 +93,18 @@ class PaginationFactory
         $limit = $paginationParams[OffsetBasedPagination::PARAM_PAGE_LIMIT];
         Assertion::integerish(
             $limit,
-            sprintf('Param must be integer(ish): %s', $limit)
+            \sprintf('Param must be integer(ish): %s', $limit)
         );
         Assertion::greaterThan(
             $limit,
             0,
-            sprintf('Param can\'t be zero: %s', $limit)
+            \sprintf('Param can\'t be zero: %s', $limit)
         );
 
         $offset = $paginationParams[OffsetBasedPagination::PARAM_PAGE_OFFSET];
         Assertion::integerish(
             $offset,
-            sprintf('Param must be integer(ish): %s', $offset)
+            \sprintf('Param must be integer(ish): %s', $offset)
         );
 
         return new OffsetBasedPagination(

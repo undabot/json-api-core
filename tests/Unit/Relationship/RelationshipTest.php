@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Relationship;
 
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Model\Link\LinkCollectionInterface;
 use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Data\ToManyRelationshipData;
@@ -13,19 +15,18 @@ use Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Model\Resource\Relationship\Relationship
- *
- * @small
  */
+#[CoversClass(Relationship::class)]
+#[Small]
 final class RelationshipTest extends TestCase
 {
     private string $relationshipName;
-    private MockObject $linksCollection;
+    private Stub $linksCollection;
 
     protected function setUp(): void
     {
         $this->relationshipName = 'relationshipName';
-        $this->linksCollection = $this->createMock(LinkCollectionInterface::class);
+        $this->linksCollection = self::createStub(LinkCollectionInterface::class);
 
         $this->linksCollection->method('getIterator')->willReturn(new \ArrayIterator());
     }
@@ -34,7 +35,7 @@ final class RelationshipTest extends TestCase
     {
         $relationship = new Relationship('relationshipName', $this->linksCollection);
 
-        static::assertInstanceOf(Relationship::class, $relationship);
+        self::assertInstanceOf(Relationship::class, $relationship);
     }
 
     public function testItCannotBeCreatedWithInvalidLinkCollection(): void
@@ -50,14 +51,14 @@ final class RelationshipTest extends TestCase
     {
         $emptyToOneRelationshipData = ToOneRelationshipData::makeEmpty();
 
-        static::assertTrue($emptyToOneRelationshipData->isEmpty());
+        self::assertTrue($emptyToOneRelationshipData->isEmpty());
     }
 
     public function testToManyRelationshipDataCanBeCreatedEmpty(): void
     {
         $emptyToManyRelationshipData = ToManyRelationshipData::makeEmpty();
 
-        static::assertTrue($emptyToManyRelationshipData->isEmpty());
+        self::assertTrue($emptyToManyRelationshipData->isEmpty());
     }
 
     public function testRelationshipCanBeCreatedWithNoData(): void
@@ -69,6 +70,6 @@ final class RelationshipTest extends TestCase
         /** @var ToOneRelationshipData $relationshipData */
         $relationshipData = $emptyRelationship->getData();
 
-        static::assertTrue($relationshipData->isEmpty());
+        self::assertTrue($relationshipData->isEmpty());
     }
 }

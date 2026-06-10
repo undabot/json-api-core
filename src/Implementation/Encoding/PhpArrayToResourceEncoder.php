@@ -17,24 +17,7 @@ use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 class PhpArrayToResourceEncoder implements PhpArrayToResourceEncoderInterface
 {
-    /** @var PhpArrayToRelationshipCollectionEncoderInterface */
-    private $phpArrayToRelationshipCollectionEncoder;
-
-    /** @var PhpArrayToAttributeCollectionEncoderInterface */
-    private $phpArrayToAttributeCollectionEncoder;
-
-    /** @var PhpArrayToMetaEncoderInterface */
-    private $phpArrayToMetaEncoder;
-
-    public function __construct(
-        PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder,
-        PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder,
-        PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder
-    ) {
-        $this->phpArrayToRelationshipCollectionEncoder = $phpArrayToRelationshipCollectionEncoder;
-        $this->phpArrayToAttributeCollectionEncoder = $phpArrayToAttributeCollectionEncoder;
-        $this->phpArrayToMetaEncoder = $phpArrayToMetaEncoder;
-    }
+    public function __construct(private readonly PhpArrayToRelationshipCollectionEncoderInterface $phpArrayToRelationshipCollectionEncoder, private readonly PhpArrayToAttributeCollectionEncoderInterface $phpArrayToAttributeCollectionEncoder, private readonly PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder) {}
 
     /**
      * @throws JsonApiEncodingException

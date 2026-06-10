@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Document;
 
-use DomainException;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
@@ -112,13 +110,13 @@ class DocumentData implements DocumentDataInterface
             return;
         }
 
-        throw new InvalidArgumentException('Invalid data provided');
+        throw new \InvalidArgumentException('Invalid data provided');
     }
 
     private function returnDataIfTrue(bool $condition, string $errorMessage)
     {
         if (true !== $condition) {
-            throw new DomainException($errorMessage);
+            throw new \DomainException($errorMessage);
         }
 
         return $this->data;

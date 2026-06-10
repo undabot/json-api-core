@@ -4,17 +4,9 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource\Attribute;
 
-use JsonSerializable;
-
-class Attributes implements JsonSerializable
+class Attributes implements \JsonSerializable
 {
-    private array $data;
-
-
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
+    public function __construct(private readonly array $data) {}
 
     public function getData(): array
     {

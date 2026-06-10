@@ -27,7 +27,7 @@ final class ValidResourceAssertion
         JsonApiAssertion::count(
             $disallowedKeys,
             0,
-            sprintf('Resource can only have keys: %s', implode(', ', $allowedKeys))
+            \sprintf('Resource can only have keys: %s', implode(', ', $allowedKeys))
         );
 
         JsonApiAssertion::string($resource['type'], 'Resource `type` must be string');
@@ -46,7 +46,6 @@ final class ValidResourceAssertion
         if ($isLidIncluded) {
             JsonApiAssertion::string($resource['lid'], 'Resource `lid` must be string');
         }
-
 
         // @todo validate attributes
         // @todo validate relationships

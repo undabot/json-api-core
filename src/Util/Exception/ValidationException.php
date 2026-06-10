@@ -4,36 +4,36 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Util\Exception;
 
-use Exception;
-
-class ValidationException extends Exception
+class ValidationException extends \Exception
 {
     /**
-     * @var null|string
+     * @param mixed[] $constraints
      */
-    private $propertyPath;
-
-    /**
-     * @var mixed
-     */
-    private $value;
-
-    /**
-     * @var array
-     */
-    private $constraints;
-
     public function __construct(
-        $message,
-        $code = null,
-        string $propertyPath = null,
-        $value = null,
-        array $constraints = []
+        string $message,
+        int $code = 0,
+        private readonly ?string $propertyPath = null,
+        private readonly mixed $value = null,
+        private readonly array $constraints = [],
     ) {
         parent::__construct($message, $code);
+    }
 
-        $this->propertyPath = $propertyPath;
-        $this->value = $value;
-        $this->constraints = $constraints;
+    public function getPropertyPath(): ?string
+    {
+        return $this->propertyPath;
+    }
+
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getConstraints(): array
+    {
+        return $this->constraints;
     }
 }

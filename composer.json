@@ -1,19 +1,20 @@
 {
   "name": "undabot/json-api-core",
-  "description": "",
+  "description": "Framework-agnostic JSON:API specification core library",
   "license": "Apache-2.0",
   "require": {
-    "php": "^8",
+    "php": "^8.4",
     "beberlei/assert": "^3.3"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.18",
-    "phpstan/phpstan-phpunit": "^0.12.17",
-    "phpstan/phpstan": "^0.12.76",
-    "phpunit/phpunit": "^9.5",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan-beberlei-assert": "^0.12.6",
-    "ekino/phpstan-banned-code": "0.10.x-dev"
+    "ekino/phpstan-banned-code": "^3.0",
+    "friendsofphp/php-cs-fixer": "^3.75",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-beberlei-assert": "^2.0",
+    "phpstan/phpstan-phpunit": "^2.0",
+    "phpunit/phpunit": "^12.0",
+    "rector/rector": "^2.4"
   },
   "autoload": {
     "psr-4": {
@@ -24,6 +25,12 @@
     "psr-4": {
       "Undabot\\JsonApi\\Tests\\": "tests/"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    },
+    "sort-packages": true
   },
   "scripts": {
     "lint": [

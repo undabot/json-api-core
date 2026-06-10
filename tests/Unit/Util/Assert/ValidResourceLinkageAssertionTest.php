@@ -4,19 +4,29 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Util\ValidResourceLinkageAssertion
- *
- * @small
  */
+#[CoversClass(ValidResourceLinkageAssertion::class)]
+#[Small]
 final class ValidResourceLinkageAssertionTest extends TestCase
 {
-    public function validResourceLinkageData(): array
+    #[DataProvider('provideValidateValidResourceLinkageArrayCases')]
+    public function testValidateValidResourceLinkageArray(?array $resourceLinkage): void
+    {
+        // no exceptions expected here
+        $this->expectNotToPerformAssertions();
+        ValidResourceLinkageAssertion::assert($resourceLinkage);
+    }
+
+    public static function provideValidateValidResourceLinkageArrayCases(): iterable
     {
         return [
             [
@@ -38,17 +48,14 @@ final class ValidResourceLinkageAssertionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider validResourceLinkageData
-     */
-    public function testValidateValidResourceLinkageArray(?array $resourceLinkage): void
+    #[DataProvider('provideValidateInvalidResourceLinkageArrayCases')]
+    public function testValidateInvalidResourceLinkageArray(array $resourceLinkage): void
     {
-        // no exceptions expected here
-        $this->expectNotToPerformAssertions();
+        $this->expectException(ValidationException::class);
         ValidResourceLinkageAssertion::assert($resourceLinkage);
     }
 
-    public function invalidResourceLinkageData(): array
+    public static function provideValidateInvalidResourceLinkageArrayCases(): iterable
     {
         return [
             [
@@ -58,15 +65,6 @@ final class ValidResourceLinkageAssertionTest extends TestCase
                 ['id' => '1', 'typex' => 'category'],
             ],
         ];
-    }
-
-    /**
-     * @dataProvider invalidResourceLinkageData
-     */
-    public function testValidateInvalidResourceLinkageArray(array $resourceLinkage): void
-    {
-        $this->expectException(ValidationException::class);
-        ValidResourceLinkageAssertion::assert($resourceLinkage);
     }
 
     public function testNullIsConsideredAsValidEmptyToOneRelationship(): void

@@ -7,19 +7,9 @@ namespace Undabot\JsonApi\Implementation\Model\Link;
 use Undabot\JsonApi\Definition\Model\Link\LinkMemberInterface;
 use Undabot\JsonApi\Definition\Model\Meta\MetaInterface;
 
-final class LinkObject implements LinkMemberInterface
+final readonly class LinkObject implements LinkMemberInterface
 {
-    /** @var string */
-    private $href;
-
-    /** @var null|MetaInterface */
-    private $meta;
-
-    public function __construct(string $href, ?MetaInterface $meta)
-    {
-        $this->href = $href;
-        $this->meta = $meta;
-    }
+    public function __construct(private string $href, private ?MetaInterface $meta) {}
 
     public function getHref(): string
     {

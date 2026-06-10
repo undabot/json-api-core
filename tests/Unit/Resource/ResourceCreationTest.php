@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Resource;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Implementation\Model\Link\Link;
 use Undabot\JsonApi\Implementation\Model\Link\LinkCollection;
@@ -20,10 +22,9 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Model\Resource\Resource
- *
- * @small
  */
+#[CoversClass(\Undabot\JsonApi\Implementation\Model\Resource\Resource::class)]
+#[Small]
 final class ResourceCreationTest extends TestCase
 {
     public function testICanCreateSimpleResource(): void
@@ -46,11 +47,11 @@ final class ResourceCreationTest extends TestCase
             ])
         );
 
-        static::assertSame('1', $resource->getId());
-        static::assertSame('articles', $resource->getType());
-        static::assertNotNull($resource->getAttributes());
-        static::assertNotNull($resource->getRelationships());
-        static::assertNull($resource->getMeta());
+        self::assertSame('1', $resource->getId());
+        self::assertSame('articles', $resource->getType());
+        self::assertNotNull($resource->getAttributes());
+        self::assertNotNull($resource->getRelationships());
+        self::assertNull($resource->getMeta());
     }
 
     public function testICanCreateComplexResource(): void
@@ -85,10 +86,10 @@ final class ResourceCreationTest extends TestCase
             new Link('self', new LinkUrl('http://example.com/articles/1'))
         );
 
-        static::assertSame('1', $resource->getId());
-        static::assertSame('articles', $resource->getType());
-        static::assertNotNull($resource->getAttributes());
-        static::assertNotNull($resource->getRelationships());
-        static::assertNull($resource->getMeta());
+        self::assertSame('1', $resource->getId());
+        self::assertSame('articles', $resource->getType());
+        self::assertNotNull($resource->getAttributes());
+        self::assertNotNull($resource->getRelationships());
+        self::assertNull($resource->getMeta());
     }
 }

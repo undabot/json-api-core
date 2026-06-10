@@ -26,10 +26,9 @@ use Undabot\JsonApi\Util\ValidResourceLinkageAssertion;
 class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipCollectionEncoderInterface
 {
     public function __construct(
-        private PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
-        private PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
-    ) {
-    }
+        private readonly PhpArrayToMetaEncoderInterface $phpArrayToMetaEncoder,
+        private readonly PhpArrayToLinkCollectionEncoderInterface $phpArrayToLinkCollectionEncoder
+    ) {}
 
     /**
      * @throws JsonApiEncodingException
@@ -105,7 +104,7 @@ class PhpArrayToRelationshipCollectionEncoder implements PhpArrayToRelationshipC
             return ToOneRelationshipData::makeEmpty();
         }
 
-        if (true === \is_array($resourceLinkage) && 0 === \count($resourceLinkage)) {
+        if ([] === $resourceLinkage) {
             return ToManyRelationshipData::makeEmpty();
         }
 

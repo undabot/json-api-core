@@ -12,24 +12,7 @@ use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
 class ErrorToPhpArrayEncoder implements ErrorToPhpArrayEncoderInterface
 {
-    /** @var LinkToPhpArrayEncoderInterface */
-    private $linkEncoder;
-
-    /** @var SourceToPhpArrayEncoderInterface */
-    private $sourceEncoder;
-
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaEncoder;
-
-    public function __construct(
-        LinkToPhpArrayEncoderInterface $linkEncoder,
-        SourceToPhpArrayEncoderInterface $sourceEncoder,
-        MetaToPhpArrayEncoderInterface $metaEncoder
-    ) {
-        $this->linkEncoder = $linkEncoder;
-        $this->sourceEncoder = $sourceEncoder;
-        $this->metaEncoder = $metaEncoder;
-    }
+    public function __construct(private readonly LinkToPhpArrayEncoderInterface $linkEncoder, private readonly SourceToPhpArrayEncoderInterface $sourceEncoder, private readonly MetaToPhpArrayEncoderInterface $metaEncoder) {}
 
     public function encode(ErrorInterface $error): array
     {

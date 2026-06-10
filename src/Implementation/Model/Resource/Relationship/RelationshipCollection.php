@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource\Relationship;
 
-use ArrayIterator;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\Relationship\RelationshipInterface;
 
@@ -27,7 +25,7 @@ class RelationshipCollection implements RelationshipCollectionInterface
 
     public function getIterator(): \Traversable
     {
-        return new ArrayIterator($this->getRelationships());
+        return new \ArrayIterator($this->getRelationships());
     }
 
     public function getRelationshipByName(string $name): ?RelationshipInterface
@@ -46,9 +44,9 @@ class RelationshipCollection implements RelationshipCollectionInterface
     {
         foreach ($relationships as $relationship) {
             if (false === ($relationship instanceof Relationship)) {
-                $message = sprintf('Item must be Relationship object, %s given', \get_class($relationship));
+                $message = \sprintf('Item must be Relationship object, %s given', $relationship::class);
 
-                throw new InvalidArgumentException($message);
+                throw new \InvalidArgumentException($message);
             }
         }
     }

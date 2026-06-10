@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Integration\Encoding;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\ResourceToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Implementation\Encoding\AttributeCollectionToPhpArrayEncoder;
@@ -29,10 +31,9 @@ use Undabot\JsonApi\Implementation\Model\Resource\ResourceIdentifierCollection;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Encoding\ResourceToPhpArrayEncoder
- *
- * @small
  */
+#[CoversClass(ResourceToPhpArrayEncoder::class)]
+#[Small]
 final class ResourceSerializerTest extends TestCase
 {
     private ResourceToPhpArrayEncoderInterface $serializer;
@@ -102,7 +103,7 @@ final class ResourceSerializerTest extends TestCase
             }
             JSON;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 
     public function testComplexResourceCanBeSerialized(): void
@@ -140,7 +141,7 @@ final class ResourceSerializerTest extends TestCase
         $serialized = $this->serializer->encode($resource);
 
         $serializedJson = json_encode($serialized, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        $expectedJson = <<<'JSON'
+        $expectedJson = <<<'JSON_WRAP'
             {
                 "type": "articles",
                 "id": "1",
@@ -179,8 +180,8 @@ final class ResourceSerializerTest extends TestCase
                     }
                 }
             }
-            JSON;
+            JSON_WRAP;
 
-        static::assertEquals($expectedJson, $serializedJson);
+        self::assertEquals($expectedJson, $serializedJson);
     }
 }

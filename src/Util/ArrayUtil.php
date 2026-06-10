@@ -20,9 +20,7 @@ abstract class ArrayUtil
     {
         $keys = array_keys($array);
 
-        $nonIntKeys = array_filter($keys, static function ($key) {
-            return true === \is_string($key);
-        });
+        $nonIntKeys = array_filter($keys, static fn ($key) => true === \is_string($key));
 
         return $keys === $nonIntKeys;
     }

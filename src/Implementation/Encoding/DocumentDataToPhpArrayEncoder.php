@@ -13,29 +13,7 @@ use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 
 class DocumentDataToPhpArrayEncoder implements DocumentDataToPhpArrayEncoderInterface
 {
-    /** @var ResourceToPhpArrayEncoderInterface */
-    private $resourceEncoder;
-
-    /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionEncoder;
-
-    /** @var ResourceIdentifierToPhpArrayEncoderInterface */
-    private $resourceIdentifierEncoder;
-
-    /** @var ResourceIdentifierCollectionToPhpArrayEncoderInterface */
-    private $resourceIdentifierCollectionEncoder;
-
-    public function __construct(
-        ResourceToPhpArrayEncoderInterface $resourceEncoder,
-        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder,
-        ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierEncoder,
-        ResourceIdentifierCollectionToPhpArrayEncoderInterface $resourceIdentifierCollectionEncoder
-    ) {
-        $this->resourceEncoder = $resourceEncoder;
-        $this->resourceCollectionEncoder = $resourceCollectionEncoder;
-        $this->resourceIdentifierEncoder = $resourceIdentifierEncoder;
-        $this->resourceIdentifierCollectionEncoder = $resourceIdentifierCollectionEncoder;
-    }
+    public function __construct(private readonly ResourceToPhpArrayEncoderInterface $resourceEncoder, private readonly ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder, private readonly ResourceIdentifierToPhpArrayEncoderInterface $resourceIdentifierEncoder, private readonly ResourceIdentifierCollectionToPhpArrayEncoderInterface $resourceIdentifierCollectionEncoder) {}
 
     public function encode(DocumentDataInterface $documentData): ?array
     {

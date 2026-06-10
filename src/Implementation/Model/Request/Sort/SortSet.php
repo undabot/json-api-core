@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Request\Sort;
 
-use ArrayIterator;
 use Assert\Assertion;
-use IteratorAggregate;
 
-class SortSet implements IteratorAggregate
+class SortSet implements \IteratorAggregate
 {
     /** @var Sort[] */
     private $sorts;
@@ -38,9 +36,9 @@ class SortSet implements IteratorAggregate
         return new self($sorts);
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->sorts);
+        return new \ArrayIterator($this->sorts);
     }
 
     public function getSortsArray(): array

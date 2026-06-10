@@ -11,17 +11,7 @@ class OffsetBasedPagination implements PaginationInterface
     public const PARAM_PAGE_OFFSET = 'offset';
     public const PARAM_PAGE_LIMIT = 'limit';
 
-    /** @var int */
-    private $offset;
-
-    /** @var int */
-    private $limit;
-
-    public function __construct(int $offset, int $limit)
-    {
-        $this->offset = $offset;
-        $this->limit = $limit;
-    }
+    public function __construct(private readonly int $offset, private readonly int $limit) {}
 
     public function getSize(): int
     {

@@ -11,13 +11,7 @@ use Undabot\JsonApi\Definition\Model\Error\ErrorInterface;
 
 class ErrorCollectionToPhpArrayEncoder implements ErrorCollectionToPhpArrayEncoderInterface
 {
-    /** @var ErrorToPhpArrayEncoderInterface */
-    private $errorEncoder;
-
-    public function __construct(ErrorToPhpArrayEncoderInterface $errorEncoder)
-    {
-        $this->errorEncoder = $errorEncoder;
-    }
+    public function __construct(private readonly ErrorToPhpArrayEncoderInterface $errorEncoder) {}
 
     public function encode(ErrorCollectionInterface $errorCollection): array
     {

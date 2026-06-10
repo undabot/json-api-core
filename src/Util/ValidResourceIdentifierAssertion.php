@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Util;
 
+use Assert\AssertionFailedException;
+
 class ValidResourceIdentifierAssertion
 {
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public static function assert(array $resourceIdentifier): void
     {

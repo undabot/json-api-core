@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Encoding;
 
-use DomainException;
 use Undabot\JsonApi\Definition\Encoding\LinkCollectionToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\MetaToPhpArrayEncoderInterface;
 use Undabot\JsonApi\Definition\Encoding\RelationshipToPhpArrayEncoderInterface;
@@ -16,24 +15,7 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
 class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaToPhpArrayEncoder;
-
-    /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionToPhpArrayEncoder;
-
-    /** @var ResourceIdentifierToPhpArrayEncoder */
-    private $resourceIdentifierToPhpArrayEncoder;
-
-    public function __construct(
-        MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder,
-        LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder,
-        ResourceIdentifierToPhpArrayEncoder $resourceIdentifierToPhpArrayEncoder
-    ) {
-        $this->metaToPhpArrayEncoder = $metaToPhpArrayEncoder;
-        $this->linkCollectionToPhpArrayEncoder = $linkCollectionToPhpArrayEncoder;
-        $this->resourceIdentifierToPhpArrayEncoder = $resourceIdentifierToPhpArrayEncoder;
-    }
+    public function __construct(private readonly MetaToPhpArrayEncoderInterface $metaToPhpArrayEncoder, private readonly LinkCollectionToPhpArrayEncoderInterface $linkCollectionToPhpArrayEncoder, private readonly ResourceIdentifierToPhpArrayEncoder $resourceIdentifierToPhpArrayEncoder) {}
 
     public function encode(RelationshipInterface $relationship): array
     {
@@ -65,7 +47,7 @@ class RelationshipToPhpArrayEncoder implements RelationshipToPhpArrayEncoderInte
         }
 
         // @todo this is not a domain exception, but rather UI...
-        throw new DomainException('Invalid relationship data');
+        throw new \DomainException('Invalid relationship data');
     }
 
     private function encodeToOneRelationshipData(ToOneRelationshipDataInterface $data)

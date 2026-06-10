@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Factory;
 
-use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Implementation\Factory\PaginationFactory;
 use Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Model\Request\Pagination\PageBasedPagination
- *
- * @small
  */
+#[CoversClass(PageBasedPagination::class)]
+#[Small]
 final class PageBasedPaginationFactoryTest extends TestCase
 {
     private PaginationFactory $paginationFactory;
@@ -24,22 +25,58 @@ final class PageBasedPaginationFactoryTest extends TestCase
         $this->paginationFactory = new PaginationFactory();
     }
 
-    /** @dataProvider validPageBasedPaginationParamsProvider */
+    #[DataProvider('providePaginationFactoryCanCreatePageBasedPaginationFromValidParamsCases')]
     public function testPaginationFactoryCanCreatePageBasedPaginationFromValidParams($params): void
     {
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertInstanceOf(PageBasedPagination::class, $pagination);
+        self::assertInstanceOf(PageBasedPagination::class, $pagination);
     }
 
-    /** @dataProvider invalidPaginationParamsProvider */
+    public static function providePaginationFactoryCanCreatePageBasedPaginationFromValidParamsCases(): iterable
+    {
+        return [
+            [
+                [
+                    'size' => 10,
+                    'number' => 2,
+                ],
+            ],
+            [
+                [
+                    'size' => '10',
+                    'number' => '2',
+                ],
+            ],
+            [
+                [
+                    'size' => 10,
+                    'number' => '2',
+                ],
+            ],
+            [
+                [
+                    'size' => '10',
+                    'number' => 2,
+                ],
+            ],
+            [
+                [
+                    'size' => 10.0,
+                    'number' => 2.0,
+                ],
+            ],
+        ];
+    }
+
+    #[DataProvider('providePaginationFactoryWillThrowExceptionForInvalidParamsCases')]
     public function testPaginationFactoryWillThrowExceptionForInvalidParams(array $invalidParams): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->paginationFactory->fromArray($invalidParams);
     }
 
-    public function invalidPaginationParamsProvider()
+    public static function providePaginationFactoryWillThrowExceptionForInvalidParamsCases(): iterable
     {
         return [
             [
@@ -78,42 +115,6 @@ final class PageBasedPaginationFactoryTest extends TestCase
         ];
     }
 
-    public function validPageBasedPaginationParamsProvider()
-    {
-        return [
-            [
-                [
-                    'size' => 10,
-                    'number' => 2,
-                ],
-            ],
-            [
-                [
-                    'size' => '10',
-                    'number' => '2',
-                ],
-            ],
-            [
-                [
-                    'size' => 10,
-                    'number' => '2',
-                ],
-            ],
-            [
-                [
-                    'size' => '10',
-                    'number' => 2,
-                ],
-            ],
-            [
-                [
-                    'size' => 10.0,
-                    'number' => 2.0,
-                ],
-            ],
-        ];
-    }
-
     public function testGetPageNumberWillReturnCorrectNumber(): void
     {
         $params = [
@@ -124,7 +125,7 @@ final class PageBasedPaginationFactoryTest extends TestCase
         /** @var PageBasedPagination $pagination */
         $pagination = $this->paginationFactory->fromArray($params);
 
-        static::assertSame(3, $pagination->getPageNumber());
-        static::assertSame(10, $pagination->getSize());
+        self::assertSame(3, $pagination->getPageNumber());
+        self::assertSame(10, $pagination->getSize());
     }
 }

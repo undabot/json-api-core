@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Implementation\Model\Resource;
 
-use ArrayIterator;
-use InvalidArgumentException;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierCollectionInterface;
 use Undabot\JsonApi\Definition\Model\Resource\ResourceIdentifierInterface;
 
@@ -27,16 +25,16 @@ final class ResourceIdentifierCollection implements ResourceIdentifierCollection
 
     public function getIterator(): \Traversable
     {
-        return new ArrayIterator($this->getResourceIdentifiers());
+        return new \ArrayIterator($this->getResourceIdentifiers());
     }
 
     private function makeSureResourcesIdentifiersAreValid(array $resourceIdentifiers): void
     {
         foreach ($resourceIdentifiers as $resourceIdentifier) {
             if (false === ($resourceIdentifier instanceof ResourceIdentifierInterface)) {
-                $message = sprintf('ResourceIdentifierInterface expected, %s given', \get_class($resourceIdentifier));
+                $message = \sprintf('ResourceIdentifierInterface expected, %s given', $resourceIdentifier::class);
 
-                throw new InvalidArgumentException($message);
+                throw new \InvalidArgumentException($message);
             }
         }
     }

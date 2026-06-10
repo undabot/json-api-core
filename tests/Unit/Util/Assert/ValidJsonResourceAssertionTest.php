@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Util\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Util\Exception\ValidationException;
 use Undabot\JsonApi\Util\ValidResourceAssertion;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Util\ValidResourceAssertion
- *
- * @small
  */
+#[CoversClass(ValidResourceAssertion::class)]
+#[Small]
 final class ValidJsonResourceAssertionTest extends TestCase
 {
-    /**
-     * @dataProvider validResourceData
-     */
+    #[DataProvider('provideValidateValidResourceArrayCases')]
     public function testValidateValidResourceArray(array $resource): void
     {
         // no exceptions expected here
@@ -26,16 +26,7 @@ final class ValidJsonResourceAssertionTest extends TestCase
         ValidResourceAssertion::assert($resource);
     }
 
-    /**
-     * @dataProvider invalidResourceData
-     */
-    public function testValidateInvalidResourceArray(array $resource): void
-    {
-        $this->expectException(ValidationException::class);
-        ValidResourceAssertion::assert($resource);
-    }
-
-    public function validResourceData(): \Generator
+    public static function provideValidateValidResourceArrayCases(): iterable
     {
         yield 'Only valid id and type exists' => [
             [
@@ -81,7 +72,14 @@ final class ValidJsonResourceAssertionTest extends TestCase
         ];
     }
 
-    public function invalidResourceData(): \Generator
+    #[DataProvider('provideValidateInvalidResourceArrayCases')]
+    public function testValidateInvalidResourceArray(array $resource): void
+    {
+        $this->expectException(ValidationException::class);
+        ValidResourceAssertion::assert($resource);
+    }
+
+    public static function provideValidateInvalidResourceArrayCases(): iterable
     {
         yield 'Missing type' => [
             [

@@ -14,34 +14,7 @@ use Undabot\JsonApi\Definition\Model\Document\DocumentInterface;
 
 class DocumentToPhpArrayEncoder implements DocumentToPhpArrayEncoderInterface
 {
-    /** @var DocumentDataToPhpArrayEncoderInterface */
-    private $documentDataEncoder;
-
-    /** @var ErrorCollectionToPhpArrayEncoderInterface */
-    private $errorCollectionEncoder;
-
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaEncoder;
-
-    /** @var LinkCollectionToPhpArrayEncoderInterface */
-    private $linkCollectionEncoder;
-
-    /** @var ResourceCollectionToPhpArrayEncoderInterface */
-    private $resourceCollectionEncoder;
-
-    public function __construct(
-        DocumentDataToPhpArrayEncoderInterface $documentDataEncoder,
-        ErrorCollectionToPhpArrayEncoderInterface $errorCollectionEncoder,
-        MetaToPhpArrayEncoderInterface $metaEncoder,
-        LinkCollectionToPhpArrayEncoderInterface $linkCollectionEncoder,
-        ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder
-    ) {
-        $this->documentDataEncoder = $documentDataEncoder;
-        $this->errorCollectionEncoder = $errorCollectionEncoder;
-        $this->metaEncoder = $metaEncoder;
-        $this->linkCollectionEncoder = $linkCollectionEncoder;
-        $this->resourceCollectionEncoder = $resourceCollectionEncoder;
-    }
+    public function __construct(private readonly DocumentDataToPhpArrayEncoderInterface $documentDataEncoder, private readonly ErrorCollectionToPhpArrayEncoderInterface $errorCollectionEncoder, private readonly MetaToPhpArrayEncoderInterface $metaEncoder, private readonly LinkCollectionToPhpArrayEncoderInterface $linkCollectionEncoder, private readonly ResourceCollectionToPhpArrayEncoderInterface $resourceCollectionEncoder) {}
 
     public function encode(DocumentInterface $document): array
     {

@@ -4,47 +4,37 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Link;
 
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Model\Link\LinkMemberInterface;
 use Undabot\JsonApi\Implementation\Model\Link\Link;
 
 /**
  * @internal
- * @covers \Undabot\JsonApi\Implementation\Model\Link\Link
- *
- * @small
  */
+#[CoversClass(Link::class)]
+#[Small]
 final class LinkTest extends TestCase
 {
-    private MockObject $linkUrlMock;
+    private Stub $linkUrlMock;
 
     protected function setUp(): void
     {
-        $this->linkUrlMock = $this->createMock(LinkMemberInterface::class);
+        $this->linkUrlMock = self::createStub(LinkMemberInterface::class);
     }
 
-    /**
-     * @dataProvider validLinkNames
-     */
+    #[DataProvider('provideLinkCanBeConstructedWithValidNameOnlyCases')]
     public function testLinkCanBeConstructedWithValidNameOnly(string $validLinkName): void
     {
         $validLink = new Link($validLinkName, $this->linkUrlMock);
 
-        static::assertInstanceOf(Link::class, $validLink);
+        self::assertInstanceOf(Link::class, $validLink);
     }
 
-    /**
-     * @dataProvider invalidLinkNames
-     */
-    public function testLinkCannotBeConstructedWithInvalidName(string $invalidLinkName): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        new Link($invalidLinkName, $this->linkUrlMock);
-    }
-
-    public function validLinkNames(): array
+    public static function provideLinkCanBeConstructedWithValidNameOnlyCases(): iterable
     {
         return [
             ['self'],
@@ -52,7 +42,15 @@ final class LinkTest extends TestCase
         ];
     }
 
-    public function invalidLinkNames(): array
+    #[DataProvider('provideLinkCannotBeConstructedWithInvalidNameCases')]
+    public function testLinkCannotBeConstructedWithInvalidName(string $invalidLinkName): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Link($invalidLinkName, $this->linkUrlMock);
+    }
+
+    public static function provideLinkCannotBeConstructedWithInvalidNameCases(): iterable
     {
         return [
             ['invalid'],

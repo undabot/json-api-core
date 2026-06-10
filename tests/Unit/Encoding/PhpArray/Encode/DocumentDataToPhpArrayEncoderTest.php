@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Undabot\JsonApi\Tests\Unit\Encoding\PhpArray\Encode;
 
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Undabot\JsonApi\Definition\Encoding\DocumentDataToPhpArrayEncoderInterface;
@@ -15,12 +19,13 @@ use Undabot\JsonApi\Definition\Model\Document\DocumentDataInterface;
 use Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder;
 
 /**
- * @coversDefaultClass \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder
- *
  * @internal
- *
- * @small
  */
+#[CoversClass(DocumentDataToPhpArrayEncoder::class)]
+#[CoversMethod(DocumentDataToPhpArrayEncoder::class, '__construct')]
+#[CoversMethod(DocumentDataToPhpArrayEncoder::class, 'encode')]
+#[Small]
+#[AllowMockObjectsWithoutExpectations]
 final class DocumentDataToPhpArrayEncoderTest extends TestCase
 {
     /** @var DocumentDataInterface|MockObject */
@@ -65,29 +70,20 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::__construct
-     */
     public function testItCanBeConstructed(): void
     {
-        static::assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->encoder);
+        self::assertInstanceOf(DocumentDataToPhpArrayEncoderInterface::class, $this->encoder);
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
-     */
     public function testItWillReturnNullIfDocumentDataIsNotValidType(): void
     {
-        static::assertNull($this->encoder->encode($this->documentDataMock));
+        self::assertNull($this->encoder->encode($this->documentDataMock));
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
-     */
     public function testResourcePhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResource(): void
     {
         $this->resourceToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -97,13 +93,10 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
         $this->encoder->encode($this->documentDataMock);
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
-     */
     public function testResourceCollectionPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceCollection(): void
     {
         $this->resourceCollectionToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -113,13 +106,10 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
         $this->encoder->encode($this->documentDataMock);
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
-     */
     public function testResourceIdentifierPhpArrayEncoderWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifier(): void
     {
         $this->resourceIdentifierToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock
@@ -129,13 +119,10 @@ final class DocumentDataToPhpArrayEncoderTest extends TestCase
         $this->encoder->encode($this->documentDataMock);
     }
 
-    /**
-     * @covers \Undabot\JsonApi\Implementation\Encoding\DocumentDataToPhpArrayEncoder::encode
-     */
     public function testItWillBeUsedIfDocumentDataIsInstanceOfResourceIdentifierCollection(): void
     {
         $this->resourceIdentifierCollectionToPhpArrayEncoderMock
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('encode');
 
         $this->documentDataMock

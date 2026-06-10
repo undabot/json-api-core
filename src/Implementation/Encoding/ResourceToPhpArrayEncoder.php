@@ -13,29 +13,7 @@ use Undabot\JsonApi\Definition\Model\Resource\ResourceInterface;
 
 class ResourceToPhpArrayEncoder implements ResourceToPhpArrayEncoderInterface
 {
-    /** @var MetaToPhpArrayEncoderInterface */
-    private $metaEncoder;
-
-    /** @var RelationshipCollectionToPhpArrayEncoderInterface */
-    private $relationshipCollectionEncoder;
-
-    /** @var LinkToPhpArrayEncoderInterface */
-    private $linkEncoder;
-
-    /** @var AttributeCollectionToPhpArrayEncoderInterface */
-    private $attributeCollectionEncoder;
-
-    public function __construct(
-        MetaToPhpArrayEncoderInterface $metaEncoder,
-        RelationshipCollectionToPhpArrayEncoderInterface $relationshipCollectionEncoder,
-        LinkToPhpArrayEncoderInterface $linkEncoder,
-        AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionEncoder
-    ) {
-        $this->metaEncoder = $metaEncoder;
-        $this->relationshipCollectionEncoder = $relationshipCollectionEncoder;
-        $this->linkEncoder = $linkEncoder;
-        $this->attributeCollectionEncoder = $attributeCollectionEncoder;
-    }
+    public function __construct(private readonly MetaToPhpArrayEncoderInterface $metaEncoder, private readonly RelationshipCollectionToPhpArrayEncoderInterface $relationshipCollectionEncoder, private readonly LinkToPhpArrayEncoderInterface $linkEncoder, private readonly AttributeCollectionToPhpArrayEncoderInterface $attributeCollectionEncoder) {}
 
     public function encode(ResourceInterface $resource): array
     {

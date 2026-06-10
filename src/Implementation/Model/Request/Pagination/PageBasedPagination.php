@@ -11,17 +11,7 @@ class PageBasedPagination implements PaginationInterface
     public const PARAM_PAGE_NUMBER = 'number';
     public const PARAM_PAGE_SIZE = 'size';
 
-    /** @var int */
-    private $pageNumber;
-
-    /** @var int */
-    private $size;
-
-    public function __construct(int $pageNumber, int $size)
-    {
-        $this->pageNumber = $pageNumber;
-        $this->size = $size;
-    }
+    public function __construct(private readonly int $pageNumber, private readonly int $size) {}
 
     public function getPageNumber(): int
     {
